@@ -29,6 +29,31 @@
     
     
     <entry>
+      <title>2019-07-25</title>
+      <link href="/2019/07/25/2019-07-25/"/>
+      <url>/2019/07/25/2019-07-25/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>开发一个图书管理系统的用户信息页面踩坑</p></blockquote><h2 id="reducer-js中深拷贝和浅拷贝"><a href="#reducer-js中深拷贝和浅拷贝" class="headerlink" title="reducer.js中深拷贝和浅拷贝"></a>reducer.js中深拷贝和浅拷贝</h2><p><code>{...state}、 Object.assign()</code>只能复制到第三层，属于浅拷贝，如果需要多层次拷贝，最好层层展开</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 踩坑！！！！！</span></span><br><span class="line"><span class="comment">// &#123;...state&#125;,Object.assign()只是浅层复制，只能复制表层，无法到达第三层</span></span><br><span class="line"><span class="comment">// 采用以下方式进行深层复制</span></span><br><span class="line"><span class="keyword">return</span> &#123;</span><br><span class="line">    ...state,</span><br><span class="line">    data: state.data &amp;&amp; state.data.map(<span class="function">(<span class="params">el, i</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(i === itemIndex)&#123;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...el, [field]: value &#125;;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> &#123; ...el &#125;;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><h2 id="e-target-value的问题"><a href="#e-target-value的问题" class="headerlink" title="e.target.value的问题"></a>e.target.value的问题</h2><blockquote><p>在 <code>this.setState()</code> 中使用<code>e.target.value</code>无法获取到 <code>value</code> 值</p></blockquote><p>参考链接：<a href="https://reactjs.org/docs/events.html#event-pooling" target="_blank" rel="noopener">官方解释</a></p><p><img src="/.io//eTargetValue.jpg" alt="官方说明"></p><blockquote><p>在方法里面 用e.persist() 阻止一下就可以了</p></blockquote><p><img src="/.io//example.jpg" alt="example"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 日志 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> react </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>2019-07-23</title>
       <link href="/2019/07/23/2019-07-23/"/>
       <url>/2019/07/23/2019-07-23/</url>
