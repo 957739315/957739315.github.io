@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CMR-logo-2.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CMR-logo.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+<meta name="keywords" content="运行环境,移动端适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fastClick原理解析">
+<meta property="og:url" content="https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/index.html">
+<meta property="og:site_name" content="CMR学习日志">
+<meta property="og:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-27T10:57:48.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fastClick原理解析">
+<meta name="twitter:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>fastClick原理解析 | CMR学习日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CMR学习日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">沉淀自己，自律自强</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">14</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">24</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">fastClick原理解析
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-26 20:57:45" itemprop="dateCreated datePublished" datetime="2019-09-26T20:57:45+08:00">2019-09-26</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？<br>因此，在这里记录一下 ~ ~ ~</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><strong>1. 安装</strong></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="selector-tag">i</span> vue-faskclick</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 使用</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在main.js</span></span><br><span class="line"><span class="keyword">import</span> fastclick <span class="keyword">from</span> <span class="string">'fastclick'</span>;</span><br><span class="line">fastclick.attach(<span class="built_in">document</span>.body);</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 说明</strong></p>
+<blockquote>
+<p>fastclick 已经好近年没更新了,貌似遗留了许多问题</p>
+<p>ios11 据说是修复300ms 的延迟, 但是经过测试,貌似问题还是存在的.至于说 元素加入</p>
+</blockquote>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123; <span class="attribute">touch-action</span>: manipulation; &#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>貌似还会有各种各样的问题, 事实上 fastclick 还是用的着的. vue-fastclick 在某些地方修复了 fastclick 遗留的一些问题.</p>
+</blockquote>
+<h2 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h2><p>为什么需要使用 fastClick ？</p>
+<p><strong>根源问题：</strong></p>
+<p>viewport 解决方案的出现后，提供了双击缩放。因此，移动浏览器会在 touchend 和 click 事件之间，<br>等待 300 - 350 ms，判断用户是否会进行双击手势用以缩放文字。</p>
+<blockquote>
+<p>移动端，当用户点击屏幕时，会依次触发 touchstart，touchmove(0 次或多次)，touchend，mousemove，mousedown，mouseup，click。 touchmove 。只有当手指在屏幕发生移动的时候才会触发 touchmove 事件。在 touchstart ，touchmove 或者 touchend 事件中的任意一个调用 event.preventDefault，mouse 事件 以及 click 事件将不会触发。</p>
+</blockquote>
+<h2 id="解决原理"><a href="#解决原理" class="headerlink" title="解决原理"></a>解决原理</h2><blockquote>
+<p>fastClick 在 touchend 阶段 调用 event.preventDefault，然后通过 document.createEvent 创建一个 MouseEvents，然后 通过 event​Target​.dispatch​Event 触发对应目标元素上绑定的 click 事件。</p>
+</blockquote>
+<h2 id="解决方案（不使用-fastClick-）"><a href="#解决方案（不使用-fastClick-）" class="headerlink" title="解决方案（不使用 fastClick ）"></a>解决方案（不使用 fastClick ）</h2><p>hack 技巧支持不添加 fastClick 能修复延迟问题</p>
+<p><strong>1. 禁止缩放</strong></p>
+<p>Chrome on Android (all versions)<br>iOS 9.3<br>IE on Windows Phone</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"user-scalable=no"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123;</span><br><span class="line">  touch-action: manipulation; // IE11+等等</span><br><span class="line">  -ms-touch-action: manipulation; // IE10</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>2. 不禁止缩放</strong></p>
+<p>Chrome 32+ on Android<br>iOS 9.3</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>WebView 移动端原生开发相关知识点，待进一步学习！</p>
+</blockquote>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br><span class="line">311</span><br><span class="line">312</span><br><span class="line">313</span><br><span class="line">314</span><br><span class="line">315</span><br><span class="line">316</span><br><span class="line">317</span><br><span class="line">318</span><br><span class="line">319</span><br><span class="line">320</span><br><span class="line">321</span><br><span class="line">322</span><br><span class="line">323</span><br><span class="line">324</span><br><span class="line">325</span><br><span class="line">326</span><br><span class="line">327</span><br><span class="line">328</span><br><span class="line">329</span><br><span class="line">330</span><br><span class="line">331</span><br><span class="line">332</span><br><span class="line">333</span><br><span class="line">334</span><br><span class="line">335</span><br><span class="line">336</span><br><span class="line">337</span><br><span class="line">338</span><br><span class="line">339</span><br><span class="line">340</span><br><span class="line">341</span><br><span class="line">342</span><br><span class="line">343</span><br><span class="line">344</span><br><span class="line">345</span><br><span class="line">346</span><br><span class="line">347</span><br><span class="line">348</span><br><span class="line">349</span><br><span class="line">350</span><br><span class="line">351</span><br><span class="line">352</span><br><span class="line">353</span><br><span class="line">354</span><br><span class="line">355</span><br><span class="line">356</span><br><span class="line">357</span><br><span class="line">358</span><br><span class="line">359</span><br><span class="line">360</span><br><span class="line">361</span><br><span class="line">362</span><br><span class="line">363</span><br><span class="line">364</span><br><span class="line">365</span><br><span class="line">366</span><br><span class="line">367</span><br><span class="line">368</span><br><span class="line">369</span><br><span class="line">370</span><br><span class="line">371</span><br><span class="line">372</span><br><span class="line">373</span><br><span class="line">374</span><br><span class="line">375</span><br><span class="line">376</span><br><span class="line">377</span><br><span class="line">378</span><br><span class="line">379</span><br><span class="line">380</span><br><span class="line">381</span><br><span class="line">382</span><br><span class="line">383</span><br><span class="line">384</span><br><span class="line">385</span><br><span class="line">386</span><br><span class="line">387</span><br><span class="line">388</span><br><span class="line">389</span><br><span class="line">390</span><br><span class="line">391</span><br><span class="line">392</span><br><span class="line">393</span><br><span class="line">394</span><br><span class="line">395</span><br><span class="line">396</span><br><span class="line">397</span><br><span class="line">398</span><br><span class="line">399</span><br><span class="line">400</span><br><span class="line">401</span><br><span class="line">402</span><br><span class="line">403</span><br><span class="line">404</span><br><span class="line">405</span><br><span class="line">406</span><br><span class="line">407</span><br><span class="line">408</span><br><span class="line">409</span><br><span class="line">410</span><br><span class="line">411</span><br><span class="line">412</span><br><span class="line">413</span><br><span class="line">414</span><br><span class="line">415</span><br><span class="line">416</span><br><span class="line">417</span><br><span class="line">418</span><br><span class="line">419</span><br><span class="line">420</span><br><span class="line">421</span><br><span class="line">422</span><br><span class="line">423</span><br><span class="line">424</span><br><span class="line">425</span><br><span class="line">426</span><br><span class="line">427</span><br><span class="line">428</span><br><span class="line">429</span><br><span class="line">430</span><br><span class="line">431</span><br><span class="line">432</span><br><span class="line">433</span><br><span class="line">434</span><br><span class="line">435</span><br><span class="line">436</span><br><span class="line">437</span><br><span class="line">438</span><br><span class="line">439</span><br><span class="line">440</span><br><span class="line">441</span><br><span class="line">442</span><br><span class="line">443</span><br><span class="line">444</span><br><span class="line">445</span><br><span class="line">446</span><br><span class="line">447</span><br><span class="line">448</span><br><span class="line">449</span><br><span class="line">450</span><br><span class="line">451</span><br><span class="line">452</span><br><span class="line">453</span><br><span class="line">454</span><br><span class="line">455</span><br><span class="line">456</span><br><span class="line">457</span><br><span class="line">458</span><br><span class="line">459</span><br><span class="line">460</span><br><span class="line">461</span><br><span class="line">462</span><br><span class="line">463</span><br><span class="line">464</span><br><span class="line">465</span><br><span class="line">466</span><br><span class="line">467</span><br><span class="line">468</span><br><span class="line">469</span><br><span class="line">470</span><br><span class="line">471</span><br><span class="line">472</span><br><span class="line">473</span><br><span class="line">474</span><br><span class="line">475</span><br><span class="line">476</span><br><span class="line">477</span><br><span class="line">478</span><br><span class="line">479</span><br><span class="line">480</span><br><span class="line">481</span><br><span class="line">482</span><br><span class="line">483</span><br><span class="line">484</span><br><span class="line">485</span><br><span class="line">486</span><br><span class="line">487</span><br><span class="line">488</span><br><span class="line">489</span><br><span class="line">490</span><br><span class="line">491</span><br><span class="line">492</span><br><span class="line">493</span><br><span class="line">494</span><br><span class="line">495</span><br><span class="line">496</span><br><span class="line">497</span><br><span class="line">498</span><br><span class="line">499</span><br><span class="line">500</span><br><span class="line">501</span><br><span class="line">502</span><br><span class="line">503</span><br><span class="line">504</span><br><span class="line">505</span><br><span class="line">506</span><br><span class="line">507</span><br><span class="line">508</span><br><span class="line">509</span><br><span class="line">510</span><br><span class="line">511</span><br><span class="line">512</span><br><span class="line">513</span><br><span class="line">514</span><br><span class="line">515</span><br><span class="line">516</span><br><span class="line">517</span><br><span class="line">518</span><br><span class="line">519</span><br><span class="line">520</span><br><span class="line">521</span><br><span class="line">522</span><br><span class="line">523</span><br><span class="line">524</span><br><span class="line">525</span><br><span class="line">526</span><br><span class="line">527</span><br><span class="line">528</span><br><span class="line">529</span><br><span class="line">530</span><br><span class="line">531</span><br><span class="line">532</span><br><span class="line">533</span><br><span class="line">534</span><br><span class="line">535</span><br><span class="line">536</span><br><span class="line">537</span><br><span class="line">538</span><br><span class="line">539</span><br><span class="line">540</span><br><span class="line">541</span><br><span class="line">542</span><br><span class="line">543</span><br><span class="line">544</span><br><span class="line">545</span><br><span class="line">546</span><br><span class="line">547</span><br><span class="line">548</span><br><span class="line">549</span><br><span class="line">550</span><br><span class="line">551</span><br><span class="line">552</span><br><span class="line">553</span><br><span class="line">554</span><br><span class="line">555</span><br><span class="line">556</span><br><span class="line">557</span><br><span class="line">558</span><br><span class="line">559</span><br><span class="line">560</span><br><span class="line">561</span><br><span class="line">562</span><br><span class="line">563</span><br><span class="line">564</span><br><span class="line">565</span><br><span class="line">566</span><br><span class="line">567</span><br><span class="line">568</span><br><span class="line">569</span><br><span class="line">570</span><br><span class="line">571</span><br><span class="line">572</span><br><span class="line">573</span><br><span class="line">574</span><br><span class="line">575</span><br><span class="line">576</span><br><span class="line">577</span><br><span class="line">578</span><br><span class="line">579</span><br><span class="line">580</span><br><span class="line">581</span><br><span class="line">582</span><br><span class="line">583</span><br><span class="line">584</span><br><span class="line">585</span><br><span class="line">586</span><br><span class="line">587</span><br><span class="line">588</span><br><span class="line">589</span><br><span class="line">590</span><br><span class="line">591</span><br><span class="line">592</span><br><span class="line">593</span><br><span class="line">594</span><br><span class="line">595</span><br><span class="line">596</span><br><span class="line">597</span><br><span class="line">598</span><br><span class="line">599</span><br><span class="line">600</span><br><span class="line">601</span><br><span class="line">602</span><br><span class="line">603</span><br><span class="line">604</span><br><span class="line">605</span><br><span class="line">606</span><br><span class="line">607</span><br><span class="line">608</span><br><span class="line">609</span><br><span class="line">610</span><br><span class="line">611</span><br><span class="line">612</span><br><span class="line">613</span><br><span class="line">614</span><br><span class="line">615</span><br><span class="line">616</span><br><span class="line">617</span><br><span class="line">618</span><br><span class="line">619</span><br><span class="line">620</span><br><span class="line">621</span><br><span class="line">622</span><br><span class="line">623</span><br><span class="line">624</span><br><span class="line">625</span><br><span class="line">626</span><br><span class="line">627</span><br><span class="line">628</span><br><span class="line">629</span><br><span class="line">630</span><br><span class="line">631</span><br><span class="line">632</span><br><span class="line">633</span><br><span class="line">634</span><br><span class="line">635</span><br><span class="line">636</span><br><span class="line">637</span><br><span class="line">638</span><br><span class="line">639</span><br><span class="line">640</span><br><span class="line">641</span><br><span class="line">642</span><br><span class="line">643</span><br><span class="line">644</span><br><span class="line">645</span><br><span class="line">646</span><br><span class="line">647</span><br><span class="line">648</span><br><span class="line">649</span><br><span class="line">650</span><br><span class="line">651</span><br><span class="line">652</span><br><span class="line">653</span><br><span class="line">654</span><br><span class="line">655</span><br><span class="line">656</span><br><span class="line">657</span><br><span class="line">658</span><br><span class="line">659</span><br><span class="line">660</span><br><span class="line">661</span><br><span class="line">662</span><br><span class="line">663</span><br><span class="line">664</span><br><span class="line">665</span><br><span class="line">666</span><br><span class="line">667</span><br><span class="line">668</span><br><span class="line">669</span><br><span class="line">670</span><br><span class="line">671</span><br><span class="line">672</span><br><span class="line">673</span><br><span class="line">674</span><br><span class="line">675</span><br><span class="line">676</span><br><span class="line">677</span><br><span class="line">678</span><br><span class="line">679</span><br><span class="line">680</span><br><span class="line">681</span><br><span class="line">682</span><br><span class="line">683</span><br><span class="line">684</span><br><span class="line">685</span><br><span class="line">686</span><br><span class="line">687</span><br><span class="line">688</span><br><span class="line">689</span><br><span class="line">690</span><br><span class="line">691</span><br><span class="line">692</span><br><span class="line">693</span><br><span class="line">694</span><br><span class="line">695</span><br><span class="line">696</span><br><span class="line">697</span><br><span class="line">698</span><br><span class="line">699</span><br><span class="line">700</span><br><span class="line">701</span><br><span class="line">702</span><br><span class="line">703</span><br><span class="line">704</span><br><span class="line">705</span><br><span class="line">706</span><br><span class="line">707</span><br><span class="line">708</span><br><span class="line">709</span><br><span class="line">710</span><br><span class="line">711</span><br><span class="line">712</span><br><span class="line">713</span><br><span class="line">714</span><br><span class="line">715</span><br><span class="line">716</span><br><span class="line">717</span><br><span class="line">718</span><br><span class="line">719</span><br><span class="line">720</span><br><span class="line">721</span><br><span class="line">722</span><br><span class="line">723</span><br><span class="line">724</span><br><span class="line">725</span><br><span class="line">726</span><br><span class="line">727</span><br><span class="line">728</span><br><span class="line">729</span><br><span class="line">730</span><br><span class="line">731</span><br><span class="line">732</span><br><span class="line">733</span><br><span class="line">734</span><br><span class="line">735</span><br><span class="line">736</span><br><span class="line">737</span><br><span class="line">738</span><br><span class="line">739</span><br><span class="line">740</span><br><span class="line">741</span><br><span class="line">742</span><br><span class="line">743</span><br><span class="line">744</span><br><span class="line">745</span><br><span class="line">746</span><br><span class="line">747</span><br><span class="line">748</span><br><span class="line">749</span><br><span class="line">750</span><br><span class="line">751</span><br><span class="line">752</span><br><span class="line">753</span><br><span class="line">754</span><br><span class="line">755</span><br><span class="line">756</span><br><span class="line">757</span><br><span class="line">758</span><br><span class="line">759</span><br><span class="line">760</span><br><span class="line">761</span><br><span class="line">762</span><br><span class="line">763</span><br><span class="line">764</span><br><span class="line">765</span><br><span class="line">766</span><br><span class="line">767</span><br><span class="line">768</span><br><span class="line">769</span><br><span class="line">770</span><br><span class="line">771</span><br><span class="line">772</span><br><span class="line">773</span><br><span class="line">774</span><br><span class="line">775</span><br><span class="line">776</span><br><span class="line">777</span><br><span class="line">778</span><br><span class="line">779</span><br><span class="line">780</span><br><span class="line">781</span><br><span class="line">782</span><br><span class="line">783</span><br><span class="line">784</span><br><span class="line">785</span><br><span class="line">786</span><br><span class="line">787</span><br><span class="line">788</span><br><span class="line">789</span><br><span class="line">790</span><br><span class="line">791</span><br><span class="line">792</span><br><span class="line">793</span><br><span class="line">794</span><br><span class="line">795</span><br><span class="line">796</span><br><span class="line">797</span><br><span class="line">798</span><br><span class="line">799</span><br><span class="line">800</span><br><span class="line">801</span><br><span class="line">802</span><br><span class="line">803</span><br><span class="line">804</span><br><span class="line">805</span><br><span class="line">806</span><br><span class="line">807</span><br><span class="line">808</span><br><span class="line">809</span><br><span class="line">810</span><br><span class="line">811</span><br><span class="line">812</span><br><span class="line">813</span><br><span class="line">814</span><br><span class="line">815</span><br><span class="line">816</span><br><span class="line">817</span><br><span class="line">818</span><br><span class="line">819</span><br><span class="line">820</span><br><span class="line">821</span><br><span class="line">822</span><br><span class="line">823</span><br><span class="line">824</span><br><span class="line">825</span><br><span class="line">826</span><br><span class="line">827</span><br><span class="line">828</span><br><span class="line">829</span><br><span class="line">830</span><br><span class="line">831</span><br><span class="line">832</span><br><span class="line">833</span><br><span class="line">834</span><br><span class="line">835</span><br><span class="line">836</span><br><span class="line">837</span><br><span class="line">838</span><br><span class="line">839</span><br><span class="line">840</span><br><span class="line">841</span><br><span class="line">842</span><br><span class="line">843</span><br><span class="line">844</span><br><span class="line">845</span><br><span class="line">846</span><br><span class="line">847</span><br><span class="line">848</span><br><span class="line">849</span><br><span class="line">850</span><br><span class="line">851</span><br><span class="line">852</span><br><span class="line">853</span><br><span class="line">854</span><br><span class="line">855</span><br><span class="line">856</span><br><span class="line">857</span><br><span class="line">858</span><br><span class="line">859</span><br><span class="line">860</span><br><span class="line">861</span><br><span class="line">862</span><br><span class="line">863</span><br><span class="line">864</span><br><span class="line">865</span><br><span class="line">866</span><br><span class="line">867</span><br><span class="line">868</span><br><span class="line">869</span><br><span class="line">870</span><br><span class="line">871</span><br><span class="line">872</span><br><span class="line">873</span><br><span class="line">874</span><br><span class="line">875</span><br><span class="line">876</span><br><span class="line">877</span><br><span class="line">878</span><br><span class="line">879</span><br><span class="line">880</span><br><span class="line">881</span><br><span class="line">882</span><br><span class="line">883</span><br><span class="line">884</span><br><span class="line">885</span><br><span class="line">886</span><br><span class="line">887</span><br><span class="line">888</span><br><span class="line">889</span><br><span class="line">890</span><br><span class="line">891</span><br><span class="line">892</span><br><span class="line">893</span><br><span class="line">894</span><br><span class="line">895</span><br><span class="line">896</span><br><span class="line">897</span><br><span class="line">898</span><br><span class="line">899</span><br><span class="line">900</span><br><span class="line">901</span><br><span class="line">902</span><br><span class="line">903</span><br><span class="line">904</span><br><span class="line">905</span><br><span class="line">906</span><br><span class="line">907</span><br><span class="line">908</span><br><span class="line">909</span><br><span class="line">910</span><br><span class="line">911</span><br><span class="line">912</span><br><span class="line">913</span><br><span class="line">914</span><br><span class="line">915</span><br><span class="line">916</span><br><span class="line">917</span><br><span class="line">918</span><br><span class="line">919</span><br><span class="line">920</span><br><span class="line">921</span><br><span class="line">922</span><br><span class="line">923</span><br><span class="line">924</span><br><span class="line">925</span><br><span class="line">926</span><br><span class="line">927</span><br><span class="line">928</span><br><span class="line">929</span><br><span class="line">930</span><br><span class="line">931</span><br><span class="line">932</span><br><span class="line">933</span><br><span class="line">934</span><br><span class="line">935</span><br><span class="line">936</span><br><span class="line">937</span><br><span class="line">938</span><br><span class="line">939</span><br><span class="line">940</span><br><span class="line">941</span><br><span class="line">942</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新时间：2019-9-26</span></span><br><span class="line"><span class="comment">// 区分之前的代码</span></span><br><span class="line">;(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这是一个匿名函数</span></span><br><span class="line"><span class="meta">  'use strict'</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @preserve FastClick: polyfill to remove click delays on browsers with touch UIs.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @codingstandard ftlabs-jsv2</span></span><br><span class="line"><span class="comment">   * @copyright The Financial Times Limited [All Rights Reserved]</span></span><br><span class="line"><span class="comment">   * @license MIT License (see LICENSE.txt)</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/*jslint browser:true, node:true*/</span></span><br><span class="line">  <span class="comment">/*global define, Event, Node*/</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Instantiate fast-clicking listeners on the specified layer.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @constructor</span></span><br><span class="line"><span class="comment">   * @param &#123;Element&#125; layer The layer to listen on 监听层</span></span><br><span class="line"><span class="comment">   * @param &#123;Object&#125; [options=&#123;&#125;] The options to override the defaults</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">FastClick</span>(<span class="params">layer, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> oldOnClick</span><br><span class="line"></span><br><span class="line">    options = options || &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Whether a click is currently being tracked.</span></span><br><span class="line"><span class="comment">     * 是否跟踪当前点击</span></span><br><span class="line"><span class="comment">     * @type boolean</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.trackingClick = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Timestamp for when click tracking started.</span></span><br><span class="line"><span class="comment">     * 点击开始的时间戳</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.trackingClickStart = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The element being tracked for a click.</span></span><br><span class="line"><span class="comment">     * 被点击的元素</span></span><br><span class="line"><span class="comment">     * @type EventTarget</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * X-coordinate of touch start event.</span></span><br><span class="line"><span class="comment">     * 触摸开始事件的 X 坐标</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.touchStartX = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Y-coordinate of touch start event.</span></span><br><span class="line"><span class="comment">     * 触摸开始事件的 Y 坐标</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.touchStartY = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * ID of the last touch, retrieved from Touch.identifier.</span></span><br><span class="line"><span class="comment">     * Touch.identifier（标识触摸的唯一ID） 检索的最后一次触摸的 id。</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.lastTouchIdentifier = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Touchmove boundary, beyond which a click will be cancelled.</span></span><br><span class="line"><span class="comment">     * 触摸移动边界，超过此边界将取消单击。</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.touchBoundary = options.touchBoundary || <span class="number">10</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The FastClick layer.</span></span><br><span class="line"><span class="comment">     * 点击层</span></span><br><span class="line"><span class="comment">     * @type Element</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.layer = layer</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The minimum time between tap(touchstart and touchend) events</span></span><br><span class="line"><span class="comment">     * 点按（触摸开始和触摸结束）事件之间的最短时间</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.tapDelay = options.tapDelay || <span class="number">200</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * The maximum time for a tap</span></span><br><span class="line"><span class="comment">     * 最长点击时间</span></span><br><span class="line"><span class="comment">     * @type number</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">this</span>.tapTimeout = options.tapTimeout || <span class="number">700</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 如果是 iOS 9.3 以上 使用 WKWebView 的用户，无需引入 faskClick</span></span><br><span class="line">    <span class="keyword">if</span> (FastClick.notNeeded(layer)) &#123;</span><br><span class="line">      <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Some old versions of Android don't have Function.prototype.bind</span></span><br><span class="line">    <span class="comment">// 有些旧版安卓不支持 Function.prototype.bind</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">bind</span>(<span class="params">method, context</span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> method.apply(context, <span class="built_in">arguments</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 触发的事件顺序</span></span><br><span class="line">    <span class="keyword">var</span> methods = [</span><br><span class="line">      <span class="string">'onMouse'</span>,</span><br><span class="line">      <span class="string">'onClick'</span>,</span><br><span class="line">      <span class="string">'onTouchStart'</span>,</span><br><span class="line">      <span class="string">'onTouchMove'</span>,</span><br><span class="line">      <span class="string">'onTouchEnd'</span>,</span><br><span class="line">      <span class="string">'onTouchCancel'</span></span><br><span class="line">    ]</span><br><span class="line">    <span class="keyword">var</span> context = <span class="keyword">this</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, l = methods.length; i &lt; l; i++) &#123;</span><br><span class="line">      context[methods[i]] = bind(context[methods[i]], context) <span class="comment">// 绑定事件方法到当前this对象</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set up event handlers as required</span></span><br><span class="line">    <span class="comment">// 按需设置事件处理方法</span></span><br><span class="line">    <span class="keyword">if</span> (deviceIsAndroid) &#123;</span><br><span class="line">      <span class="comment">// 可实现拖拽效果</span></span><br><span class="line">      layer.addEventListener(<span class="string">'mouseover'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>) <span class="comment">// 鼠标按住事件</span></span><br><span class="line">      layer.addEventListener(<span class="string">'mousedown'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>) <span class="comment">// 鼠标按下事件</span></span><br><span class="line">      layer.addEventListener(<span class="string">'mouseup'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>) <span class="comment">// 鼠标松开事件</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    layer.addEventListener(<span class="string">'click'</span>, <span class="keyword">this</span>.onClick, <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当手指触摸屏幕时候触发，即使已经有一个手指放在屏幕上也会触发</span></span><br><span class="line">    layer.addEventListener(<span class="string">'touchstart'</span>, <span class="keyword">this</span>.onTouchStart, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当手指在屏幕上滑动的时候连续地触发。在这个事件发生期间，调用 preventDefault() 事件可以阻止滚动</span></span><br><span class="line">    layer.addEventListener(<span class="string">'touchmove'</span>, <span class="keyword">this</span>.onTouchMove, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当手指从屏幕上离开的时候触发</span></span><br><span class="line">    layer.addEventListener(<span class="string">'touchend'</span>, <span class="keyword">this</span>.onTouchEnd, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当系统停止跟踪触摸的时候触发</span></span><br><span class="line">    layer.addEventListener(<span class="string">'touchcancel'</span>, <span class="keyword">this</span>.onTouchCancel, <span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ios才有的事件，阻止双指放大</span></span><br><span class="line">    layer.addEventListener(<span class="string">'gesturestart'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">      event.preventDefault()</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="comment">// Hack is required for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)</span></span><br><span class="line">    <span class="comment">// which is how FastClick normally stops click events bubbling to callbacks registered on the FastClick</span></span><br><span class="line">    <span class="comment">// layer when they are cancelled.</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 对于不支持 Event＃stopImmediatePropagation（例如Android 2）的浏览器，需要使用Hack，</span></span><br><span class="line"><span class="comment">     * 这是 FastClick 在取消时通常会停止冒泡到在 FastClick 层上注册的回调单击事件的方式。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (!Event.prototype.stopImmediatePropagation) &#123;</span><br><span class="line">      <span class="comment">// 当前点击时，先移除监听事件</span></span><br><span class="line">      layer.removeEventListener = <span class="function"><span class="keyword">function</span>(<span class="params">type, callback, capture</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> rmv = Node.prototype.removeEventListener</span><br><span class="line">        <span class="keyword">if</span> (type === <span class="string">'click'</span>) &#123;</span><br><span class="line">          rmv.call(layer, type, callback.hijacked || callback, capture)</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          rmv.call(layer, type, callback, capture)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// 下一次点击时，添加监听事件，从而达到停止当前节点以及所有后续节点的事件处理程序的运行</span></span><br><span class="line">      layer.addEventListener = <span class="function"><span class="keyword">function</span>(<span class="params">type, callback, capture</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> adv = Node.prototype.addEventListener</span><br><span class="line">        <span class="keyword">if</span> (type === <span class="string">'click'</span>) &#123;</span><br><span class="line">          adv.call(</span><br><span class="line">            layer,</span><br><span class="line">            type,</span><br><span class="line">            callback.hijacked ||</span><br><span class="line">              (callback.hijacked = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">                <span class="keyword">if</span> (!event.propagationStopped) &#123;</span><br><span class="line">                  callback(event)</span><br><span class="line">                &#125;</span><br><span class="line">              &#125;),</span><br><span class="line">            capture</span><br><span class="line">          )</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          adv.call(layer, type, callback, capture)</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If a handler is already declared in the element's onclick attribute, it will be fired before</span></span><br><span class="line">    <span class="comment">// FastClick's onClick handler. Fix this by pulling out the user-defined handler function and</span></span><br><span class="line">    <span class="comment">// adding it as listener.</span></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 如果被点击元素的 onclick 属性中声明了处理方法，则它将在 FastClick 的 onClick 处理程序之前触发。</span></span><br><span class="line"><span class="comment">     * 通过将用户自定义的处理函数添加到被点击元素的 click 事件上。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> layer.onclick === <span class="string">'function'</span>) &#123;</span><br><span class="line">      <span class="comment">// Android browser on at least 3.2 requires a new reference to the function in layer.onclick</span></span><br><span class="line">      <span class="comment">// - the old one won't work if passed to addEventListener directly.</span></span><br><span class="line">      oldOnClick = layer.onclick</span><br><span class="line">      layer.addEventListener(</span><br><span class="line">        <span class="string">'click'</span>,</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">          oldOnClick(event)</span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="literal">false</span></span><br><span class="line">      )</span><br><span class="line">      layer.onclick = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Windows Phone 8.1 fakes user agent string to look like Android and iPhone.</span></span><br><span class="line"><span class="comment">   * Windows Phone 8.1 伪造用户代理字符串，看起来像 Android 和 iPhone</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// 是否 window 下的 phone 调试设备</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsWindowsPhone = navigator.userAgent.indexOf(<span class="string">'Windows Phone'</span>) &gt;= <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Android requires exceptions.</span></span><br><span class="line"><span class="comment">   * 安卓需要例外</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// 是否是安卓真机设备</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsAndroid =</span><br><span class="line">    navigator.userAgent.indexOf(<span class="string">'Android'</span>) &gt; <span class="number">0</span> &amp;&amp; !deviceIsWindowsPhone</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * iOS requires exceptions.</span></span><br><span class="line"><span class="comment">   * ios 需要例外</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// 是否时 phone 真机设备</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsIOS =</span><br><span class="line">    /iP(ad|hone|od)/.test(navigator.userAgent) &amp;&amp; !deviceIsWindowsPhone</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * iOS 4 requires an exception for select elements.</span></span><br><span class="line"><span class="comment">   * iOS 4 选择元素的方式很特别</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="comment">// 是否是 IOS4 设备</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsIOS4 = deviceIsIOS &amp;&amp; <span class="regexp">/OS 4_\d(_\d)?/</span>.test(navigator.userAgent)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * iOS 6.0-7.* requires the target element to be manually derived</span></span><br><span class="line"><span class="comment">   * iOS 6.0-7* 需要手动导出目标元素</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsIOSWithBadTarget =</span><br><span class="line">    deviceIsIOS &amp;&amp; <span class="regexp">/OS [6-7]_\d/</span>.test(navigator.userAgent)</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * BlackBerry requires exceptions.</span></span><br><span class="line"><span class="comment">   * BlackBerry 需要例外</span></span><br><span class="line"><span class="comment">   * @type boolean</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">var</span> deviceIsBlackBerry10 = navigator.userAgent.indexOf(<span class="string">'BB10'</span>) &gt; <span class="number">0</span></span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Determine whether a given element requires a native click.</span></span><br><span class="line"><span class="comment">   * 确定给定元素是否需要原生点击</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|Element&#125; target Target DOM element</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125; Returns true if the element needs a native click</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.needsClick = <span class="function"><span class="keyword">function</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (target.nodeName.toLowerCase()) &#123;</span><br><span class="line">      <span class="comment">// Don't send a synthetic click to disabled inputs (issue #62)</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'button'</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'select'</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'textarea'</span>:</span><br><span class="line">        <span class="keyword">if</span> (target.disabled) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'input'</span>:</span><br><span class="line">        <span class="comment">// File inputs need real clicks on iOS 6 due to a browser bug (issue #68)</span></span><br><span class="line">        <span class="comment">// 由于浏览器错误，文件输入需要在iOS 6上进行实际单击（问题＃68）</span></span><br><span class="line">        <span class="keyword">if</span> ((deviceIsIOS &amp;&amp; target.type === <span class="string">'file'</span>) || target.disabled) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'label'</span>:</span><br><span class="line"></span><br><span class="line">      <span class="comment">// iOS8 homescreen apps can prevent events bubbling into frames</span></span><br><span class="line">      <span class="comment">// iOS 8 主屏app可以防止事件冒泡成帧</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'iframe'</span>:</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'video'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="regexp">/\bneedsclick\b/</span>.test(target.className)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Determine whether a given element requires a call to focus to simulate click into element.</span></span><br><span class="line"><span class="comment">   * 确定给定元素是否需要通过点击来实现聚焦。</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|Element&#125; target Target DOM element</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125; Returns true if the element requires a call to focus to simulate native click.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.needsFocus = <span class="function"><span class="keyword">function</span>(<span class="params">target</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">switch</span> (target.nodeName.toLowerCase()) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'textarea'</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      <span class="keyword">case</span> <span class="string">'select'</span>:</span><br><span class="line">        <span class="keyword">return</span> !deviceIsAndroid</span><br><span class="line">      <span class="keyword">case</span> <span class="string">'input'</span>:</span><br><span class="line">        <span class="keyword">switch</span> (target.type) &#123;</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'button'</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'checkbox'</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'file'</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'image'</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'radio'</span>:</span><br><span class="line">          <span class="keyword">case</span> <span class="string">'submit'</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// No point in attempting to focus disabled inputs</span></span><br><span class="line">        <span class="comment">// 没有聚焦，则无法输入</span></span><br><span class="line">        <span class="keyword">return</span> !target.disabled &amp;&amp; !target.readOnly</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="regexp">/\bneedsfocus\b/</span>.test(target.className)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Send a click event to the specified element.</span></span><br><span class="line"><span class="comment">   * 给一个特定元素发送一个点击事件</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|Element&#125; targetElement</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.sendClick = <span class="function"><span class="keyword">function</span>(<span class="params">targetElement, event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> clickEvent, touch</span><br><span class="line"></span><br><span class="line">    <span class="comment">// On some Android devices activeElement needs to be blurred otherwise the synthetic click will have no effect (#24)</span></span><br><span class="line">    <span class="comment">// 在某些 Android 设备上，需要对 activeElement 进行模糊处理，否则合成点击将无效（＃24）</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.activeElement &amp;&amp; <span class="built_in">document</span>.activeElement !== targetElement) &#123;</span><br><span class="line">      <span class="built_in">document</span>.activeElement.blur()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    touch = event.changedTouches[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Synthesise a click event, with an extra attribute so it can be tracked</span></span><br><span class="line">    <span class="comment">// 合成click事件，具有额外的属性，因此可以对其进行跟踪</span></span><br><span class="line">    clickEvent = <span class="built_in">document</span>.createEvent(<span class="string">'MouseEvents'</span>)</span><br><span class="line">    clickEvent.initMouseEvent(</span><br><span class="line">      <span class="keyword">this</span>.determineEventType(targetElement), <span class="comment">// type</span></span><br><span class="line">      <span class="literal">true</span>, <span class="comment">//canBubble</span></span><br><span class="line">      <span class="literal">true</span>, <span class="comment">// canCanceled</span></span><br><span class="line">      <span class="built_in">window</span>, <span class="comment">// view</span></span><br><span class="line">      <span class="number">1</span>, <span class="comment">// detail: 点击了几次</span></span><br><span class="line">      touch.screenX, <span class="comment">// screenX</span></span><br><span class="line">      touch.screenY, <span class="comment">// screenY</span></span><br><span class="line">      touch.clientX,</span><br><span class="line">      touch.clientY,</span><br><span class="line">      <span class="literal">false</span>, <span class="comment">// ctrlKey</span></span><br><span class="line">      <span class="literal">false</span>, <span class="comment">// altKey</span></span><br><span class="line">      <span class="literal">false</span>, <span class="comment">// shiftKey</span></span><br><span class="line">      <span class="literal">false</span>, <span class="comment">// metaKey</span></span><br><span class="line">      <span class="number">0</span>, <span class="comment">// mouseEvent.button 0:鼠标左键 1:鼠标中键 2:鼠标右键 </span></span><br><span class="line">      <span class="literal">null</span> <span class="comment">// 相关节点，在鼠标点击事件中设为null就好了，在mousein等事件中有用</span></span><br><span class="line">    )</span><br><span class="line">    clickEvent.forwardedTouchEvent = <span class="literal">true</span> <span class="comment">// forwardedTouchEvent 是给这个事件加的标签，方便跟踪。</span></span><br><span class="line">    targetElement.dispatchEvent(clickEvent) <span class="comment">// 触发事件</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  FastClick.prototype.determineEventType = <span class="function"><span class="keyword">function</span>(<span class="params">targetElement</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// Issue #159: Android Chrome Select Box does not open with a synthetic click event</span></span><br><span class="line">	<span class="comment">// android Chrome Select Box 无法通过合成点击事件打开</span></span><br><span class="line">    <span class="keyword">if</span> (deviceIsAndroid &amp;&amp; targetElement.tagName.toLowerCase() === <span class="string">'select'</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="string">'mousedown'</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">'click'</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * 聚焦事件</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|Element&#125; targetElement</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.focus = <span class="function"><span class="keyword">function</span>(<span class="params">targetElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> length</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Issue #160: on iOS 7, some input elements (e.g. date datetime month) throw a vague TypeError on setSelectionRange. These elements don't have an integer value for the selectionStart and selectionEnd properties, but unfortunately that can't be used for detection because accessing the properties also throws a TypeError. Just check the type instead. Filed as Apple bug #15122724.</span></span><br><span class="line">	<span class="comment">// 一些输入元素（例如date datetime month）会在 setSelectionRange 上引发模糊的 TypeError。 这些元素的</span></span><br><span class="line">	<span class="comment">// selectionStart 和 selectionEnd 属性没有整数值，但是很遗憾，这些元素不能用于检测，因为访问这些属性还会引发 TypeError。 </span></span><br><span class="line">	<span class="comment">// 只需检查类型即可。归档为Apple错误</span></span><br><span class="line">	<span class="comment">// 具体查看链接：[FastClick遇到的坑及解决办法](https://www.php.cn/js-tutorial-387360.html)</span></span><br><span class="line">	<span class="keyword">if</span> (</span><br><span class="line">      deviceIsIOS &amp;&amp;</span><br><span class="line">      targetElement.setSelectionRange &amp;&amp;</span><br><span class="line">      (targetElement.type === <span class="string">'text'</span> ||</span><br><span class="line">        targetElement.type === <span class="string">'search'</span> ||</span><br><span class="line">        targetElement.type === <span class="string">'password'</span> ||</span><br><span class="line">        targetElement.type === <span class="string">'url'</span> ||</span><br><span class="line">        targetElement.type === <span class="string">'tel'</span>)</span><br><span class="line">    ) &#123;</span><br><span class="line">      length = targetElement.value.length</span><br><span class="line">      targetElement.setSelectionRange(length, length)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      targetElement.focus()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Check whether the given target element is a child of a scrollable layer and if so, set a flag on it.</span></span><br><span class="line"><span class="comment">   * 检查给定的目标元素是否为可滚动层的子级，如果是，则在其上设置一个标志。</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|Element&#125; targetElement</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.updateScrollParent = <span class="function"><span class="keyword">function</span>(<span class="params">targetElement</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> scrollParent, parentElement</span><br><span class="line"></span><br><span class="line">    scrollParent = targetElement.fastClickScrollParent</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Attempt to discover whether the target element is contained within a scrollable layer. Re-check if the</span></span><br><span class="line">    <span class="comment">// target element was moved to another parent.</span></span><br><span class="line">    <span class="keyword">if</span> (!scrollParent || !scrollParent.contains(targetElement)) &#123;</span><br><span class="line">      parentElement = targetElement</span><br><span class="line">      <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (parentElement.scrollHeight &gt; parentElement.offsetHeight) &#123;</span><br><span class="line">          scrollParent = parentElement</span><br><span class="line">          targetElement.fastClickScrollParent = parentElement</span><br><span class="line">          <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        parentElement = parentElement.parentElement</span><br><span class="line">      &#125; <span class="keyword">while</span> (parentElement)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Always update the scroll top tracker if possible.</span></span><br><span class="line">    <span class="keyword">if</span> (scrollParent) &#123;</span><br><span class="line">      scrollParent.fastClickLastScrollTop = scrollParent.scrollTop</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget&#125; targetElement</span></span><br><span class="line"><span class="comment">   * @returns &#123;Element|EventTarget&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.getTargetElementFromEventTarget = <span class="function"><span class="keyword">function</span>(<span class="params">eventTarget</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// On some older browsers (notably Safari on iOS 4.1 - see issue #56) the event target may be a text node.</span></span><br><span class="line">    <span class="keyword">if</span> (eventTarget.nodeType === Node.TEXT_NODE) &#123;</span><br><span class="line">      <span class="keyword">return</span> eventTarget.parentNode</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> eventTarget</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * On touch start, record the position and scroll offset.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onTouchStart = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> targetElement, touch, selection</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Ignore multiple touches, otherwise pinch-to-zoom is prevented if both fingers are on the FastClick element (issue #111).</span></span><br><span class="line">    <span class="keyword">if</span> (event.targetTouches.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    targetElement = <span class="keyword">this</span>.getTargetElementFromEventTarget(event.target)</span><br><span class="line">    touch = event.targetTouches[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (deviceIsIOS) &#123;</span><br><span class="line">      <span class="comment">// Only trusted events will deselect text on iOS (issue #49)</span></span><br><span class="line">      selection = <span class="built_in">window</span>.getSelection()</span><br><span class="line">      <span class="keyword">if</span> (selection.rangeCount &amp;&amp; !selection.isCollapsed) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> (!deviceIsIOS4) &#123;</span><br><span class="line">        <span class="comment">// Weird things happen on iOS when an alert or confirm dialog is opened from a click event callback (issue #23):</span></span><br><span class="line">        <span class="comment">// when the user next taps anywhere else on the page, new touchstart and touchend events are dispatched</span></span><br><span class="line">        <span class="comment">// with the same identifier as the touch event that previously triggered the click that triggered the alert.</span></span><br><span class="line">        <span class="comment">// Sadly, there is an issue on iOS 4 that causes some normal touch events to have the same identifier as an</span></span><br><span class="line">        <span class="comment">// immediately preceeding touch event (issue #52), so this fix is unavailable on that platform.</span></span><br><span class="line">        <span class="comment">// Issue 120: touch.identifier is 0 when Chrome dev tools 'Emulate touch events' is set with an iOS device UA string,</span></span><br><span class="line">        <span class="comment">// which causes all touch events to be ignored. As this block only applies to iOS, and iOS identifiers are always long,</span></span><br><span class="line">        <span class="comment">// random integers, it's safe to to continue if the identifier is 0 here.</span></span><br><span class="line">        <span class="keyword">if</span> (touch.identifier &amp;&amp; touch.identifier === <span class="keyword">this</span>.lastTouchIdentifier) &#123;</span><br><span class="line">          event.preventDefault()</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">this</span>.lastTouchIdentifier = touch.identifier</span><br><span class="line"></span><br><span class="line">        <span class="comment">// If the target element is a child of a scrollable layer (using -webkit-overflow-scrolling: touch) and:</span></span><br><span class="line">        <span class="comment">// 1) the user does a fling scroll on the scrollable layer</span></span><br><span class="line">        <span class="comment">// 2) the user stops the fling scroll with another tap</span></span><br><span class="line">        <span class="comment">// then the event.target of the last 'touchend' event will be the element that was under the user's finger</span></span><br><span class="line">        <span class="comment">// when the fling scroll was started, causing FastClick to send a click event to that layer - unless a check</span></span><br><span class="line">        <span class="comment">// is made to ensure that a parent layer was not scrolled before sending a synthetic click (issue #42).</span></span><br><span class="line">        <span class="keyword">this</span>.updateScrollParent(targetElement)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.trackingClick = <span class="literal">true</span></span><br><span class="line">    <span class="keyword">this</span>.trackingClickStart = event.timeStamp</span><br><span class="line">    <span class="keyword">this</span>.targetElement = targetElement</span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.touchStartX = touch.pageX</span><br><span class="line">    <span class="keyword">this</span>.touchStartY = touch.pageY</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Prevent phantom clicks on fast double-tap (issue #36)</span></span><br><span class="line">    <span class="keyword">if</span> (event.timeStamp - <span class="keyword">this</span>.lastClickTime &lt; <span class="keyword">this</span>.tapDelay) &#123;</span><br><span class="line">      event.preventDefault()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Based on a touchmove event object, check whether the touch has moved past a boundary since it started.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.touchHasMoved = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> touch = event.changedTouches[<span class="number">0</span>],</span><br><span class="line">      boundary = <span class="keyword">this</span>.touchBoundary</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      <span class="built_in">Math</span>.abs(touch.pageX - <span class="keyword">this</span>.touchStartX) &gt; boundary ||</span><br><span class="line">      <span class="built_in">Math</span>.abs(touch.pageY - <span class="keyword">this</span>.touchStartY) &gt; boundary</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Update the last position.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onTouchMove = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.trackingClick) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If the touch has moved, cancel the click tracking</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      <span class="keyword">this</span>.targetElement !==</span><br><span class="line">        <span class="keyword">this</span>.getTargetElementFromEventTarget(event.target) ||</span><br><span class="line">      <span class="keyword">this</span>.touchHasMoved(event)</span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">this</span>.trackingClick = <span class="literal">false</span></span><br><span class="line">      <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Attempt to find the labelled control for the given label element.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;EventTarget|HTMLLabelElement&#125; labelElement</span></span><br><span class="line"><span class="comment">   * @returns &#123;Element|null&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.findControl = <span class="function"><span class="keyword">function</span>(<span class="params">labelElement</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// Fast path for newer browsers supporting the HTML5 control attribute</span></span><br><span class="line">    <span class="keyword">if</span> (labelElement.control !== <span class="literal">undefined</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> labelElement.control</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// All browsers under test that support touch events also support the HTML5 htmlFor attribute</span></span><br><span class="line">    <span class="keyword">if</span> (labelElement.htmlFor) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="built_in">document</span>.getElementById(labelElement.htmlFor)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If no for attribute exists, attempt to retrieve the first labellable descendant element</span></span><br><span class="line">    <span class="comment">// the list of which is defined here: http://www.w3.org/TR/html5/forms.html#category-label</span></span><br><span class="line">    <span class="keyword">return</span> labelElement.querySelector(</span><br><span class="line">      <span class="string">'button, input:not([type=hidden]), keygen, meter, output, progress, select, textarea'</span></span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * On touch end, determine whether to send a click event at once.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onTouchEnd = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> forElement,</span><br><span class="line">      trackingClickStart,</span><br><span class="line">      targetTagName,</span><br><span class="line">      scrollParent,</span><br><span class="line">      touch,</span><br><span class="line">      targetElement = <span class="keyword">this</span>.targetElement</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.trackingClick) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Prevent phantom clicks on fast double-tap (issue #36)</span></span><br><span class="line">    <span class="keyword">if</span> (event.timeStamp - <span class="keyword">this</span>.lastClickTime &lt; <span class="keyword">this</span>.tapDelay) &#123;</span><br><span class="line">      <span class="keyword">this</span>.cancelNextClick = <span class="literal">true</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.timeStamp - <span class="keyword">this</span>.trackingClickStart &gt; <span class="keyword">this</span>.tapTimeout) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Reset to prevent wrong click cancel on input (issue #156).</span></span><br><span class="line">    <span class="keyword">this</span>.cancelNextClick = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">this</span>.lastClickTime = event.timeStamp</span><br><span class="line"></span><br><span class="line">    trackingClickStart = <span class="keyword">this</span>.trackingClickStart</span><br><span class="line">    <span class="keyword">this</span>.trackingClick = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">this</span>.trackingClickStart = <span class="number">0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// On some iOS devices, the targetElement supplied with the event is invalid if the layer</span></span><br><span class="line">    <span class="comment">// is performing a transition or scroll, and has to be re-detected manually. Note that</span></span><br><span class="line">    <span class="comment">// for this to function correctly, it must be called *after* the event target is checked!</span></span><br><span class="line">    <span class="comment">// See issue #57; also filed as rdar://13048589 .</span></span><br><span class="line">    <span class="keyword">if</span> (deviceIsIOSWithBadTarget) &#123;</span><br><span class="line">      touch = event.changedTouches[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">      <span class="comment">// In certain cases arguments of elementFromPoint can be negative, so prevent setting targetElement to null</span></span><br><span class="line">      targetElement =</span><br><span class="line">        <span class="built_in">document</span>.elementFromPoint(</span><br><span class="line">          touch.pageX - <span class="built_in">window</span>.pageXOffset,</span><br><span class="line">          touch.pageY - <span class="built_in">window</span>.pageYOffset</span><br><span class="line">        ) || targetElement</span><br><span class="line">      targetElement.fastClickScrollParent = <span class="keyword">this</span>.targetElement.fastClickScrollParent</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    targetTagName = targetElement.tagName.toLowerCase()</span><br><span class="line">    <span class="keyword">if</span> (targetTagName === <span class="string">'label'</span>) &#123;</span><br><span class="line">      forElement = <span class="keyword">this</span>.findControl(targetElement)</span><br><span class="line">      <span class="keyword">if</span> (forElement) &#123;</span><br><span class="line">        <span class="keyword">this</span>.focus(targetElement)</span><br><span class="line">        <span class="keyword">if</span> (deviceIsAndroid) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        targetElement = forElement</span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">this</span>.needsFocus(targetElement)) &#123;</span><br><span class="line">      <span class="comment">// Case 1: If the touch started a while ago (best guess is 100ms based on tests for issue #36) then focus will be triggered anyway. Return early and unset the target element reference so that the subsequent click will be allowed through.</span></span><br><span class="line">      <span class="comment">// Case 2: Without this exception for input elements tapped when the document is contained in an iframe, then any inputted text won't be visible even though the value attribute is updated as the user types (issue #37).</span></span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        event.timeStamp - trackingClickStart &gt; <span class="number">100</span> ||</span><br><span class="line">        (deviceIsIOS &amp;&amp; <span class="built_in">window</span>.top !== <span class="built_in">window</span> &amp;&amp; targetTagName === <span class="string">'input'</span>)</span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">this</span>.focus(targetElement)</span><br><span class="line">      <span class="keyword">this</span>.sendClick(targetElement, event)</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Select elements need the event to go through on iOS 4, otherwise the selector menu won't open.</span></span><br><span class="line">      <span class="comment">// Also this breaks opening selects when VoiceOver is active on iOS6, iOS7 (and possibly others)</span></span><br><span class="line">      <span class="keyword">var</span> isTextInput = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> targetTagName === <span class="string">'textarea'</span> || targetTagName === <span class="string">'input'</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">if</span> ((!deviceIsIOS || targetTagName !== <span class="string">'select'</span>) &amp; !isTextInput) &#123;</span><br><span class="line">        <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">        event.preventDefault()</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (deviceIsIOS &amp;&amp; !deviceIsIOS4) &#123;</span><br><span class="line">      <span class="comment">// Don't send a synthetic click event if the target element is contained within a parent layer that was scrolled</span></span><br><span class="line">      <span class="comment">// and this tap is being used to stop the scrolling (usually initiated by a fling - issue #42).</span></span><br><span class="line">      scrollParent = targetElement.fastClickScrollParent</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        scrollParent &amp;&amp;</span><br><span class="line">        scrollParent.fastClickLastScrollTop !== scrollParent.scrollTop</span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Prevent the actual click from going though - unless the target node is marked as requiring</span></span><br><span class="line">    <span class="comment">// real clicks or if it is in the whitelist in which case only non-programmatic clicks are permitted.</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.needsClick(targetElement)) &#123;</span><br><span class="line">      event.preventDefault()</span><br><span class="line">      <span class="keyword">this</span>.sendClick(targetElement, event)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * On touch cancel, stop tracking the click.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @returns &#123;void&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onTouchCancel = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.trackingClick = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Determine mouse events which should be permitted.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onMouse = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// If a target element was never set (because a touch event was never fired) allow the event</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.targetElement) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (event.forwardedTouchEvent) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Programmatically generated events targeting a specific element should be permitted</span></span><br><span class="line">    <span class="keyword">if</span> (!event.cancelable) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Derive and check the target element to see whether the mouse event needs to be permitted;</span></span><br><span class="line">    <span class="comment">// unless explicitly enabled, prevent non-touch click events from triggering actions,</span></span><br><span class="line">    <span class="comment">// to prevent ghost/doubleclicks.</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">this</span>.needsClick(<span class="keyword">this</span>.targetElement) || <span class="keyword">this</span>.cancelNextClick) &#123;</span><br><span class="line">      <span class="comment">// Prevent any user-added listeners declared on FastClick element from being fired.</span></span><br><span class="line">      <span class="keyword">if</span> (event.stopImmediatePropagation) &#123;</span><br><span class="line">        event.stopImmediatePropagation()</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Part of the hack for browsers that don't support Event#stopImmediatePropagation (e.g. Android 2)</span></span><br><span class="line">        event.propagationStopped = <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      <span class="comment">// Cancel the event</span></span><br><span class="line">      event.stopPropagation()</span><br><span class="line">      event.preventDefault()</span><br><span class="line"></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If the mouse event is permitted, return true for the action to go through.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * On actual clicks, determine whether this is a touch-generated click, a click action occurring</span></span><br><span class="line"><span class="comment">   * naturally after a delay after a touch (which needs to be cancelled to avoid duplication), or</span></span><br><span class="line"><span class="comment">   * an actual click which should be permitted.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Event&#125; event</span></span><br><span class="line"><span class="comment">   * @returns &#123;boolean&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.onClick = <span class="function"><span class="keyword">function</span>(<span class="params">event</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> permitted</span><br><span class="line"></span><br><span class="line">    <span class="comment">// It's possible for another FastClick-like library delivered with third-party code to fire a click event before FastClick does (issue #44). In that case, set the click-tracking flag back to false and return early. This will cause onTouchEnd to return early.</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.trackingClick) &#123;</span><br><span class="line">      <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">      <span class="keyword">this</span>.trackingClick = <span class="literal">false</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Very odd behaviour on iOS (issue #18): if a submit element is present inside a form and the user hits enter in the iOS simulator or clicks the Go button on the pop-up OS keyboard the a kind of 'fake' click event will be triggered with the submit-type input element as the target.</span></span><br><span class="line">    <span class="keyword">if</span> (event.target.type === <span class="string">'submit'</span> &amp;&amp; event.detail === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    permitted = <span class="keyword">this</span>.onMouse(event)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Only unset targetElement if the click is not permitted. This will ensure that the check for !targetElement in onMouse fails and the browser's click doesn't go through.</span></span><br><span class="line">    <span class="keyword">if</span> (!permitted) &#123;</span><br><span class="line">      <span class="keyword">this</span>.targetElement = <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// If clicks are permitted, return true for the action to go through.</span></span><br><span class="line">    <span class="keyword">return</span> permitted</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Remove all FastClick's event listeners.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @returns &#123;void&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.prototype.destroy = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> layer = <span class="keyword">this</span>.layer</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (deviceIsAndroid) &#123;</span><br><span class="line">      layer.removeEventListener(<span class="string">'mouseover'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>)</span><br><span class="line">      layer.removeEventListener(<span class="string">'mousedown'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>)</span><br><span class="line">      layer.removeEventListener(<span class="string">'mouseup'</span>, <span class="keyword">this</span>.onMouse, <span class="literal">true</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    layer.removeEventListener(<span class="string">'click'</span>, <span class="keyword">this</span>.onClick, <span class="literal">true</span>)</span><br><span class="line">    layer.removeEventListener(<span class="string">'touchstart'</span>, <span class="keyword">this</span>.onTouchStart, <span class="literal">false</span>)</span><br><span class="line">    layer.removeEventListener(<span class="string">'touchmove'</span>, <span class="keyword">this</span>.onTouchMove, <span class="literal">false</span>)</span><br><span class="line">    layer.removeEventListener(<span class="string">'touchend'</span>, <span class="keyword">this</span>.onTouchEnd, <span class="literal">false</span>)</span><br><span class="line">    layer.removeEventListener(<span class="string">'touchcancel'</span>, <span class="keyword">this</span>.onTouchCancel, <span class="literal">false</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Check whether FastClick is needed.</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Element&#125; layer The layer to listen on</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.notNeeded = <span class="function"><span class="keyword">function</span>(<span class="params">layer</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> metaViewport</span><br><span class="line">    <span class="keyword">var</span> chromeVersion</span><br><span class="line">    <span class="keyword">var</span> blackberryVersion</span><br><span class="line">    <span class="keyword">var</span> firefoxVersion</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Devices that don't support touch don't need FastClick</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.ontouchstart === <span class="string">'undefined'</span>) &#123;</span><br><span class="line">      <span class="comment">// PC端存在，移动端不存在</span></span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Chrome version - zero for other browsers</span></span><br><span class="line">    chromeVersion = +(<span class="regexp">/Chrome\/([0-9]+)/</span>.exec(navigator.userAgent) || [, <span class="number">0</span>])[<span class="number">1</span>] <span class="comment">// 匹配谷歌版本</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (chromeVersion) &#123;</span><br><span class="line">      <span class="keyword">if</span> (deviceIsAndroid) &#123;</span><br><span class="line">        metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (metaViewport) &#123;</span><br><span class="line">          <span class="comment">// Chrome on Android with user-scalable="no" doesn't need FastClick (issue #89)</span></span><br><span class="line">          <span class="keyword">if</span> (metaViewport.content.indexOf(<span class="string">'user-scalable=no'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// Chrome 32 and above with width=device-width or less don't need FastClick</span></span><br><span class="line">          <span class="keyword">if</span> (</span><br><span class="line">            chromeVersion &gt; <span class="number">31</span> &amp;&amp;</span><br><span class="line">            <span class="built_in">document</span>.documentElement.scrollWidth &lt;= <span class="built_in">window</span>.outerWidth</span><br><span class="line">          ) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Chrome desktop doesn't need FastClick (issue #15)</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (deviceIsBlackBerry10) &#123;</span><br><span class="line">      blackberryVersion = navigator.userAgent.match(</span><br><span class="line">        /Version\/([<span class="number">0</span><span class="number">-9</span>]*)\.([<span class="number">0</span><span class="number">-9</span>]*)/</span><br><span class="line">      )</span><br><span class="line"></span><br><span class="line">      <span class="comment">// BlackBerry 10.3+ does not require Fastclick library.</span></span><br><span class="line">      <span class="comment">// https://github.com/ftlabs/fastclick/issues/251</span></span><br><span class="line">      <span class="keyword">if</span> (blackberryVersion[<span class="number">1</span>] &gt;= <span class="number">10</span> &amp;&amp; blackberryVersion[<span class="number">2</span>] &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">        metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (metaViewport) &#123;</span><br><span class="line">          <span class="comment">// user-scalable=no eliminates click delay.</span></span><br><span class="line">          <span class="keyword">if</span> (metaViewport.content.indexOf(<span class="string">'user-scalable=no'</span>) !== <span class="number">-1</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">          <span class="comment">// width=device-width (or less than device-width) eliminates click delay.</span></span><br><span class="line">          <span class="keyword">if</span> (<span class="built_in">document</span>.documentElement.scrollWidth &lt;= <span class="built_in">window</span>.outerWidth) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// IE10 with -ms-touch-action: none or manipulation, which disables double-tap-to-zoom (issue #97)</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      layer.style.msTouchAction === <span class="string">'none'</span> ||</span><br><span class="line">      layer.style.touchAction === <span class="string">'manipulation'</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Firefox version - zero for other browsers</span></span><br><span class="line">    firefoxVersion = +(<span class="regexp">/Firefox\/([0-9]+)/</span>.exec(navigator.userAgent) || [</span><br><span class="line">      ,</span><br><span class="line">      <span class="number">0</span></span><br><span class="line">    ])[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (firefoxVersion &gt;= <span class="number">27</span>) &#123;</span><br><span class="line">      <span class="comment">// Firefox 27+ does not have tap delay if the content is not zoomable - https://bugzilla.mozilla.org/show_bug.cgi?id=922896</span></span><br><span class="line"></span><br><span class="line">      metaViewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name=viewport]'</span>)</span><br><span class="line">      <span class="keyword">if</span> (</span><br><span class="line">        metaViewport &amp;&amp;</span><br><span class="line">        (metaViewport.content.indexOf(<span class="string">'user-scalable=no'</span>) !== <span class="number">-1</span> ||</span><br><span class="line">          <span class="built_in">document</span>.documentElement.scrollWidth &lt;= <span class="built_in">window</span>.outerWidth)</span><br><span class="line">      ) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// IE11: prefixed -ms-touch-action is no longer supported and it's recomended to use non-prefixed version</span></span><br><span class="line">    <span class="comment">// http://msdn.microsoft.com/en-us/library/windows/apps/Hh767313.aspx</span></span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      layer.style.touchAction === <span class="string">'none'</span> ||</span><br><span class="line">      layer.style.touchAction === <span class="string">'manipulation'</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * Factory method for creating a FastClick object</span></span><br><span class="line"><span class="comment">   *</span></span><br><span class="line"><span class="comment">   * @param &#123;Element&#125; layer The layer to listen on</span></span><br><span class="line"><span class="comment">   * @param &#123;Object&#125; [options=&#123;&#125;] The options to override the defaults</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  FastClick.attach = <span class="function"><span class="keyword">function</span>(<span class="params">layer, options</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> FastClick(layer, options)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    <span class="keyword">typeof</span> define === <span class="string">'function'</span> &amp;&amp;</span><br><span class="line">    <span class="keyword">typeof</span> define.amd === <span class="string">'object'</span> &amp;&amp;</span><br><span class="line">    define.amd</span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="comment">// AMD. Register as an anonymous module.</span></span><br><span class="line">    define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> FastClick</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">module</span> !== <span class="string">'undefined'</span> &amp;&amp; <span class="built_in">module</span>.exports) &#123;</span><br><span class="line">    <span class="built_in">module</span>.exports = FastClick.attach</span><br><span class="line">    <span class="built_in">module</span>.exports.FastClick = FastClick</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.FastClick = FastClick</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)()</span><br></pre></td></tr></table></figure>
+
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li><p>对于 ios 9.3 以上使用 WKWebView 的用户，无需引入 fastClick ，引入可能存在隐藏问题。</p>
+</li>
+<li><p>纯的通过 UA 是无法区分 UIWebView 和 WKWebView 的。如果页面是在自己 App 中话，可以通过在 UA 中携带 WebView的信息来决定是否加载</p>
+</li>
+</ol>
+<h2 id="延迟检测code"><a href="#延迟检测code" class="headerlink" title="延迟检测code"></a>延迟检测code</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1.0"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"X-UA-Compatible"</span> <span class="attr">content</span>=<span class="string">"ie=edge"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"userAgent"</span>&gt;</span>userAgent:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"userAgent"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"touchstart"</span>&gt;</span>touchstart:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"touchstart"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"touchend"</span>&gt;</span>touchend:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"touchend"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"click"</span>&gt;</span>click:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"click"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">"diffClickTouchend"</span>&gt;</span>diff click - touchend:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">span</span> <span class="attr">id</span>=<span class="string">"diffClickTouchend"</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"test"</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"diff"</span>&gt;</span>diff<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> userAgent = <span class="built_in">document</span>.getElementById(<span class="string">'userAgent'</span>);</span></span><br><span class="line"><span class="javascript">      userAgent.innerText = <span class="built_in">window</span>.navigator.userAgent;</span></span><br><span class="line"></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> test = <span class="built_in">document</span>.getElementById(<span class="string">'test'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> diff = <span class="built_in">document</span>.getElementById(<span class="string">'diff'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> touchstart = <span class="built_in">document</span>.getElementById(<span class="string">'touchstart'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> touchend = <span class="built_in">document</span>.getElementById(<span class="string">'touchend'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> click = <span class="built_in">document</span>.getElementById(<span class="string">'click'</span>);</span></span><br><span class="line"><span class="javascript">      <span class="keyword">var</span> diffClickTouchend = <span class="built_in">document</span>.getElementById(<span class="string">'diffClickTouchend'</span>);</span></span><br><span class="line"></span><br><span class="line"><span class="actionscript">      test.addEventListener(<span class="string">'touchstart'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        touchstart.innerText = <span class="built_in">Date</span>.now();</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      test.addEventListener(<span class="string">'touchend'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        touchend.innerText = <span class="built_in">Date</span>.now();</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      test.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">(e)</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">        click.innerText = <span class="built_in">Date</span>.now();</span></span><br><span class="line">      &#125;);</span><br><span class="line"></span><br><span class="line"><span class="actionscript">      diff.addEventListener(<span class="string">'click'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> </span>&#123;</span></span><br><span class="line">        diffClickTouchend.innerText = click.innerText - touchend.innerText;</span><br><span class="line">      &#125;);</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="https://juejin.im/post/5ce764a2f265da1b8c19645a" target="_blank" rel="noopener">2019 再聊移动端 300ms 延迟及 fastClick 原理解析</a></p>
+<p><a href="https://github.com/chuchur-china/vue-fastclick" target="_blank" rel="noopener">vue-fastClick源码git地址</a></p>
+<p><a href="https://blog.csdn.net/flyingpig2016/article/details/53737348" target="_blank" rel="noopener">js中的touch事件及gesture(手势)事件详解 — 第13.4.9节</a></p>
+<p><a href="https://www.jianshu.com/p/c7a29a7d3e4d" target="_blank" rel="noopener">创建事件、触发事件</a></p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈妙容</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/" title="fastClick原理解析">https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/运行环境/" rel="tag"># 运行环境</a>
+          
+            <a href="/tags/移动端适配/" rel="tag"># 移动端适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="next" title="svg环形进度条组件">
+                <i class="fa fa-chevron-left"></i> svg环形进度条组件
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/26/前端开发/8-项目和业务/实用工具/Typora软件/" rel="prev" title="Typora软件">
+                Typora软件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.jpg" alt="陈妙容">
+            
+              <p class="site-author-name" itemprop="name">陈妙容</p>
+              <div class="site-description motion-element" itemprop="description">努力点总没错，努力使我快乐</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原因"><span class="nav-number">2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决原理"><span class="nav-number">3.</span> <span class="nav-text">解决原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案（不使用-fastClick-）"><span class="nav-number">4.</span> <span class="nav-text">解决方案（不使用 fastClick ）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">5.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">6.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟检测code"><span class="nav-number">7.</span> <span class="nav-text">延迟检测code</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">8.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈妙容</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

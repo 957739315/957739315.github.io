@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CMR-logo-2.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CMR-logo.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="转发自 viewports 剖析 web端概念设备的pixels和CSS的pixels缩放 200% 将一个单位的 CSS 的 pixels 变成了 4 倍的设备的 pixels 那么大，即宽度 * 2、高度 * 2，面积扩大了2 * 2 。  在缩放级别为100%时，1单位的CSS的pixel是严格相等于1单位的设备pixel  screen.width/height含义：用户的屏幕的完整大小度">
+<meta name="keywords" content="运行环境,移动端适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转发】viewport剖析">
+<meta property="og:url" content="https://957739315.github.io/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/index.html">
+<meta property="og:site_name" content="CMR学习日志">
+<meta property="og:description" content="转发自 viewports 剖析 web端概念设备的pixels和CSS的pixels缩放 200% 将一个单位的 CSS 的 pixels 变成了 4 倍的设备的 pixels 那么大，即宽度 * 2、高度 * 2，面积扩大了2 * 2 。  在缩放级别为100%时，1单位的CSS的pixel是严格相等于1单位的设备pixel  screen.width/height含义：用户的屏幕的完整大小度">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-26T03:34:05.421Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转发】viewport剖析">
+<meta name="twitter:description" content="转发自 viewports 剖析 web端概念设备的pixels和CSS的pixels缩放 200% 将一个单位的 CSS 的 pixels 变成了 4 倍的设备的 pixels 那么大，即宽度 * 2、高度 * 2，面积扩大了2 * 2 。  在缩放级别为100%时，1单位的CSS的pixel是严格相等于1单位的设备pixel  screen.width/height含义：用户的屏幕的完整大小度">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://957739315.github.io/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【转发】viewport剖析 | CMR学习日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CMR学习日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">沉淀自己，自律自强</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">14</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">24</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【转发】viewport剖析
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-21 20:57:45" itemprop="dateCreated datePublished" datetime="2019-09-21T20:57:45+08:00">2019-09-21</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>转发自 <a href="https://www.w3cplus.com/css/viewports.html" target="_blank" rel="noopener">viewports 剖析</a></p>
+<h2 id="web端"><a href="#web端" class="headerlink" title="web端"></a>web端</h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><h4 id="设备的pixels和CSS的pixels"><a href="#设备的pixels和CSS的pixels" class="headerlink" title="设备的pixels和CSS的pixels"></a>设备的pixels和CSS的pixels</h4><p>缩放 200% 将一个单位的 CSS 的 pixels 变成了 4 倍的设备的 pixels 那么大，即宽度 * 2、高度 * 2，面积扩大了2 * 2 。</p>
+<blockquote>
+<p>在缩放级别为100%时，1单位的CSS的pixel是严格相等于1单位的设备pixel</p>
+</blockquote>
+<h4 id="screen-width-height"><a href="#screen-width-height" class="headerlink" title="screen.width/height"></a>screen.width/height</h4><p><strong>含义</strong>：用户的屏幕的完整大小<br><strong>度量</strong>：设备的pixels<br><strong>兼容性问题</strong>：IE8里，不管使用IE7模式还是IE8模式，都以CSS的pixels来度量<br><strong>注意</strong>：screen.width 和 screen.height 的值不会因为缩放而改变：他们是显示器的特征，而不是浏览器</p>
+<h4 id="window-innerWidth-Height"><a href="#window-innerWidth-Height" class="headerlink" title="window.innerWidth/Height"></a>window.innerWidth/Height</h4><p><strong>含义</strong>：包含滚动条尺寸的浏览器完整尺寸<br><strong>度量</strong>：CSS 的 pixels<br><strong>兼容性问题</strong>：IE 不支持，Opera 用设备 pixels 来度量<br><strong>注意</strong>：</p>
+<ul>
+<li>当用户放大显示时，你能获取的浏览器窗口可用空间会减少， window.innerWidth/Height 就是缩小的比例</li>
+<li>Opera 浏览器在这个问题上是一朵奇葩，当用户放大浏览器显示时不少。所以当用户放大显示时，你能获取的浏览器窗口<br>可用空间会减少。window.innerWidth/Height 却并不会减小。在桌面浏览器上，这个特性很烦人，但在移动设备浏览器<br>上简直是致命的。</li>
+</ul>
+<blockquote>
+<p>窗口内部宽度和高度的尺寸，包含了滚动条的尺寸。</p>
+</blockquote>
+<h4 id="window-pageX-YOffset"><a href="#window-pageX-YOffset" class="headerlink" title="window.pageX/YOffset"></a>window.pageX/YOffset</h4><p><strong>含义</strong>：页面的移位<br><strong>度量</strong>：CSS的pixels<br><strong>兼容性问题</strong>：pageXOffset 和 pageYOffset 在 IE 8 及之前版本的IE不支持, 使用 “document.body.scrollLeft” and “document.body.scrollTop” 来取代。</p>
+<blockquote>
+<p>window.pageXOffset 和 window.pageYOffset，定义了页面(document)的相对于窗口原点的水平、垂直位移。<br>因此能够定位用户滚动了多少的滚动条距离。</p>
+</blockquote>
+<h4 id="视窗-viewport"><a href="#视窗-viewport" class="headerlink" title="视窗 viewport"></a>视窗 viewport</h4><p>viewport 是严格的等于浏览器的窗口，<html> 元素为viewport宽度的100%。</html></p>
+<h4 id="document-documentElement-clientWidth-Height"><a href="#document-documentElement-clientWidth-Height" class="headerlink" title="document. documentElement. clientWidth/Height"></a>document. documentElement. clientWidth/Height</h4><p><strong>含义</strong>：viewport的尺寸<br><strong>度量</strong>：CSS的pixels<br><strong>兼容性问题</strong>：无</p>
+<blockquote>
+<p>document. documentElement. clientWidth/Height只会给出viewport的尺寸，而不管<html>元素尺寸如何改变。</html></p>
+</blockquote>
+<ul>
+<li>window.innerWidth/Height包含滚动条</li>
+<li>document. documentElement. clientWidth/Height不包含<br>我们能获取这两个特性对是因为他们是浏览器大战的残留。过去Netscape只支持window.innerWidth/Height，<br>IE 只支持document. documentElement. clientWidth/Height。从那时候开始所有其余浏览器都支持这两个特性。<br>但IE一直未支持window.innerWidth/Height。</li>
+</ul>
+<h4 id="document-documentElement-offsetWidth-Height"><a href="#document-documentElement-offsetWidth-Height" class="headerlink" title="document. documentElement. offsetWidth/Height"></a>document. documentElement. offsetWidth/Height</h4><p><strong>含义</strong>：<html>的尺寸<br><strong>度量</strong>：CSS的pixels<br><strong>兼容性问题</strong>：IE用这个值标示viewport的尺寸而非<html></html></html></p>
+<h4 id="事件坐标-Event-coordinates"><a href="#事件坐标-Event-coordinates" class="headerlink" title="事件坐标 Event coordinates"></a>事件坐标 Event coordinates</h4><p><strong>pageX/Y, clientX/Y, screenX/Y</strong><br><strong>含义</strong>：见下文<br><strong>度量</strong>：见下文<br><strong>兼容性问题</strong>：IE不支持pageX/Y,IE使用CSSpixels来度量screanX/Y<br><strong>详细描述</strong>:<br>pageX/Y：从<html>原点到事件触发点的CSS的 pixels<br>clientX/Y：从viewport原点（浏览器窗口）到事件触发点的CSS的 pixels<br>screenX/Y：从用户显示器窗口原点到事件触发点的设备 的 pixels。</html></p>
+<h4 id="css-Media查询"><a href="#css-Media查询" class="headerlink" title="css Media查询"></a>css Media查询</h4><p>有两个相关的media查询：width/height 和 device-width/device-height。</p>
+<ul>
+<li>device-width/height 使用 screen.width/height 来做为的判定值。该值以设备的pixels来度量</li>
+<li>width/height 使用 documentElement.clientWidth/Height 即 viewport 的值。该值以CSS的pixels来度量</li>
+</ul>
+<h2 id="移动端"><a href="#移动端" class="headerlink" title="移动端"></a>移动端</h2><h3 id="两种viewport"><a href="#两种viewport" class="headerlink" title="两种viewport"></a>两种viewport</h3><ul>
+<li>虚拟的viewport(visualviewport)和布局的viewport(layoutviewport)</li>
+<li>layoutviewport的宽度高度和最小缩放模式下能在页面上显示的内容的宽度高度一致。即便用户缩放，它依然保存不变.</li>
+<li>如果你旋转你的手机，visualviewport改变，但浏览器会缩放页面以自适应，以达到layoutviewport再次和<br>visualviewport同样宽。</li>
+</ul>
+<h3 id="document-documentElement-clientWidth-Height-1"><a href="#document-documentElement-clientWidth-Height-1" class="headerlink" title="document. documentElement. clientWidth/Height"></a>document. documentElement. clientWidth/Height</h3><p><strong>含义</strong>：layoutviewport尺寸<br><strong>度量</strong>：CSS的pixels<br><strong>完整支持</strong>：Opera, iPhone, Android, Symbian, Bolt, MicroB, Skyfire, Obigo<br><strong>问题</strong>：</p>
+<ul>
+<li>在Iris上它标示visualvieport</li>
+<li>三星的Webkit核心浏览器，仅当在页面上写入<meta viewport>标签，才正确表示。否则就代表着</li>
+<li>FireFox以设备的pixels来度量</li>
+<li>IE返回1024 x 768 px，而准确的尺寸保存在document.body.clientWidth/Height</li>
+<li>NetFront仅当100%缩放时候才正确</li>
+<li>塞班的Webkit1(在S60v3设备)不支持这些属性</li>
+</ul>
+<p><strong>说明</strong>：旋转只关系到高度，而不是宽度。</p>
+<h3 id="window-innerWidth-Height-1"><a href="#window-innerWidth-Height-1" class="headerlink" title="window.innerWidth/Height"></a>window.innerWidth/Height</h3><p><strong>含义</strong>：visualviewport尺寸<br><strong>度量</strong>：CSS的pixels<br><strong>完整支持</strong>：iPhone, Symbian, BlackBerry<br><strong>问题</strong>：</p>
+<ul>
+<li>FireFox和Opera以设备的pixels返回该数值</li>
+<li>Android, Bolt, MicroB, 和 NetFront 以CSS的pixels返回该数值，且为layoutviewport的值</li>
+</ul>
+<p><strong>不支持</strong>：</p>
+<ul>
+<li>IE，它使用document. documentElement. offsetWidh/Height来表示</li>
+<li>三星的Webkit核心浏览器，仅当在页面上写入<meta viewport>标签，才正确表示。否则就代表着<html>的尺寸</html></li>
+<li>混乱：Iris, Skyfire, Obigo返回的值不知所云</li>
+</ul>
+<p><strong>说明</strong>：window.innerWidth/Height来度量visualviewport。显然，随着用户缩放浏览器，这值会改变，更多、<br>更少的CSS pixels放进了屏幕。</p>
+<h3 id="screen-width-and-screen-height"><a href="#screen-width-and-screen-height" class="headerlink" title="screen.width and screen.height"></a>screen.width and screen.height</h3><p><strong>含义</strong>：屏幕尺寸<br><strong>度量</strong>：设备的pixels<br><strong>完整支持</strong>：Opera Mini, Android, Symbian, Iris, Firefox, MicroB, IE, BlackBerry<br><strong>问题</strong>：</p>
+<ul>
+<li>Opera在Windows Mobile下只给出横向尺寸(landscape size)。在S60上工作正确。</li>
+<li>三星的Webkit核心浏览器，仅当在页面上写入<meta viewport>标签，才正确表示。否则就代表着<html>的尺寸</html></li>
+<li>iPhone和Obigo仅给出竖直尺寸(portrait sizes)</li>
+<li>Android, Bolt, MicroB, 和 NetFront 以CSS的pixels返回该数值，且为layoutviewport的值</li>
+</ul>
+<p><strong>不支持</strong>：</p>
+<ul>
+<li>IE，它使用document. documentElement. offsetWidh/Height来表示 - 三星的Webkit核心浏览器，仅当在页面上写入<meta viewport>标签，才正确表示。否则就代表着<html>的尺寸</html></li>
+<li>混乱：Iris, Skyfire, Obigo返回的值不知所云</li>
+</ul>
+<p><strong>说明</strong>：和pc浏览器一样，screen.width/height标示了设备屏幕的尺寸，以设备的pixels度量。和pc浏览器一样，<br>作为web开发人员你永远不需要这些信息。你不关心屏幕的物理宽度，而关心当前有多少CSS的pixels能供你使用。</p>
+<h3 id="window-pageX-YOffset-1"><a href="#window-pageX-YOffset-1" class="headerlink" title="window.pageX/YOffset"></a>window.pageX/YOffset</h3><p><strong>含义</strong>：见描述<br><strong>度量</strong>：CSS的pixels<br><strong>完整支持</strong>：iPhone, Android, Symbian, Iris, MicroB, Skyfire, Obigo<br><strong>问题</strong>：<br>Opera, Bolt, Firefox, and NetFront 总是返回 0.<br>三星的Webkit核心浏览器，仅当在页面上写入标签，才正确表示。<br><strong>不支持</strong>： IE，它使用document. scrollLeft/Top来表示<br>你同意需要知道当前visualviewport相对于layoutviewport的距离。这就是滚动位移，如同在桌面浏览器一样，<br>使用window.pageX/YOffset存储。</p>
+<h3 id="document-documentElement-offsetWidth-Height-1"><a href="#document-documentElement-offsetWidth-Height-1" class="headerlink" title="document. documentElement. offsetWidth / Height"></a>document. documentElement. offsetWidth / Height</h3><p><strong>含义</strong>：html元素的整体尺寸<br><strong>度量</strong>：CSS 的 pixels<br><strong>完整支持</strong>：Opera, iPhone, Android, Symbian, Samsung, Iris, Bolt, Firefox, MicroB, Skyfire, BlackBerry, Obigo<br><strong>问题</strong>：<br>NetFront 只在100%缩放时返回正确的值.<br>IE，使用这个特性对来表示 visualviewport 的尺寸。它使用 document. body. clientWidth/Height 来表示<br>和在桌面系统一样, document.documentElement.offsetWidth/Height 给出了<br>元素以 CSS 的 pixels 度量的尺寸。</p>
+<h3 id="Media-queries"><a href="#Media-queries" class="headerlink" title="Media queries"></a>Media queries</h3><p><strong>含义</strong>：以CSS的pixels度量<html>元素或以设备 的pixels度量设备<br><strong>完整支持</strong>：Opera, iPhone, Android, Symbian, Samsung, Iris, Bolt, Firefox, MicroB.<br><strong>不支持</strong>：Skyfire, IE, BlackBerry, NetFront, Obigo<br><strong>备注</strong>： 我只测试了浏览器是否从正确的特性对里提取这些值。而特性对里的值是否正确并不在这里进行详细测试。</html></p>
+<h3 id="Event-coordinates-事件坐标"><a href="#Event-coordinates-事件坐标" class="headerlink" title="Event coordinates 事件坐标"></a>Event coordinates 事件坐标</h3><p><strong>含义</strong>：见下文<br><strong>度量</strong>：见下文<br><strong>完整支持</strong>：Symbian, Iris<br><strong>问题</strong>：<br>Opera 只有pageX/Y，但滚动页面过远时这个值会出错。<br>在iPhone, Firefox, 和 BlackBerry 上clientX/Y 和pageX/Y相等<br>在 Android 和 MicroB screenX/Y和clientX/Y相等，也就是它们以CSS的pixels度量屏幕尺寸<br>在FireFox里screenX/Y值不正确<br>IE, BlackBerry, 和 Obigo 不支持 pageX/Y.<br>NetFront 所以三个值都是screenX/Y.<br>Obigo clientX/Y是screenX/Y.<br>Samsung WebKit 总是返回pageX/Y.<br><strong>未测试</strong>：Opera Mini,Bolt,Skyfire<br><strong>备注</strong>：事件坐标在桌面浏览器上多多少少是支持的。不幸的是，移动设备上在所测试的12个主流浏览器中只有Symbian WebKit 和 Iris完全正确的支持这3个坐标特性。其余浏览器多多少少都存在问题。</p>
+<h3 id="Meta-Viewport"><a href="#Meta-Viewport" class="headerlink" title="Meta Viewport"></a>Meta Viewport</h3><p><strong>含义</strong>：设置layoutviewport的宽度<br><strong>度量</strong>：CSS的pixels<br><strong>完整支持</strong>：Opera Mobile, iPhone, Android, Iris, IE, BlackBerry, Obigo<br><strong>不支持</strong>：Opera Mini, Symbian, Bolt, Firefox, MicroB, NetFront<br><strong>问题</strong>：<br>Skyfire 不能处理我的测试页面。<br>在三星的wibkit浏览器下，出现会改变一些特性对的值。<br>Opera Mobile, iPhone, Samsung, and BlackBerry 不允许用户在设置viewport后再进行缩小操作（do not allow the<br>user to zoom out.）</p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈妙容</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://957739315.github.io/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/" title="【转发】viewport剖析">https://957739315.github.io/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/运行环境/" rel="tag"># 运行环境</a>
+          
+            <a href="/tags/移动端适配/" rel="tag"># 移动端适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/19/前端开发/6-框架和类库/Vue/vue-router传参方式/" rel="next" title="【转发】vue-router传参方式">
+                <i class="fa fa-chevron-left"></i> 【转发】vue-router传参方式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/" rel="prev" title="【转发】关于移动端适配，你必须要知道的">
+                【转发】关于移动端适配，你必须要知道的 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.jpg" alt="陈妙容">
+            
+              <p class="site-author-name" itemprop="name">陈妙容</p>
+              <div class="site-description motion-element" itemprop="description">努力点总没错，努力使我快乐</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#web端"><span class="nav-number">1.</span> <span class="nav-text">web端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设备的pixels和CSS的pixels"><span class="nav-number">1.1.1.</span> <span class="nav-text">设备的pixels和CSS的pixels</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#screen-width-height"><span class="nav-number">1.1.2.</span> <span class="nav-text">screen.width/height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-innerWidth-Height"><span class="nav-number">1.1.3.</span> <span class="nav-text">window.innerWidth/Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#window-pageX-YOffset"><span class="nav-number">1.1.4.</span> <span class="nav-text">window.pageX/YOffset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#视窗-viewport"><span class="nav-number">1.1.5.</span> <span class="nav-text">视窗 viewport</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#document-documentElement-clientWidth-Height"><span class="nav-number">1.1.6.</span> <span class="nav-text">document. documentElement. clientWidth/Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#document-documentElement-offsetWidth-Height"><span class="nav-number">1.1.7.</span> <span class="nav-text">document. documentElement. offsetWidth/Height</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#事件坐标-Event-coordinates"><span class="nav-number">1.1.8.</span> <span class="nav-text">事件坐标 Event coordinates</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#css-Media查询"><span class="nav-number">1.1.9.</span> <span class="nav-text">css Media查询</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端"><span class="nav-number">2.</span> <span class="nav-text">移动端</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#两种viewport"><span class="nav-number">2.1.</span> <span class="nav-text">两种viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-documentElement-clientWidth-Height-1"><span class="nav-number">2.2.</span> <span class="nav-text">document. documentElement. clientWidth/Height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-innerWidth-Height-1"><span class="nav-number">2.3.</span> <span class="nav-text">window.innerWidth/Height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#screen-width-and-screen-height"><span class="nav-number">2.4.</span> <span class="nav-text">screen.width and screen.height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#window-pageX-YOffset-1"><span class="nav-number">2.5.</span> <span class="nav-text">window.pageX/YOffset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#document-documentElement-offsetWidth-Height-1"><span class="nav-number">2.6.</span> <span class="nav-text">document. documentElement. offsetWidth / Height</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Media-queries"><span class="nav-number">2.7.</span> <span class="nav-text">Media queries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Event-coordinates-事件坐标"><span class="nav-number">2.8.</span> <span class="nav-text">Event coordinates 事件坐标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meta-Viewport"><span class="nav-number">2.9.</span> <span class="nav-text">Meta Viewport</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈妙容</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

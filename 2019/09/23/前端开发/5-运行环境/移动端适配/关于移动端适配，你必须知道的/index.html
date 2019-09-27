@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CMR-logo-2.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CMR-logo.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="强烈推荐！！！转发自 关于移动端适配，你必须要知道的  英寸电脑手机的屏幕大小几寸几寸 ==&amp;gt; 尺寸都是屏幕对角线的长度 1英寸 = 2.54 厘米 分辨率屏幕分辨率垂直和水平上的像素点数 图像分辨率图片含有的像素数 PPIPixel Per Inch，每英寸包括的像素数，PPI越高，图片质量越高，可用于描述屏幕和图片清晰度 计算PPI方式： DPIDot Per Inch，每英寸包括的点数">
+<meta name="keywords" content="运行环境,移动端适配">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转发】关于移动端适配，你必须要知道的">
+<meta property="og:url" content="https://957739315.github.io/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/index.html">
+<meta property="og:site_name" content="CMR学习日志">
+<meta property="og:description" content="强烈推荐！！！转发自 关于移动端适配，你必须要知道的  英寸电脑手机的屏幕大小几寸几寸 ==&amp;gt; 尺寸都是屏幕对角线的长度 1英寸 = 2.54 厘米 分辨率屏幕分辨率垂直和水平上的像素点数 图像分辨率图片含有的像素数 PPIPixel Per Inch，每英寸包括的像素数，PPI越高，图片质量越高，可用于描述屏幕和图片清晰度 计算PPI方式： DPIDot Per Inch，每英寸包括的点数">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://juejin.im/equation?tex=%5Cfrac%7B%5Csqrt%7B%E6%B0%B4%E5%B9%B3%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%2B%E5%9E%82%E7%9B%B4%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%7D%7D%7B%E5%B0%BA%E5%AF%B8%7D">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a6649f8d53a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a666e96ff01?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66924ef751?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a664842c93c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66988df601?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66a99430fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66a99430fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66cca9bb1c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66dca102ac?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66e9dcf70d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a6714b19e8a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a67167287de?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a675038a23c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:updated_time" content="2019-09-26T15:42:20.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转发】关于移动端适配，你必须要知道的">
+<meta name="twitter:description" content="强烈推荐！！！转发自 关于移动端适配，你必须要知道的  英寸电脑手机的屏幕大小几寸几寸 ==&amp;gt; 尺寸都是屏幕对角线的长度 1英寸 = 2.54 厘米 分辨率屏幕分辨率垂直和水平上的像素点数 图像分辨率图片含有的像素数 PPIPixel Per Inch，每英寸包括的像素数，PPI越高，图片质量越高，可用于描述屏幕和图片清晰度 计算PPI方式： DPIDot Per Inch，每英寸包括的点数">
+<meta name="twitter:image" content="https://juejin.im/equation?tex=%5Cfrac%7B%5Csqrt%7B%E6%B0%B4%E5%B9%B3%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%2B%E5%9E%82%E7%9B%B4%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%7D%7D%7B%E5%B0%BA%E5%AF%B8%7D">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://957739315.github.io/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>【转发】关于移动端适配，你必须要知道的 | CMR学习日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CMR学习日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">沉淀自己，自律自强</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">14</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">24</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【转发】关于移动端适配，你必须要知道的
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-23 15:07:45" itemprop="dateCreated datePublished" datetime="2019-09-23T15:07:45+08:00">2019-09-23</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>强烈推荐！！！</strong><br>转发自 <a href="https://juejin.im/post/5cddf289f265da038f77696c" target="_blank" rel="noopener">关于移动端适配，你必须要知道的</a> </p>
+<h2 id="英寸"><a href="#英寸" class="headerlink" title="英寸"></a>英寸</h2><p>电脑手机的屏幕大小几寸几寸 ==&gt; 尺寸都是屏幕对角线的长度</p>
+<p>1英寸 = 2.54 厘米</p>
+<h2 id="分辨率"><a href="#分辨率" class="headerlink" title="分辨率"></a>分辨率</h2><h3 id="屏幕分辨率"><a href="#屏幕分辨率" class="headerlink" title="屏幕分辨率"></a>屏幕分辨率</h3><p>垂直和水平上的像素点数</p>
+<h3 id="图像分辨率"><a href="#图像分辨率" class="headerlink" title="图像分辨率"></a>图像分辨率</h3><p>图片含有的像素数</p>
+<h3 id="PPI"><a href="#PPI" class="headerlink" title="PPI"></a>PPI</h3><p><code>Pixel Per Inch</code>，每英寸包括的像素数，PPI越高，图片质量越高，可用于描述屏幕和图片清晰度</p>
+<p>计算PPI方式：<img src="https://juejin.im/equation?tex=%5Cfrac%7B%5Csqrt%7B%E6%B0%B4%E5%B9%B3%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%2B%E5%9E%82%E7%9B%B4%E5%83%8F%E7%B4%A0%E7%82%B9%E6%95%B0%5E2%7D%7D%7B%E5%B0%BA%E5%AF%B8%7D" alt></p>
+<h3 id="DPI"><a href="#DPI" class="headerlink" title="DPI"></a>DPI</h3><p><code>Dot Per Inch</code>，每英寸包括的点数，等价于PPI，可用于描述屏幕和图片的清晰度。<br>一般，用于描述打印机，表示打印机每英寸可打印的点数（墨点）</p>
+<h2 id="设备独立像素（DIP-或-DP）"><a href="#设备独立像素（DIP-或-DP）" class="headerlink" title="设备独立像素（DIP 或 DP）"></a>设备独立像素（DIP 或 DP）</h2><p>随着手机更高分辨率的诞生，本来300个物理像素渲染的列表，为了实现在更高分辨率的手机上，不会被缩小，手机就用600个像素去渲染页面，即把一个像素点当作两个像素点用（此为 <code>Retina Display</code> 视网膜屏幕）。</p>
+<p>设备独立像素 <code>Device Independent Pixels</code>，简称 DIP 或 DP。比如，列表的宽度为300个像素，那么列表宽度为300个设备独立像素</p>
+<h3 id="设备像素比（dpr"><a href="#设备像素比（dpr" class="headerlink" title="设备像素比（dpr)"></a>设备像素比（dpr)</h3><p><code>Device Pixel Ratio</code>，简称 dpr，即物理像素和设备独立像素的比值。</p>
+<ul>
+<li>web 中，浏览器提供 <code>window.devicePixelRatio</code> 来获取 dpr；</li>
+<li>css 中，使用媒体查询 <code>min-device-pixel-ratio</code> 来区别 dpr；</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> (-webkit-min-device-pixel-ratio: <span class="number">2</span>),(min-device-pixel-ratio: <span class="number">2</span>)&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>React Native 中，使用 <code>PixelRatio.get()</code> 获取 dpr。</li>
+</ul>
+<p>iPhone 6、7、8 Plus的实际物理像素是 1080 x 1920，在开发者工具中我们可以看到：它的设备独立像素是 414 x 736，设备像素比为3，设备独立像素和设备像素比的乘积并不等于 1080 x 1920，而是等于 1242 x 2208（设计像素）。<strong>开发过程中以设计像素为准</strong>，实际上，手机会自动把 1242 x 2208 个像素点塞进 1080 * 1920 个物理像素点来渲染。</p>
+<p>Android 同样使用了其他的技术方案来实现DPR大于1的屏幕，不过原理是类似的。所以，为了保证各种设备的显示效果，Android 按照设备的像素密度将设备分成了几个区间：<br><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a6649f8d53a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="移动端开发"><a href="#移动端开发" class="headerlink" title="移动端开发"></a>移动端开发</h3><p>iOS 的尺寸单位为 <code>pt</code>，Android 的尺寸单位为 <code>dp</code>，React Native 中没有指定明确的单位，它们其实都是设备独立像素 <code>dp</code>。</p>
+<p>在使用 React Native 开发 App 时，UI 给我们的原型图一般是基于 iphone6 的像素给定的，所有的UI图都按照设备独立像素来出。</p>
+<p>为了适配所有机型，我们在写样式时需要把物理像素转换为设备独立像素，在代码(React Native)中进行px和dp的转换：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;PixelRatio &#125; <span class="keyword">from</span> <span class="string">'react-native'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dpr = PixelRatio.get();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * px转换为dp</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">pxConvertTodp</span>(<span class="params">px</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> px / dpr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * dp转换为px</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">dpConvertTopx</span>(<span class="params">dp</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> PixelRatio.getPixelSizeForLayoutSize(dp);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="web端开发"><a href="#web端开发" class="headerlink" title="web端开发"></a>web端开发</h3><p>在写 CSS 时，我们用到最多的单位是 px，即 CSS 像素，当页面缩放比例为 100% 时，一个 CSS 像素等于一个设备独立像素。</p>
+<p>但是 CSS 像素是很容易被改变的，当用户对浏览器进行了放大，CSS 像素会被放大，这时一个CSS 像素会跨越更多的物理像素。</p>
+<blockquote>
+<p><strong>页面的缩放系数 = CSS像素 / 设备独立像素。</strong></p>
+</blockquote>
+<h3 id="关于屏幕"><a href="#关于屏幕" class="headerlink" title="关于屏幕"></a>关于屏幕</h3><p>让多个物理像素渲染一个独立像素只是 Retina 屏幕为了达到效果而使用的一种技术。而不是所有 DPR &gt; 1 的屏幕就是 Retina 屏幕</p>
+<blockquote>
+<p>Retina屏幕只是苹果提出的一个营销术语：在普通的使用距离下，人的肉眼无法分辨单个的像素点。</p>
+</blockquote>
+<p><strong>常见用K和P这个单位来形容屏幕：</strong></p>
+<ul>
+<li><p>P 代表的就是屏幕纵向的像素个数，1080P 即纵向有 1080 个像素，分辨率为 1920X1080 的屏幕就属于 1080P 屏幕。</p>
+</li>
+<li><p>K 代表屏幕横向有几个 1024 个像素，一般来讲横向像素超过 2048 就属于 2K 屏，横向像素超过 4096 就属于 4K 屏。</p>
+</li>
+</ul>
+<p>高清屏其实就是屏幕的物理分辨率达到或超过 1920X1080 的屏幕。</p>
+<h2 id="视口-viewport"><a href="#视口-viewport" class="headerlink" title="视口 viewport"></a>视口 viewport</h2><h3 id="布局视口-layout-viewport"><a href="#布局视口-layout-viewport" class="headerlink" title="布局视口 layout viewport"></a>布局视口 layout viewport</h3><p>布局视口,当我们以百分比来指定一个元素的大小时，它的计算值是由这个元素的包含块计算而来的。</p>
+<p>在PC浏览器上，布局视口就等于当前浏览器的窗口大小（不包括 borders 、margins 、滚动条）；<br>在移动端，布局视口被赋予一个默认值，大部分为980px，这保证PC的网页可以在手机浏览器上呈现，但是非常小，用户可以手动对网页进行放大。</p>
+<blockquote>
+<p>调用 <code>document.documentElement.clientWidth / clientHeight</code> 来获取布局视口大小。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a666e96ff01?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="视觉视口-visual-viewport"><a href="#视觉视口-visual-viewport" class="headerlink" title="视觉视口 visual viewport"></a>视觉视口 visual viewport</h3><p>视觉视口，用户通过屏幕真实看到的区域，默认等于当前浏览器的窗口大小（包括滚动条宽度）。</p>
+<p>当用户对浏览器进行缩放时，不会改变布局视口的大小，所以页面布局是不变的，但是缩放会改变视觉视口的大小。</p>
+<blockquote>
+<p>调用 <code>window.innerWidth / innerHeight</code> 来获取视觉视口大小。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66924ef751?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="理想视口-ideal-viewport"><a href="#理想视口-ideal-viewport" class="headerlink" title="理想视口 ideal viewport"></a>理想视口 ideal viewport</h3><p>理想视口，网站页面在移动端展示的理想大小，它的单位正是设备独立像素。</p>
+<p>CSS 像素时曾经提到页面的 <code>缩放系数 = CSS像素 / 设备独立像素</code>，实际上说页面的 <code>缩放系数 = 理想视口宽度 / 视觉视口宽度</code> 更为准确。</p>
+<blockquote>
+<p>当页面缩放比例为 100% 时，<code>CSS像素 = 设备独立像素，理想视口 = 视觉视口</code></p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a664842c93c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<blockquote>
+<p>调用screen.width / height来获取理想视口大小。</p>
+</blockquote>
+<h3 id="Meta-viewport"><a href="#Meta-viewport" class="headerlink" title="Meta viewport"></a>Meta viewport</h3><p><code>&lt;meta&gt;</code> 元素表示那些不能由其它HTML元相关元素之一表示的任何元数据信息，它可以告诉浏览器如何解析页面。</p>
+<p><code>&lt;meta&gt;</code> 元素表示那些不能由其它HTML元相关元素之一表示的任何元数据信息，它可以告诉浏览器如何解析页面。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width; initial-scale=1; maximum-scale=1; minimum-scale=1; user-scalable=no;"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th align="center">Value</th>
+<th align="center">可能值</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">width</td>
+<td align="center">正整数或device-width</td>
+<td align="center">以pixels（像素）为单位， 定义布局视口的宽度。</td>
+</tr>
+<tr>
+<td align="center">height</td>
+<td align="center">正整数或device-height</td>
+<td align="center">以pixels（像素）为单位， 定义布局视口的高度。</td>
+</tr>
+<tr>
+<td align="center">initial-scale</td>
+<td align="center">0.0 - 10.0</td>
+<td align="center">定义页面初始缩放比率。</td>
+</tr>
+<tr>
+<td align="center">minimum-scale</td>
+<td align="center">0.0 - 10.0</td>
+<td align="center">定义缩放的最小值；必须小于或等于maximum-scale的值。</td>
+</tr>
+<tr>
+<td align="center">maximum-scale</td>
+<td align="center">0.0 - 10.0</td>
+<td align="center">定义缩放的最大值；必须大于或等于minimum-scale的值。</td>
+</tr>
+<tr>
+<td align="center">user-scalable</td>
+<td align="center">一个布尔值（yes或者no）</td>
+<td align="center">如果设置为 no，用户将不能放大或缩小网页。默认值为 yes。</td>
+</tr>
+</tbody></table>
+<h3 id="移动端适配"><a href="#移动端适配" class="headerlink" title="移动端适配"></a>移动端适配</h3><p>布局视口、视觉视口都尽可能等于理想视口。</p>
+<p>device-width 就等于理想视口的宽度，所以设置 <code>width=device-width</code>就相当于让布局视口等于理想视口。</p>
+<p>由于<code>initial-scale = 理想视口宽度 / 视觉视口宽度</code>，所以我们设置<code>initial-scale=1</code> ;就相当于让视觉视口等于理想视口。</p>
+<h3 id="缩放"><a href="#缩放" class="headerlink" title="缩放"></a>缩放</h3><p>若手机的理想视口宽度为 400px，设置 <code>width=device-width，initial-scale=2</code>，此时 <code>视觉视口宽度 = 理想视口宽度 / initial-scale</code> 即200px，布局视口取两者最大值即 <code>device-width=400px</code>。</p>
+<p>若设置 <code>width=device-width，initial-scale=0.5</code>，此时<code>视觉视口宽度 = 理想视口宽度 / initial-scale</code> 即800px，布局视口取两者最大值即800px。</p>
+<h3 id="获取浏览器大小"><a href="#获取浏览器大小" class="headerlink" title="获取浏览器大小"></a>获取浏览器大小</h3><p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66988df601?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p><code>window.innerHeight</code>：获取浏览器视觉视口高度（包括垂直滚动条）。<br><code>window.outerHeight</code>：获取浏览器窗口外部的高度。表示整个浏览器窗口的高度，包括侧边栏、窗口镶边和调正窗口大小的边框。<br><code>window.screen.Height</code>：获取获屏幕取理想视口高度，这个数值是固定的，设备的分辨率/设备像素比<br><code>window.screen.availHeight</code>：浏览器窗口可用的高度。<br><code>document.documentElement.clientHeight</code>：获取浏览器布局视口高度，包括内边距，但不包括垂直滚动条、边框和外边距。<br><code>document.documentElement.offsetHeight</code>：包括内边距、滚动条、边框和外边距。<br><code>document.documentElement.scrollHeight</code>：在不使用滚动条的情况下适合视口中的所有内容所需的最小宽度。测量方式与clientHeight相同：它包含元素的内边距，但不包括边框，外边距或垂直滚动条。</p>
+<h2 id="1px问题"><a href="#1px问题" class="headerlink" title="1px问题"></a>1px问题</h2><p>在设备像素比大于 1 的屏幕上，我们写的 1px 实际上是被多个物理像素渲染，这就会出现 1px 在有些屏幕上看起来很粗的现象。</p>
+<h3 id="border-image"><a href="#border-image" class="headerlink" title="border-image"></a>border-image</h3><p>基于 media 查询判断不同的设备像素比给定不同的 border-image：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.border_1px</span>&#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="selector-class">.border_1px</span>&#123;</span><br><span class="line">    <span class="attribute">border-bottom</span>: none;</span><br><span class="line">    <span class="attribute">border-width</span>: <span class="number">0</span> <span class="number">0</span> <span class="number">1px</span> <span class="number">0</span>;</span><br><span class="line">    <span class="attribute">border-image</span>: <span class="built_in">url</span>(../img/1pxline.png) <span class="number">0</span> <span class="number">0</span> <span class="number">2</span> <span class="number">0</span> stretch;</span><br><span class="line">    <span class="comment">/* 参考：https://segmentfault.com/a/1190000010969367?utm_source=tag-newest */</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="background-image"><a href="#background-image" class="headerlink" title="background-image"></a>background-image</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.border_1px</span>&#123;</span><br><span class="line">  <span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#000</span>;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">  <span class="selector-class">.border_1px</span>&#123;</span><br><span class="line">    <span class="attribute">background</span>: <span class="built_in">url</span>(../img/1pxline.png) repeat-x left bottom;</span><br><span class="line">    <span class="attribute">background-size</span>: <span class="number">100%</span> <span class="number">1px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>上面两种都需要单独准备图片，而且圆角不是很好处理，但是可以应对大部分场景。</p>
+</blockquote>
+<h3 id="伪类-transform"><a href="#伪类-transform" class="headerlink" title="伪类 + transform"></a>伪类 + transform</h3><p>基于 media 查询判断不同的设备像素比对线条进行缩放：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.border_1px</span><span class="selector-pseudo">:before</span>&#123;</span><br><span class="line">  <span class="attribute">content</span>: <span class="string">''</span>;</span><br><span class="line">  <span class="attribute">position</span>: absolute;</span><br><span class="line">  <span class="attribute">top</span>: <span class="number">0</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">1px</span>;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="number">#000</span>;</span><br><span class="line">  <span class="attribute">transform-origin</span>: <span class="number">50%</span> <span class="number">0%</span>;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="selector-class">.border_1px</span><span class="selector-pseudo">:before</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(0.5);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.border_1px</span><span class="selector-pseudo">:before</span>&#123;</span><br><span class="line">        <span class="attribute">transform</span>: <span class="built_in">scaleY</span>(0.33);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>可以满足各种场景，如果需要满足圆角，只需要给伪类也加上border-radius即可。</p>
+</blockquote>
+<h3 id="svg"><a href="#svg" class="headerlink" title="svg"></a>svg</h3><p>借助 PostCSS 的 postcss-write-svg 我们能直接使用 border-image 和 background-image 创建 svg 的 1px 边框：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@svg</span> border_1px &#123;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">2px</span>;</span><br><span class="line">  <span class="variable">@rect</span> &#123;</span><br><span class="line">    <span class="attribute">fill</span>: var(--color, black);</span><br><span class="line">    <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">    <span class="attribute">height</span>: <span class="number">50%</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">.example &#123; <span class="attribute">border</span>: <span class="number">1px</span> solid transparent; <span class="attribute">border-image</span>: svg(border_1px param(--color <span class="number">#00b1ff</span>)) <span class="number">2</span> <span class="number">2</span> stretch; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译后：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.example</span> &#123; <span class="attribute">border</span>: <span class="number">1px</span> solid transparent; <span class="attribute">border-image</span>: <span class="built_in">url</span>(<span class="string">"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' height='2px'%3E%3Crect fill='%2300b1ff' width='100%25' height='50%25'/%3E%3C/svg%3E"</span>) <span class="number">2</span> <span class="number">2</span> stretch; &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="设置viewport"><a href="#设置viewport" class="headerlink" title="设置viewport"></a>设置viewport</h3><p>通过设置缩放，让CSS像素等于真正的物理像素。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> scale = <span class="number">1</span> / <span class="built_in">window</span>.devicePixelRatio;</span><br><span class="line"><span class="keyword">const</span> viewport = <span class="built_in">document</span>.querySelector(<span class="string">'meta[name="viewport"]'</span>);</span><br><span class="line"><span class="keyword">if</span> (!viewport) &#123;</span><br><span class="line">    viewport = <span class="built_in">document</span>.createElement(<span class="string">'meta'</span>);</span><br><span class="line">    viewport.setAttribute(<span class="string">'name'</span>, <span class="string">'viewport'</span>);</span><br><span class="line">    <span class="built_in">window</span>.document.head.appendChild(viewport);</span><br><span class="line">&#125;</span><br><span class="line">viewport.setAttribute(<span class="string">'content'</span>, <span class="string">'width=device-width,user-scalable=no,initial-scale='</span> + scale + <span class="string">',maximum-scale='</span> + scale + <span class="string">',minimum-scale='</span> + scale);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>意味着你页面上所有的布局都要按照物理像素来写。这显然是不现实的，这时，我们可以借助flexible或vw、vh来帮助我们进行适配。</p>
+</blockquote>
+<h2 id="移动端适配方案"><a href="#移动端适配方案" class="headerlink" title="移动端适配方案"></a>移动端适配方案</h2><h3 id="flexible方案（已废弃）"><a href="#flexible方案（已废弃）" class="headerlink" title="flexible方案（已废弃）"></a>flexible方案（已废弃）</h3><p>flexible 方案是阿里早期开源的一个移动端适配解决方案，引用 flexible 后，我们在页面上统一使用rem来布局。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 核心代码</span></span><br><span class="line"><span class="comment">// set 1rem = viewWidth / 10</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setRemUnit</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rem = docEl.clientWidth / <span class="number">10</span></span><br><span class="line">    docEl.style.fontSize = rem + <span class="string">'px'</span></span><br><span class="line">&#125;</span><br><span class="line">setRemUnit();</span><br></pre></td></tr></table></figure>
+
+<p>将 html 节点的 font-size 设置为页面 clientWidth(布局视口)的1/10，即 1rem 就等于页面布局视口的 1/10，这就意味着我们后面使用的 rem 都是按照页面比例来计算的。</p>
+<p>以 iPhone6 为例：布局视口为 375px，则 1rem = 37.5px，这时UI给定一个元素的宽为 75px（设备独立像素），我们只需要将它设置为 75 / 37.5 = 2rem。</p>
+<p>每个布局都要计算非常繁琐，我们可以借助 PostCSS 的 px2rem 插件来帮助我们完成这个过程。</p>
+<p>下面的代码可以保证在页面大小变化时，布局可以自适应，当触发了window 的 resize 和 pageShow 事件之后自动调整 html 的 fontSize 大小。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">// reset rem unit on page resize</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, setRemUnit)<span class="built_in">window</span>.addEventListener(<span class="string">'pageshow'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (e.persisted) &#123;</span><br><span class="line">        setRemUnit()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="vh、vw方案"><a href="#vh、vw方案" class="headerlink" title="vh、vw方案"></a>vh、vw方案</h3><p>vh、vw方案即将视觉视口宽度 window.innerWidth 和视觉视口高度 window.innerHeight 等分为 100 份。</p>
+<ul>
+<li>vw(Viewport’s width)：1vw 等于视觉视口的1%</li>
+<li>vh(Viewport’s height) :1vh 为视觉视口高度的1%</li>
+<li>vmin : vw 和 vh 中的较小值</li>
+<li>vmax : 选取 vw 和 vh 中的较大值</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66a99430fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt><br><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66a99430fc?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>如果视觉视口为 375px，那么 1vw = 3.75px，这时UI给定一个元素的宽为75px（设备独立像素），我们只需要将它设置为 75 / 3.75 = 20vw。</p>
+<p>可以使用 PostCSS 的 postcss-px-to-viewport 插件帮我们完成这个过程。写代码时，我们只需要根据UI给的设计图写px单位即可。</p>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>px 转换成 vw 不一定能完全整除，因此有一定的像素差。</li>
+<li>比如当容器使用vw，margin 采用 px 时，很容易造成整体宽度超过100vw，从而影响布局效果。当然我们也是可以避免的，例如使用 padding 代替margin，结合 calc() 函数使用等等。</li>
+</ul>
+<h2 id="适配iPhoneX"><a href="#适配iPhoneX" class="headerlink" title="适配iPhoneX"></a>适配iPhoneX</h2><h3 id="安全区域"><a href="#安全区域" class="headerlink" title="安全区域"></a>安全区域</h3><p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66cca9bb1c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>圆角（corners）、刘海（sensor housing）和小黑条（Home Indicator）<br><strong>===&gt;</strong> 安全区域就是一个不受上面三个效果的可视窗口范围</p>
+<h3 id="viewport-fit"><a href="#viewport-fit" class="headerlink" title="viewport-fit"></a>viewport-fit</h3><p>viewport-fit是专门为了适配iPhoneX而诞生的一个属性，它用于限制网页如何在安全区域内进行展示。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66dca102ac?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<ul>
+<li>contain: 可视窗口完全包含网页内容</li>
+<li>cover：网页内容完全覆盖可视窗口</li>
+</ul>
+<p>默认情况下或者设置为 auto 和 contain 效果相同。</p>
+<h3 id="env、constant"><a href="#env、constant" class="headerlink" title="env、constant"></a>env、constant</h3><p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a66e9dcf70d?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>我们需要将顶部和底部合理的摆放在安全区域内，iOS11新增了两个CSS函数env、constant，用于设定安全区域与边界的距离。</p>
+<p>函数内部可以是四个常量：</p>
+<ul>
+<li><code>safe-area-inset-left</code>：安全区域距离左边边界距离</li>
+<li><code>safe-area-inset-right</code>：安全区域距离右边边界距离</li>
+<li><code>safe-area-inset-top</code>：安全区域距离顶部边界距离</li>
+<li><code>safe-area-inset-bottom</code>：安全区域距离底部边界距离</li>
+</ul>
+<p>注意：我们必须指定 viweport-fit 后才能使用这两个函数：<br><code>&lt;meta name=&quot;viewport&quot; content=&quot;viewport-fit=cover&quot;&gt;</code></p>
+<p>constant 在 iOS &lt; 11.2 的版本中生效，env 在 iOS &gt;= 11.2 的版本中生效，这意味着我们往往要同时设置他们，将页面限制在安全区域内：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="built_in">constant</span>(safe-area-inset-bottom);</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="built_in">env</span>(safe-area-inset-bottom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>复制代码当使用底部固定导航栏时，我们要为他们设置 padding 值：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="built_in">constant</span>(safe-area-inset-bottom);</span><br><span class="line">  <span class="attribute">padding-bottom</span>: <span class="built_in">env</span>(safe-area-inset-bottom);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="横屏适配"><a href="#横屏适配" class="headerlink" title="横屏适配"></a>横屏适配</h2><p><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a6714b19e8a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="JavaScript检测横屏"><a href="#JavaScript检测横屏" class="headerlink" title="JavaScript检测横屏"></a>JavaScript检测横屏</h3><p><code>window.orientation</code> : 获取屏幕旋转方向</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"resize"</span>, ()=&gt;&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.orientation === <span class="number">180</span> || <span class="built_in">window</span>.orientation === <span class="number">0</span>)&#123;</span><br><span class="line">      <span class="comment">// 正常方向或屏幕旋转180度</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'竖屏'</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.orientation === <span class="number">90</span> || <span class="built_in">window</span>.orientation === <span class="number">-90</span> )&#123;</span><br><span class="line">       <span class="comment">// 屏幕顺时钟旋转90度或屏幕逆时针旋转90度</span></span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'横屏'</span>);</span><br><span class="line">    &#125;  </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="css检测横屏"><a href="#css检测横屏" class="headerlink" title="css检测横屏"></a>css检测横屏</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">media</span> screen and (orientation: portrait) &#123;</span><br><span class="line">  <span class="comment">/*竖屏...*/</span></span><br><span class="line">&#125; </span><br><span class="line">@<span class="keyword">media</span> screen and (orientation: landscape) &#123;</span><br><span class="line">  <span class="comment">/*横屏...*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图片模糊问题"><a href="#图片模糊问题" class="headerlink" title="图片模糊问题"></a>图片模糊问题</h2><h3 id="产生原因"><a href="#产生原因" class="headerlink" title="产生原因"></a>产生原因</h3><p>理论上，位图的每个像素对应在屏幕上使用一个物理像素来渲染，才能达到最佳的显示效果。<br>而在 dpr &gt; 1 的屏幕上，位图的一个像素可能由多个物理像素来渲染，然而这些物理像素点并不能被准确的分配上对应位图像素的颜色，只能取近似值，所以相同的图片在 dpr &gt; 1 的屏幕上就会模糊:<br><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a67167287de?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>为了保证图片质量，我们应该尽可能让一个屏幕像素来渲染一个图片像素，所以，针对不同DPR的屏幕，我们需要展示不同分辨率的图片。</p>
+<p>如：在dpr=2的屏幕上展示两倍图(@2x)，在dpr=3的屏幕上展示三倍图(@3x)。<br><img src="https://user-gold-cdn.xitu.io/2019/5/17/16ac3a675038a23c?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h3 id="media查询"><a href="#media查询" class="headerlink" title="media查询"></a>media查询</h3><p>使用media查询判断不同的设备像素比来显示不同精度的图片：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.avatar</span>&#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">url</span>(conardLi_1x.png);</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">2</span>)&#123;</span><br><span class="line">    <span class="selector-class">.avatar</span>&#123;</span><br><span class="line">        <span class="attribute">background-image</span>: <span class="built_in">url</span>(conardLi_2x.png);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">media</span> only screen and (-webkit-min-device-pixel-ratio:<span class="number">3</span>)&#123;</span><br><span class="line">    <span class="selector-class">.avatar</span>&#123;</span><br><span class="line">        <span class="attribute">background-image</span>: <span class="built_in">url</span>(conardLi_3x.png);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只适用于背景图</p>
+</blockquote>
+<h3 id="image-set"><a href="#image-set" class="headerlink" title="image-set"></a>image-set</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.avatar</span> &#123;</span><br><span class="line">    <span class="attribute">background-image</span>: <span class="built_in">-webkit-image-set</span>( <span class="string">"conardLi_1x.png"</span> 1x, <span class="string">"conardLi_2x.png"</span> 2x );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>只适用于背景图</p>
+</blockquote>
+<h3 id="srcset"><a href="#srcset" class="headerlink" title="srcset"></a>srcset</h3><p>使用 img 标签的 srcset 属性，浏览器会自动根据像素密度匹配最佳显示图片：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"conardLi_1x.png"</span></span></span><br><span class="line"><span class="tag">     <span class="attr">srcset</span>=<span class="string">" conardLi_2x.png 2x, conardLi_3x.png 3x"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="JavaScript拼接图片url"><a href="#JavaScript拼接图片url" class="headerlink" title="JavaScript拼接图片url"></a>JavaScript拼接图片url</h3><p>使用 window.devicePixelRatio 获取设备像素比，遍历所有图片，替换图片地址：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> dpr = <span class="built_in">window</span>.devicePixelRatio;</span><br><span class="line"><span class="keyword">const</span> images =  <span class="built_in">document</span>.querySelectorAll(<span class="string">'img'</span>);</span><br><span class="line">images.forEach(<span class="function">(<span class="params">img</span>)=&gt;</span>&#123;</span><br><span class="line">  img.src.replace(<span class="string">"."</span>, <span class="string">`@<span class="subst">$&#123;dpr&#125;</span>x.`</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用svg"><a href="#使用svg" class="headerlink" title="使用svg"></a>使用svg</h3><p>SVG的全称是可缩放矢量图（Scalable Vector Graphics）。不同于位图的基于像素，SVG 则是属于对图像的形状描述，所以它本质上是文本文件，体积较小，且不管放大多少倍都不会失真。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=<span class="string">"conardLi.svg"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;img src=<span class="string">"data:image/svg+xml;base64,[data]"</span>&gt;</span><br><span class="line"></span><br><span class="line">.avatar &#123;</span><br><span class="line">  background: url(conardLi.svg);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈妙容</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://957739315.github.io/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/" title="【转发】关于移动端适配，你必须要知道的">https://957739315.github.io/2019/09/23/前端开发/5-运行环境/移动端适配/关于移动端适配，你必须知道的/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/运行环境/" rel="tag"># 运行环境</a>
+          
+            <a href="/tags/移动端适配/" rel="tag"># 移动端适配</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/09/21/前端开发/5-运行环境/移动端适配/viewport剖析/" rel="next" title="【转发】viewport剖析">
+                <i class="fa fa-chevron-left"></i> 【转发】viewport剖析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/24/前端开发/6-框架和类库/实用库/iview组件库使用/" rel="prev" title="iview组件库使用">
+                iview组件库使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.jpg" alt="陈妙容">
+            
+              <p class="site-author-name" itemprop="name">陈妙容</p>
+              <div class="site-description motion-element" itemprop="description">努力点总没错，努力使我快乐</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">24</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#英寸"><span class="nav-number">1.</span> <span class="nav-text">英寸</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分辨率"><span class="nav-number">2.</span> <span class="nav-text">分辨率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#屏幕分辨率"><span class="nav-number">2.1.</span> <span class="nav-text">屏幕分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#图像分辨率"><span class="nav-number">2.2.</span> <span class="nav-text">图像分辨率</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PPI"><span class="nav-number">2.3.</span> <span class="nav-text">PPI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DPI"><span class="nav-number">2.4.</span> <span class="nav-text">DPI</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设备独立像素（DIP-或-DP）"><span class="nav-number">3.</span> <span class="nav-text">设备独立像素（DIP 或 DP）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#设备像素比（dpr"><span class="nav-number">3.1.</span> <span class="nav-text">设备像素比（dpr)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端开发"><span class="nav-number">3.2.</span> <span class="nav-text">移动端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#web端开发"><span class="nav-number">3.3.</span> <span class="nav-text">web端开发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于屏幕"><span class="nav-number">3.4.</span> <span class="nav-text">关于屏幕</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视口-viewport"><span class="nav-number">4.</span> <span class="nav-text">视口 viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#布局视口-layout-viewport"><span class="nav-number">4.1.</span> <span class="nav-text">布局视口 layout viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视觉视口-visual-viewport"><span class="nav-number">4.2.</span> <span class="nav-text">视觉视口 visual viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理想视口-ideal-viewport"><span class="nav-number">4.3.</span> <span class="nav-text">理想视口 ideal viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Meta-viewport"><span class="nav-number">4.4.</span> <span class="nav-text">Meta viewport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移动端适配"><span class="nav-number">4.5.</span> <span class="nav-text">移动端适配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缩放"><span class="nav-number">4.6.</span> <span class="nav-text">缩放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取浏览器大小"><span class="nav-number">4.7.</span> <span class="nav-text">获取浏览器大小</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1px问题"><span class="nav-number">5.</span> <span class="nav-text">1px问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#border-image"><span class="nav-number">5.1.</span> <span class="nav-text">border-image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#background-image"><span class="nav-number">5.2.</span> <span class="nav-text">background-image</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#伪类-transform"><span class="nav-number">5.3.</span> <span class="nav-text">伪类 + transform</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#svg"><span class="nav-number">5.4.</span> <span class="nav-text">svg</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置viewport"><span class="nav-number">5.5.</span> <span class="nav-text">设置viewport</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#移动端适配方案"><span class="nav-number">6.</span> <span class="nav-text">移动端适配方案</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#flexible方案（已废弃）"><span class="nav-number">6.1.</span> <span class="nav-text">flexible方案（已废弃）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vh、vw方案"><span class="nav-number">6.2.</span> <span class="nav-text">vh、vw方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#适配iPhoneX"><span class="nav-number">7.</span> <span class="nav-text">适配iPhoneX</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安全区域"><span class="nav-number">7.1.</span> <span class="nav-text">安全区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#viewport-fit"><span class="nav-number">7.2.</span> <span class="nav-text">viewport-fit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#env、constant"><span class="nav-number">7.3.</span> <span class="nav-text">env、constant</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#横屏适配"><span class="nav-number">8.</span> <span class="nav-text">横屏适配</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript检测横屏"><span class="nav-number">8.1.</span> <span class="nav-text">JavaScript检测横屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#css检测横屏"><span class="nav-number">8.2.</span> <span class="nav-text">css检测横屏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片模糊问题"><span class="nav-number">9.</span> <span class="nav-text">图片模糊问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#产生原因"><span class="nav-number">9.1.</span> <span class="nav-text">产生原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">9.2.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#media查询"><span class="nav-number">9.3.</span> <span class="nav-text">media查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image-set"><span class="nav-number">9.4.</span> <span class="nav-text">image-set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#srcset"><span class="nav-number">9.5.</span> <span class="nav-text">srcset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaScript拼接图片url"><span class="nav-number">9.6.</span> <span class="nav-text">JavaScript拼接图片url</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用svg"><span class="nav-number">9.7.</span> <span class="nav-text">使用svg</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈妙容</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
