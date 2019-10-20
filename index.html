@@ -497,7 +497,7 @@ JavaScript 运行环境
 基于 V8 引擎（ Google 发布的开源 JavaScript 引擎）
 
 nodejs 之父 – Ryan Dahl
-![Ryan Dahl](./img/Ryan Dahl图片.jpg)
+![Ryan Dahl](Ryan Dahl图片.jpg)
 NodeJs 优势
 使用的是 js 语法，方便前端程序员开发后台
 
@@ -506,7 +506,7 @@ NodeJs 优势
 在 Java、PHP 或者 .net 等服务器端语言中，会为每一个客户端连接创建一个新的线程。而每个线程需要耗费大约 2MB 内存。也就是说，理论上，一个 8GB 内存的服务器可以同时连接的最大用户数为 4000 个左右。
 
 
-NodeJs 仅使用一个线程。当有用户连接了，就触发一个 内部事件，通过非阻塞 I/O、事件驱动机制，让 Node.js 程序宏观上也是并行的。使用 Node.js，一个 8GB 内存的服务器，可以同时处理超过 4 
+NodeJs 仅使用一个线程。当有用户连接了，就触发一个 内部事件，通过非阻塞 I/O、事件驱动机制，让 Node.js 程序宏观上也是并行的。使用 Node.js，一个 8GB 内存的服务器，可以同时处理超过 4 万用户的连接
               ...
             </p>
           <!--noindex-->
@@ -1292,7 +1292,7 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -1312,7 +1312,7 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
               
             
           </h1>
@@ -1395,20 +1395,33 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
         
           
             <p>
-              安装npm install echarts vue-echarts
+              svg渐变环形进度条组件实现原理：
+
+画一个底圆，设置为灰色
+画一段弧，因为弧
+弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
+添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
+添加动画
+
+寥寥数行SVG实现圆环loading或倒计时效果实现原理：【代码更为简洁】
+
+采用煎饼原理 CSS3实现鸡蛋饼饼图loading等待转转转
+代码demo SVG实现圆环loading进度效果demo
+ios上的旋转bug
+更新于 2016 年 11 月 24 日
+测试发现，iOS 手机上，貌似 transform 逆时针旋转 90° 只会改变图形外观，但是其坐标起始位置还是右侧。因此，更改起始坐标可能还需要通过外部容器旋转控制。
+更新于 2017 年 11 月 1 日
+感谢辉辉的反馈，iOS手机上起始坐标异常问题，可以通过添加如下CSS修正：
+   svg &#123;  transform: rotate(-0.05deg);&#125;
 
 
-echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
 
-配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    'vue-echarts',    'resize-detector'  ]&#125;
-
-vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_modules/vue-echarts')
-              ...
+              
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1648,7 +1661,7 @@ import 'normalize.css'
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -1668,7 +1681,7 @@ import 'normalize.css'
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
               
             
           </h1>
@@ -1751,33 +1764,20 @@ import 'normalize.css'
         
           
             <p>
-              svg渐变环形进度条组件实现原理：
-
-画一个底圆，设置为灰色
-画一段弧，因为弧
-弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
-添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
-添加动画
-
-寥寥数行SVG实现圆环loading或倒计时效果实现原理：【代码更为简洁】
-
-采用煎饼原理 CSS3实现鸡蛋饼饼图loading等待转转转
-代码demo SVG实现圆环loading进度效果demo
-ios上的旋转bug
-更新于 2016 年 11 月 24 日
-测试发现，iOS 手机上，貌似 transform 逆时针旋转 90° 只会改变图形外观，但是其坐标起始位置还是右侧。因此，更改起始坐标可能还需要通过外部容器旋转控制。
-更新于 2017 年 11 月 1 日
-感谢辉辉的反馈，iOS手机上起始坐标异常问题，可以通过添加如下CSS修正：
-   svg &#123;  transform: rotate(-0.05deg);&#125;
+              安装npm install echarts vue-echarts
 
 
+echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
 
-              
+配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    'vue-echarts',    'resize-detector'  ]&#125;
+
+vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_modules/vue-echarts')
+              ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2925,6 +2925,179 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" class="post-title-link" itemprop="url">全局变量 局部变量 块级变量</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 17:24:39" itemprop="dateCreated datePublished" datetime="2019-08-20T17:24:39+08:00">2019-08-20</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              JavaScript let 和 constES2015(ES6) 新增加了两个重要的 JavaScript 关键字: let 和 const。在 ES6 之前，JavaScript 只有两种作用域： 全局变量 与 函数内的局部变量。  
+全局变量和局部变量在函数外使用var关键字定义的变量，可以理解为就是全局变量。在函数内定义的变量就是局部变量。
+var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明块中可以访问全局变量.	x = 20;	console.log(x); // 输出 20&#125;console.log(x); // 输出20, 说明在块中是可以改变全局变量的值的.&#123;	var y = 5;&#125;console.log(y); // 输出5,说明在块中用var定义的变量在外面依然可以使用(相当于全局变量)(function ()&#123;	y = 2;	console.log(y); // 输出2&#125;)()console.log(y); // 输出2, 说明在函数
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/2-HTML和CSS/CSS/less/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3208,179 +3381,6 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈妙容">
-      <meta itemprop="description" content="努力点总没错，努力使我快乐">
-      <meta itemprop="image" content="/images/my-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CMR学习日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" class="post-title-link" itemprop="url">全局变量 局部变量 块级变量</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-20 17:24:39" itemprop="dateCreated datePublished" datetime="2019-08-20T17:24:39+08:00">2019-08-20</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              JavaScript let 和 constES2015(ES6) 新增加了两个重要的 JavaScript 关键字: let 和 const。在 ES6 之前，JavaScript 只有两种作用域： 全局变量 与 函数内的局部变量。  
-全局变量和局部变量在函数外使用var关键字定义的变量，可以理解为就是全局变量。在函数内定义的变量就是局部变量。
-var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明块中可以访问全局变量.	x = 20;	console.log(x); // 输出 20&#125;console.log(x); // 输出20, 说明在块中是可以改变全局变量的值的.&#123;	var y = 5;&#125;console.log(y); // 输出5,说明在块中用var定义的变量在外面依然可以使用(相当于全局变量)(function ()&#123;	y = 2;	console.log(y); // 输出2&#125;)()console.log(y); // 输出2, 说明在函数
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
