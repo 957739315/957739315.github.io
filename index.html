@@ -387,7 +387,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记01/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/Node学习笔记-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -407,7 +407,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记01/" class="post-title-link" itemprop="url">Node学习笔记01</a>
+                <a href="/2019/10/09/Node学习笔记-1/" class="post-title-link" itemprop="url">Node学习笔记01</a>
               
             
           </h1>
@@ -497,7 +497,7 @@ JavaScript 运行环境
 基于 V8 引擎（ Google 发布的开源 JavaScript 引擎）
 
 nodejs 之父 – Ryan Dahl
-![Ryan Dahl](Ryan Dahl图片.jpg)
+
 NodeJs 优势
 使用的是 js 语法，方便前端程序员开发后台
 
@@ -506,13 +506,18 @@ NodeJs 优势
 在 Java、PHP 或者 .net 等服务器端语言中，会为每一个客户端连接创建一个新的线程。而每个线程需要耗费大约 2MB 内存。也就是说，理论上，一个 8GB 内存的服务器可以同时连接的最大用户数为 4000 个左右。
 
 
-NodeJs 仅使用一个线程。当有用户连接了，就触发一个 内部事件，通过非阻塞 I/O、事件驱动机制，让 Node.js 程序宏观上也是并行的。使用 Node.js，一个 8GB 内存的服务器，可以同时处理超过 4 万用户的连接
+NodeJs 仅使用一个线程。当有用户连接了，就触发一个 内部事件，通过非阻塞 I/O、事件驱动机制，让 Node.js 程序宏观上也是并行的。使用 Node.js，一个 8GB 内存的服务器，可以同时处理超过 4 万用户的连接。
+
+
+实现高性能服务器
+
+V8 JavaScript 引
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记01/" rel="contents">
+              <a class="btn" href="/2019/10/09/Node学习笔记-1/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1769,9 +1774,9 @@ import 'normalize.css'
 
 echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
 
-配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    'vue-echarts',    'resize-detector'  ]&#125;
+配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    &apos;vue-echarts&apos;,    &apos;resize-detector&apos;  ]&#125;
 
-vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_modules/vue-echarts')
+vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_m
               ...
             </p>
           <!--noindex-->
@@ -2925,7 +2930,7 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -2945,7 +2950,7 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" class="post-title-link" itemprop="url">全局变量 局部变量 块级变量</a>
+                <a href="/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/" class="post-title-link" itemprop="url">配色方案</a>
               
             
           </h1>
@@ -3028,15 +3033,14 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
         
           
             <p>
-              JavaScript let 和 constES2015(ES6) 新增加了两个重要的 JavaScript 关键字: let 和 const。在 ES6 之前，JavaScript 只有两种作用域： 全局变量 与 函数内的局部变量。  
-全局变量和局部变量在函数外使用var关键字定义的变量，可以理解为就是全局变量。在函数内定义的变量就是局部变量。
-var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明块中可以访问全局变量.	x = 20;	console.log(x); // 输出 20&#125;console.log(x); // 输出20, 说明在块中是可以改变全局变量的值的.&#123;	var y = 5;&#125;console.log(y); // 输出5,说明在块中用var定义的变量在外面依然可以使用(相当于全局变量)(function ()&#123;	y = 2;	console.log(y); // 输出2&#125;)()console.log(y); // 输出2, 说明在函数
-              ...
+              网站1网站2
+
+              
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" rel="contents">
+              <a class="btn" href="/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -3270,7 +3274,7 @@ var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -3290,7 +3294,7 @@ var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明�
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/" class="post-title-link" itemprop="url">配色方案</a>
+                <a href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" class="post-title-link" itemprop="url">全局变量 局部变量 块级变量</a>
               
             
           </h1>
@@ -3373,14 +3377,15 @@ var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明�
         
           
             <p>
-              网站1网站2
-
-              
+              JavaScript let 和 constES2015(ES6) 新增加了两个重要的 JavaScript 关键字: let 和 const。在 ES6 之前，JavaScript 只有两种作用域： 全局变量 与 函数内的局部变量。  
+全局变量和局部变量在函数外使用var关键字定义的变量，可以理解为就是全局变量。在函数内定义的变量就是局部变量。
+var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明块中可以访问全局变量.	x = 20;	console.log(x); // 输出 20&#125;console.log(x); // 输出20, 说明在块中是可以改变全局变量的值的.&#123;	var y = 5;&#125;console.log(y); // 输出5,说明在块中用var定义的变量在外面依然可以使用(相当于全局变量)(function ()&#123;	y = 2;	console.log(y); // 输出2&#125;)()console.log(y); // 输出2, 说明在函数
+              ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/20/前端开发/2-HTML和CSS/CSS/配色网站/" rel="contents">
+              <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
