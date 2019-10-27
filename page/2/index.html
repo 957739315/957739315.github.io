@@ -256,7 +256,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">15</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">16</span></a>
 
   </li>
         
@@ -292,7 +292,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">25</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">26</span></a>
 
   </li>
         
@@ -387,7 +387,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -407,7 +407,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/" class="post-title-link" itemprop="url">【转发】vue数据变视图不变</a>
+                <a href="/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/" class="post-title-link" itemprop="url">webpack配置插件</a>
               
             
           </h1>
@@ -432,7 +432,7 @@
                 
               
 
-              <time title="创建时间：2019-08-15 20:57:45" itemprop="dateCreated datePublished" datetime="2019-08-15T20:57:45+08:00">2019-08-15</time>
+              <time title="创建时间：2019-08-20 16:46:19" itemprop="dateCreated datePublished" datetime="2019-08-20T16:46:19+08:00">2019-08-20</time>
             </span>
           
 
@@ -490,35 +490,16 @@
         
           
             <p>
-              转发自 解析Vue数据/数组对象改变视图不更新
-当我们数据发生变化，视图却没有变化时，三种方法
-使用$set此时我们需要知道Vue.set()需要哪些参数，官方API：Vue.set()
-
-调用方法：Vue.set( target, key, value )
-
-target：要更改的数据源(可以是对象或者数组)
-key：要更改的具体数据
-value：重新赋的值
-
-this.$set(this.arr[key], &#39;title&#39;, &#39;1&#39;)这种方法就可以进行视图刷新
-
-使用$forceUpdate()数据层次太多，render函数没有自动更新，需手动强制刷新
-
-this.$forceUpdate() 就是强制刷新视图 很粗暴
-
-通过改变data来触发新的渲染&lt;div style=&quot;display:none;&quot;&gt; &lt;/div&gt;
-在你操作数据的方法下加以下这段就可以达到目的
-this.$nextTick(() =&gt; &#123;  this.is_show = !this.is_show&#125;)
-
-
-
-解
+              extract-text-webpack-plugin作用：抽离css样式, 防止将样式打包在js中引起页面样式加载错乱的现象
+适用：抽取 Less 或者 Sass
+用法：
+const ExtractTextPlugin = require('extract-text-webpack-plugin');module.exports = &#123;  module: &#123;    rules: [      &#123;        test: /\.scss$/,        use: ExtractTextPlugin.extract(&#123;          fallback: 'style-loader',          use: ['css-loader', 'sass-loader']        &#125;)      &#125;    ]  &#125;,  plugins: [    new ExtractTextPlugin('style.css')    //if you want to pass in options, you can 
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/" rel="contents">
+              <a class="btn" href="/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -580,7 +561,7 @@ this.$nextTick(() =&gt; &#123;  this.is_show = !this.is_show&#125;)
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -600,7 +581,7 @@ this.$nextTick(() =&gt; &#123;  this.is_show = !this.is_show&#125;)
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/" class="post-title-link" itemprop="url">vue饿了么实战笔记</a>
+                <a href="/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/" class="post-title-link" itemprop="url">【转发】使用Flexible实现手淘H5页面的终端适配</a>
               
             
           </h1>
@@ -683,24 +664,30 @@ this.$nextTick(() =&gt; &#123;  this.is_show = !this.is_show&#125;)
         
           
             <p>
-              代码git地址
-开发工具IcoMoon网址：https://icomoon.io/参考链接：https://blog.csdn.net/github_38313789/article/details/81368696用法：上传icon，生成字体文件，将fonts文件夹和style.css文件复制到项目中，然后引入icon的class即可调用
-mock网址：http://mockjs.com/用途：模拟后台数据
-草料网网址：http://cli.im
-用途：在手机上查看页面，在线测试
-方法：开启本地项目服务，然后将 localhost:8080/#/goods 中的 localhost 改为本电脑的IP地址（通过 ipconfig 查看），然后将修改后的网址放到草料网上，生成二维码，即可查看。
-注意：保证手机和电脑连接在同一个局域网
+              转发自 使用Flexible实现手淘H5页面的终端适配
+使用Flexible实现手淘H5页面的终端适配双11前端技术连载
+Layout
+mobile
+会员专栏
+曾几何时为了兼容IE低版本浏览器而头痛，以为到Mobile时代可以跟这些麻烦说拜拜。可没想到到了移动时代，为了处理各终端的适配而乱了手脚。对于混迹各社区的偶，时常发现大家拿手机淘宝的H5页面做讨论——手淘的H5页面是如何实现多终端的适配？
+那么趁此Amfe阿里无线前端团队双11技术连载之际，用一个实战案例来告诉大家，手淘的H5页面是如何实现多终端适配的，希望这篇文章对大家在Mobile的世界中能过得更轻松。
+目标拿一个双11的Mobile页面来做案例，比如你实现一个类似下图的一个H5页面：
 
-样式实现注意事项
-两个 inline-block 之间存在间隙，在父级 node 设置 font-size: 0 或者删除两个 &lt;span /&gt; 之间的换行 ，在当前两个 node 的 font-size 设为正常字体;
+目标很清晰，就是做一个这样的H5页面。
+DEMO请用手机扫下面的二维码
 
-一个图片，一个文字在
+痛点虽然H5的页面与PC的Web页面相比简单了不少，但让我们头痛的事情是要想尽办法让页面能适配众多不同的终端设备。看看下图你就会知道，这是多么痛苦的一件事情：
+
+点击这里查看更多终端设备的参数。
+再来看看手淘H5要适配的终端设备数据：
+
+看到这些数据，是否死的心都有了
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/" rel="contents">
+              <a class="btn" href="/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -945,7 +932,7 @@ viewports剖析
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -965,7 +952,7 @@ viewports剖析
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/" class="post-title-link" itemprop="url">【转发】使用Flexible实现手淘H5页面的终端适配</a>
+                <a href="/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/" class="post-title-link" itemprop="url">vue饿了么实战笔记</a>
               
             
           </h1>
@@ -1048,30 +1035,217 @@ viewports剖析
         
           
             <p>
-              转发自 使用Flexible实现手淘H5页面的终端适配
-使用Flexible实现手淘H5页面的终端适配双11前端技术连载
-Layout
-mobile
-会员专栏
-曾几何时为了兼容IE低版本浏览器而头痛，以为到Mobile时代可以跟这些麻烦说拜拜。可没想到到了移动时代，为了处理各终端的适配而乱了手脚。对于混迹各社区的偶，时常发现大家拿手机淘宝的H5页面做讨论——手淘的H5页面是如何实现多终端的适配？
-那么趁此Amfe阿里无线前端团队双11技术连载之际，用一个实战案例来告诉大家，手淘的H5页面是如何实现多终端适配的，希望这篇文章对大家在Mobile的世界中能过得更轻松。
-目标拿一个双11的Mobile页面来做案例，比如你实现一个类似下图的一个H5页面：
+              代码git地址
+开发工具IcoMoon网址：https://icomoon.io/参考链接：https://blog.csdn.net/github_38313789/article/details/81368696用法：上传icon，生成字体文件，将fonts文件夹和style.css文件复制到项目中，然后引入icon的class即可调用
+mock网址：http://mockjs.com/用途：模拟后台数据
+草料网网址：http://cli.im
+用途：在手机上查看页面，在线测试
+方法：开启本地项目服务，然后将 localhost:8080/#/goods 中的 localhost 改为本电脑的IP地址（通过 ipconfig 查看），然后将修改后的网址放到草料网上，生成二维码，即可查看。
+注意：保证手机和电脑连接在同一个局域网
 
-目标很清晰，就是做一个这样的H5页面。
-DEMO请用手机扫下面的二维码
+样式实现注意事项
+两个 inline-block 之间存在间隙，在父级 node 设置 font-size: 0 或者删除两个 &lt;span /&gt; 之间的换行 ，在当前两个 node 的 font-size 设为正常字体;
 
-痛点虽然H5的页面与PC的Web页面相比简单了不少，但让我们头痛的事情是要想尽办法让页面能适配众多不同的终端设备。看看下图你就会知道，这是多么痛苦的一件事情：
-
-点击这里查看更多终端设备的参数。
-再来看看手淘H5要适配的终端设备数据：
-
-看到这些数据，是否死的心都有了
+一个图片，一个文字在
               ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/08/15/前端开发/5-运行环境/移动端适配/使用Flexible实现手淘H5页面的终端适配/" rel="contents">
+              <a class="btn" href="/2019/08/15/前端开发/6-框架和类库/Vue/vue饿了么实战笔记/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/" class="post-title-link" itemprop="url">【转发】vue数据变视图不变</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-15 20:57:45" itemprop="dateCreated datePublished" datetime="2019-08-15T20:57:45+08:00">2019-08-15</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              转发自 解析Vue数据/数组对象改变视图不更新
+当我们数据发生变化，视图却没有变化时，三种方法
+使用$set此时我们需要知道Vue.set()需要哪些参数，官方API：Vue.set()
+
+调用方法：Vue.set( target, key, value )
+
+target：要更改的数据源(可以是对象或者数组)
+key：要更改的具体数据
+value：重新赋的值
+
+this.$set(this.arr[key], &#39;title&#39;, &#39;1&#39;)这种方法就可以进行视图刷新
+
+使用$forceUpdate()数据层次太多，render函数没有自动更新，需手动强制刷新
+
+this.$forceUpdate() 就是强制刷新视图 很粗暴
+
+通过改变data来触发新的渲染&lt;div style=&quot;display:none;&quot;&gt; &lt;/div&gt;
+在你操作数据的方法下加以下这段就可以达到目的
+this.$nextTick(() =&gt; &#123;  this.is_show = !this.is_show&#125;)
+
+
+
+解
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/15/前端开发/6-框架和类库/Vue/vue数据变视图不变/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1340,7 +1514,7 @@ Vue动态组件前面的话让多个组件使用同一个挂载点，并动态�
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">25</span>
+                    <span class="site-state-item-count">26</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1406,7 +1580,9 @@ Vue动态组件前面的话让多个组件使用同一个挂载点，并动态�
                     
                       
                     
-                    <span class="site-state-item-count">15</span>
+                      
+                    
+                    <span class="site-state-item-count">16</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
