@@ -387,7 +387,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/Node学习笔记-1/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -407,7 +407,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/10/09/Node学习笔记-1/" class="post-title-link" itemprop="url">Node学习笔记01</a>
+                <a href="/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/" class="post-title-link" itemprop="url">Node学习笔记01</a>
               
             
           </h1>
@@ -517,7 +517,7 @@ V8 JavaScript 引
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/10/09/Node学习笔记-1/" rel="contents">
+              <a class="btn" href="/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1297,7 +1297,7 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -1317,7 +1317,7 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
               
             
           </h1>
@@ -1400,33 +1400,20 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
         
           
             <p>
-              svg渐变环形进度条组件实现原理：
-
-画一个底圆，设置为灰色
-画一段弧，因为弧
-弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
-添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
-添加动画
-
-寥寥数行SVG实现圆环loading或倒计时效果实现原理：【代码更为简洁】
-
-采用煎饼原理 CSS3实现鸡蛋饼饼图loading等待转转转
-代码demo SVG实现圆环loading进度效果demo
-ios上的旋转bug
-更新于 2016 年 11 月 24 日
-测试发现，iOS 手机上，貌似 transform 逆时针旋转 90° 只会改变图形外观，但是其坐标起始位置还是右侧。因此，更改起始坐标可能还需要通过外部容器旋转控制。
-更新于 2017 年 11 月 1 日
-感谢辉辉的反馈，iOS手机上起始坐标异常问题，可以通过添加如下CSS修正：
-   svg &#123;  transform: rotate(-0.05deg);&#125;
+              安装npm install echarts vue-echarts
 
 
+echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
 
-              
+配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    &apos;vue-echarts&apos;,    &apos;resize-detector&apos;  ]&#125;
+
+vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_m
+              ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1666,7 +1653,7 @@ import 'normalize.css'
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -1686,7 +1673,7 @@ import 'normalize.css'
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
               
             
           </h1>
@@ -1769,20 +1756,33 @@ import 'normalize.css'
         
           
             <p>
-              安装npm install echarts vue-echarts
+              svg渐变环形进度条组件实现原理：
+
+画一个底圆，设置为灰色
+画一段弧，因为弧
+弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
+添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
+添加动画
+
+寥寥数行SVG实现圆环loading或倒计时效果实现原理：【代码更为简洁】
+
+采用煎饼原理 CSS3实现鸡蛋饼饼图loading等待转转转
+代码demo SVG实现圆环loading进度效果demo
+ios上的旋转bug
+更新于 2016 年 11 月 24 日
+测试发现，iOS 手机上，貌似 transform 逆时针旋转 90° 只会改变图形外观，但是其坐标起始位置还是右侧。因此，更改起始坐标可能还需要通过外部容器旋转控制。
+更新于 2017 年 11 月 1 日
+感谢辉辉的反馈，iOS手机上起始坐标异常问题，可以通过添加如下CSS修正：
+   svg &#123;  transform: rotate(-0.05deg);&#125;
 
 
-echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
 
-配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    &apos;vue-echarts&apos;,    &apos;resize-detector&apos;  ]&#125;
-
-vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_m
-              ...
+              
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

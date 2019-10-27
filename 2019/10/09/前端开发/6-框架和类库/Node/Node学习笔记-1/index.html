@@ -94,19 +94,19 @@
 <meta name="keywords" content="框架和类库,Node">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node学习笔记01">
-<meta property="og:url" content="https://957739315.github.io/2019/10/09/Node学习笔记-1/index.html">
+<meta property="og:url" content="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/index.html">
 <meta property="og:site_name" content="CMR学习日志">
 <meta property="og:description" content="前言之后的学习笔记是基于学习2018年Node.js入门实战视频教程（39讲-IT营大地）而记录的，如果存在问题欢迎大家指正！！ 一、简介 安装 开发工具配置NodeJs 介绍 JavaScript 运行环境 与后端语言 PHP JSP Python Ruby 等平起平坐 基于 V8 引擎（ Google 发布的开源 JavaScript 引擎）  nodejs 之父 – Ryan Dahl  N">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://957739315.github.io/.io//Ryan-Dahl%E5%9B%BE%E7%89%87.jpg">
-<meta property="og:image" content="https://957739315.github.io/.io//node%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF.png">
-<meta property="og:image" content="https://957739315.github.io/.io//url%E6%A8%A1%E5%9D%97.png">
-<meta property="og:image" content="https://957739315.github.io/.io//%E5%8C%85%E5%AE%9A%E4%B9%89.png">
-<meta property="og:updated_time" content="2019-10-21T06:20:39.085Z">
+<meta property="og:image" content="https://957739315.github.io/.io//Ryan-Dahl.jpg">
+<meta property="og:image" content="https://957739315.github.io/.io//node-scene.png">
+<meta property="og:image" content="https://957739315.github.io/.io//url.png">
+<meta property="og:image" content="https://957739315.github.io/.io//pack-define.png">
+<meta property="og:updated_time" content="2019-10-27T06:49:34.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node学习笔记01">
 <meta name="twitter:description" content="前言之后的学习笔记是基于学习2018年Node.js入门实战视频教程（39讲-IT营大地）而记录的，如果存在问题欢迎大家指正！！ 一、简介 安装 开发工具配置NodeJs 介绍 JavaScript 运行环境 与后端语言 PHP JSP Python Ruby 等平起平坐 基于 V8 引擎（ Google 发布的开源 JavaScript 引擎）  nodejs 之父 – Ryan Dahl  N">
-<meta name="twitter:image" content="https://957739315.github.io/.io//Ryan-Dahl%E5%9B%BE%E7%89%87.jpg">
+<meta name="twitter:image" content="https://957739315.github.io/.io//Ryan-Dahl.jpg">
 
 
 
@@ -114,7 +114,7 @@
 
   
   
-  <link rel="canonical" href="https://957739315.github.io/2019/10/09/Node学习笔记-1/">
+  <link rel="canonical" href="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/">
 
 
 
@@ -392,7 +392,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/Node学习笔记-1/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -505,7 +505,7 @@
 <li>基于 V8 引擎（ Google 发布的开源 JavaScript 引擎）</li>
 </ul>
 <p><strong>nodejs 之父 – Ryan Dahl</strong></p>
-<p><img src="/.io//Ryan-Dahl%E5%9B%BE%E7%89%87.jpg" alt="Ryan Dahl"></p>
+<p><img src="/.io//Ryan-Dahl.jpg" alt="Ryan Dahl"></p>
 <h2 id="NodeJs-优势"><a href="#NodeJs-优势" class="headerlink" title="NodeJs 优势"></a>NodeJs 优势</h2><ul>
 <li><p>使用的是 js 语法，方便前端程序员开发后台</p>
 </li>
@@ -525,14 +525,14 @@
 <li><p>开发周期端、开发成本低、学习成本低</p>
 </li>
 </ul>
-<h2 id="NodeJs-适用场景"><a href="#NodeJs-适用场景" class="headerlink" title="NodeJs 适用场景"></a>NodeJs 适用场景</h2><p><img src="/.io//node%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF.png" alt="NodeJs 适用场景"></p>
+<h2 id="NodeJs-适用场景"><a href="#NodeJs-适用场景" class="headerlink" title="NodeJs 适用场景"></a>NodeJs 适用场景</h2><p><img src="/.io//node-scene.png" alt="NodeJs 适用场景"></p>
 <h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="http://nodejs.cn/api/" target="_blank" rel="noopener">nodejs 官方文档</a></p>
 <p><a href="http://nodejs.cn/download/" target="_blank" rel="noopener">node 安装</a></p>
 <p><a href="https://github.com/sqreen/awesome-nodejs-projects" target="_blank" rel="noopener">推荐 nodejs 项目</a></p>
 <h1 id="二、Http模块-Url模块-自启动工具"><a href="#二、Http模块-Url模块-自启动工具" class="headerlink" title="二、Http模块 Url模块 自启动工具"></a>二、Http模块 Url模块 自启动工具</h1><h2 id="Http-模块"><a href="#Http-模块" class="headerlink" title="Http 模块"></a>Http 模块</h2><p>如果我们使用PHP来编写后端的代码时，需要 Apache 或者 Nginx 的 HTTP 服务器，并配上 mod_php5 模块和 php-cgi，来处理客户端的请求相应。<br>不过对 Node.js 来说，概念完全不一样了。使用 Node.js 时，我们不仅仅 在实现一个应用，同时还实现了整个 HTTP 服务器。</p>
 <h2 id="Url模块"><a href="#Url模块" class="headerlink" title="Url模块"></a>Url模块</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url.parse(urlObject)  <span class="comment">// 解析 URL </span></span><br><span class="line">url.parse(urlObject, <span class="literal">true</span>)  <span class="comment">//  对 url 的 query 参数提取出为 json</span></span><br><span class="line">url.format(urlObject)  <span class="comment">// 是上面 url.parse() 操作的逆向操作</span></span><br><span class="line">url.resolve(<span class="keyword">from</span>, to)  <span class="comment">// 添加或者替换地址</span></span><br></pre></td></tr></table></figure>
 
-<p><img src="/.io//url%E6%A8%A1%E5%9D%97.png" alt="url模块"></p>
+<p><img src="/.io//url.png" alt="url模块"></p>
 <h2 id="自启动工具"><a href="#自启动工具" class="headerlink" title="自启动工具"></a>自启动工具</h2><p>修改代码后，能自动重新运行代码</p>
 <h3 id="supervisor-工具"><a href="#supervisor-工具" class="headerlink" title="supervisor 工具"></a>supervisor 工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">yarn add supervisor -g</span><br><span class="line">supervisor server.js</span><br></pre></td></tr></table></figure>
 
@@ -562,7 +562,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//var bar=require('bar/bar.js');</span></span><br><span class="line"><span class="keyword">var</span> bar=<span class="built_in">require</span>(<span class="string">'bar'</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//bar 在根目录不存在，去node_modules ，找到了bar文件夹。 bar文件夹下面有package.json ，</span></span><br><span class="line"><span class="comment">//找 package.json 入口文件 "main": "bar.js",</span></span><br><span class="line"><span class="built_in">console</span>.log(bar.str);</span><br><span class="line"><span class="comment">//package.json      npm init  --yse       进入这个目录运行这个命令</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="四、Nodejs-包与-NPM-第三方模块安装和-package-json-以及-CNPM"><a href="#四、Nodejs-包与-NPM-第三方模块安装和-package-json-以及-CNPM" class="headerlink" title="四、Nodejs 包与 NPM 第三方模块安装和 package.json 以及 CNPM"></a>四、Nodejs 包与 NPM 第三方模块安装和 package.json 以及 CNPM</h1><h2 id="包与-NPM"><a href="#包与-NPM" class="headerlink" title="包与 NPM"></a>包与 NPM</h2><p>Nodejs 中第三方模块由包组成，可以通过包来对一组具有相互依 赖关系的模块进行统一管理。 </p>
-<p><img src="/.io//%E5%8C%85%E5%AE%9A%E4%B9%89.png" alt="包与模块的关系"></p>
+<p><img src="/.io//pack-define.png" alt="包与模块的关系"></p>
 <p>完全符合 CommonJs 规范的包目录一般包含如下这些文件。</p>
 <ul>
 <li>package.json：包描述文件。</li>
@@ -604,7 +604,7 @@
 
 <h1 id="五、nodejs-fs-模块"><a href="#五、nodejs-fs-模块" class="headerlink" title="五、nodejs fs 模块"></a>五、nodejs fs 模块</h1><h2 id="fs-stat-检测是文件还是目录"><a href="#fs-stat-检测是文件还是目录" class="headerlink" title="fs.stat  检测是文件还是目录"></a>fs.stat  检测是文件还是目录</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> fs=<span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line">fs.stat(<span class="string">'html'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err,stats</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(err)&#123;</span><br><span class="line">   <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'文件：'</span>+stats.isFile());</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'目录：'</span>+stats.isDirectory());</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<h2 id="fs-mkdir-创建目录"><a href="#fs-mkdir-创建目录" class="headerlink" title="fs.mkdir  创建目录"></a>fs.mkdir  创建目录</h2><p><strong>参数说明：</strong><br>path： <string> | <buffer> | <url> 路径</url></buffer></string></p>
+<h2 id="fs-mkdir-创建目录"><a href="#fs-mkdir-创建目录" class="headerlink" title="fs.mkdir  创建目录"></a>fs.mkdir  创建目录</h2><p><strong>参数说明：</strong><br>path： <code>&lt;string&gt;</code> | <code>&lt;Buffer&gt;</code> | <code>&lt;URL&gt;</code> 路径</p>
 <p>options： 配置<br>    recursive <boolean> 默认值: false。  是否应创建父文件夹<br>    mode <integer> Windows 上不支持。默认值: 0o777。 目录权限（读写权限）</integer></boolean></p>
 <p>callback： <function> 回调<br>    err <error> 异常参数</error></function></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fs.mkdir(<span class="string">'css'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line"> <span class="keyword">if</span>(err)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">'创建目录成功'</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -887,7 +887,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://957739315.github.io/2019/10/09/Node学习笔记-1/" title="Node学习笔记01">https://957739315.github.io/2019/10/09/Node学习笔记-1/</a>
+    <a href="https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/" title="Node学习笔记01">https://957739315.github.io/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记-1/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
