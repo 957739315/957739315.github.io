@@ -579,179 +579,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/11/04/前端开发/6-框架和类库/Vue/vue中使用svg/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈妙容">
-      <meta itemprop="description" content="努力点总没错，努力使我快乐">
-      <meta itemprop="image" content="/images/my-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CMR学习日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/11/04/前端开发/6-框架和类库/Vue/vue中使用svg/" class="post-title-link" itemprop="url">vue中使用svg</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-11-04 20:57:45" itemprop="dateCreated datePublished" datetime="2019-11-04T20:57:45+08:00">2019-11-04</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              svg在vue项目中的使用
-Vue中使用SVG封装成SVG组件
-
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/11/04/前端开发/6-框架和类库/Vue/vue中使用svg/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/11/04/前端开发/6-框架和类库/Hexo/Hexo常见报错/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -853,18 +680,7 @@ Vue中使用SVG封装成SVG组件
 
       
         
-          
-            <p>
-              TypeError: Cannot set property ‘lastIndex’ of undefined错误场景：运行 hexo s 报错
-错误原因：auto_detect设置为自动检测语言，github源码地址使用说明：https：//github.com/hexojs/hexo-util#highlightstr-options我认为问题是由highlight.js尝试检测代码语言引起的。
-解决办法：在 _config.yml 中设置 auto_detect：false
-打开 _config.yml 文件，修改如下配置：
-highlight：   enable：true   line_number：false   auto_detect：false   tab_replace：
-
-参考链接：TypeError: Cannot set property ‘lastIndex’ of undefined
-
-              
-            </p>
+          <p>hexo 报错问题：<br>TypeError: Cannot set property ‘lastIndex’ of undefined</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1031,28 +847,7 @@ highlight：   enable：true   line_number：false   auto_detect：false   tab_r
 
       
         
-          
-            <p>
-              常规配置
-安装插件 yarn add hexo-asset-image 或 npm install hexo-asset-image
-
-修改 _config.yml 配置文件
-
-
-url: https://957739315.github.io/root: / #默认根路径，指向实际的source...post_asset_folder:true
-
-
-创建一文章 hexo new &quot;myTxt&quot; 然后查看博客的 ../source/_posts 目录下的文件，会看到存在一个 myTxt 文件夹 和 myTxt.md 文件
-
-在 myTxt.md 文件中直接引入图片 ![test png](myTxt/test.png)
-
-
-
-问题出现了。。。
-之前使用了此方法是能成功调用的，但是最近发现好像不太行了，在 md 文件中正确引用了图片路径还是无法正常显示；
-接着，查看了一下图片路径，发现路径是错误 ./io//myTxt/url.png，去我的 github 上看发现图片是能够正常上传的，而且正确路径应该为 //957739315.github.io/2019/10/0
-              ...
-            </p>
+          <p>发现 hexo-asset-image 插件上传图片，生成的图片路径存在问题，导致 hexo 上传图片无法正常显示问题。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -1224,182 +1019,6 @@ url: https://957739315.github.io/root: / #默认根路径，指向实际的sourc
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/10/09/前端开发/6-框架和类库/Node/Node学习笔记之基础篇/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/27/前端开发/5-运行环境/移动端事件/移动端触屏事件/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈妙容">
-      <meta itemprop="description" content="努力点总没错，努力使我快乐">
-      <meta itemprop="image" content="/images/my-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CMR学习日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/27/前端开发/5-运行环境/移动端事件/移动端触屏事件/" class="post-title-link" itemprop="url">移动端触屏事件</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-27 16:23:23" itemprop="dateCreated datePublished" datetime="2019-09-27T16:23:23+08:00">2019-09-27</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              移动端H5的touch事件与iOS的 gesture事件
-js中的touch事件及gesture(手势)事件详解 — 第13.4.9节
-js实现移动端图片预览：手势缩放， 手势拖动，双击放大…
-浅谈javascript中stopImmediatePropagation函数和stopPropagation函数的区别
-什么是 Hack ?
-
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/27/前端开发/5-运行环境/移动端事件/移动端触屏事件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1914,30 +1533,7 @@ js实现移动端图片预览：手势缩放， 手势拖动，双击放大…
 
       
         
-          
-            <p>
-              在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~
-使用1. 安装
-npm i vue-faskclick
-
-2. 使用
-// 在main.jsimport fastclick from 'fastclick';fastclick.attach(document.body);
-
-3. 说明
-
-fastclick 已经好近年没更新了,貌似遗留了许多问题
-ios11 据说是修复300ms 的延迟, 但是经过测试,貌似问题还是存在的.至于说 元素加入
-
-html &#123; touch-action: manipulation; &#125;
-
-
-貌似还会有各种各样的问题, 事实上 fastclick 还是用的着的. vue-fastclick 在某些地方修复了 fastclick 遗留的一些问题.
-
-原因为什么需要使用 fastClick ？
-根源问题：
-viewport 解决方案的出现后，提供了双击缩放。因此，移动浏览器会在 touchend 和 click 事件之间，等待 300 - 350 m
-              ...
-            </p>
+          <p>在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？它又是如何解决移动端 300ms 的延迟问题的？<br>因此，在这里记录一下 ~ ~ ~</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -2184,184 +1780,6 @@ viewport 解决方案的出现后，提供了双击缩放。因此，移动浏�
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈妙容">
-      <meta itemprop="description" content="努力点总没错，努力使我快乐">
-      <meta itemprop="image" content="/images/my-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CMR学习日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-09-24 20:57:45" itemprop="dateCreated datePublished" datetime="2019-09-24T20:57:45+08:00">2019-09-24</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              安装npm install echarts vue-echarts
-
-
-echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
-
-配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    &apos;vue-echarts&apos;,    &apos;resize-detector&apos;  ]&#125;
-
-vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_m
-              ...
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2540,6 +1958,184 @@ import 'normalize.css'
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" class="post-title-link" itemprop="url">vue-echarts && echarts</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-24 20:57:45" itemprop="dateCreated datePublished" datetime="2019-09-24T20:57:45+08:00">2019-09-24</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              安装npm install echarts vue-echarts
+
+
+echarts 和 vue-echarts 两个包的区别echarts就是普通的js库vue-echarts是封装后的vue插件 按照vue插件那样使用
+
+配置vue3配置// vue.config.jsmodule.exports = &#123;  transpileDependencies: [    &apos;vue-echarts&apos;,    &apos;resize-detector&apos;  ]&#125;
+
+vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        loader: 'babel-loader',-       include: [resolve('src'), resolve('test')]+       include: [+         resolve('src'),+         resolve('test'),+         resolve('node_m
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue-echarts/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vuex-router-sync/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2641,20 +2237,7 @@ import 'normalize.css'
 
       
         
-          
-            <p>
-              在公司项目开发工程中，看到在 main.js 文件中出现 vuex-router-sync，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~
-vuex-router-sync怎么用？
-安装包
-
-# the latest version works only with vue-router &gt;= 2.0npm install vuex-router-sync# for usage with vue-router &lt; 2.0:npm install vuex-router-sync@2
-
-
-配置
-
-// vue工程 - main.js...import &#123; sync &#125; from 'vuex-router-sync'import router from './router'import store from './store'.../* eslint-disable no-new */new Vue(&#123;  el: '#app',  router,  store,  render: h =&gt; h(App),&#125;)sync(
-              ...
-            </p>
+          <p>在公司项目开发工程中，看到在 main.js 文件中出现 vuex-router-sync，就不知道这个是什么？有啥作用？<br>vuex-router-sync 作用是将 store 和 router 连接起来，实现组件与 Vuex 和 Vue-router 的逻辑完全分离。适用于您不关心当前路由和 Vuex getter 返回值之间关系的情况。</p>
           <!--noindex-->
           
             <div class="post-button text-center">
@@ -3626,178 +3209,6 @@ Highcharts：稳定性非常好，适用于各种浏览器，相对于echarts更
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/2-HTML和CSS/CSS/less/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="陈妙容">
-      <meta itemprop="description" content="努力点总没错，努力使我快乐">
-      <meta itemprop="image" content="/images/my-avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CMR学习日志">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/08/20/前端开发/2-HTML和CSS/CSS/less/" class="post-title-link" itemprop="url">less语法</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-          
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2019-08-20 17:24:39" itemprop="dateCreated datePublished" datetime="2019-08-20T17:24:39+08:00">2019-08-20</time>
-            </span>
-          
-
-          
-
-          
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-
-          <br>
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>
-              less中文网
-变量@baseFontSize : 16px; // 主字体大小
-              
-            </p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2019/08/20/前端开发/2-HTML和CSS/CSS/less/" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -3910,6 +3321,533 @@ var x = 10;console.log(x) // 输出 10&#123;	console.log(x); // 输出10,说明�
           
             <div class="post-button text-center">
               <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/全局变量 局部变量 块级变量/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/1-JavaScript基础/变量和类型/变量提升/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/变量提升/" class="post-title-link" itemprop="url">变量和函数提升</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 17:08:57" itemprop="dateCreated datePublished" datetime="2019-08-20T17:08:57+08:00">2019-08-20</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              变量声明提升var n = 2;(function()&#123;         console.log(n);  //这里输出undefined，为什么？         var n = 10;  //这里的局部变量声明被提升了         console.log(n);  //这里输出10&#125;)()
+
+我们可以尝试把函数中 var n = 10; 注释掉。
+PS：全局没有变为局部，而是其实就是两个不同的变量，一个是全局，一个是局部，刚好变量名相同而已。
+var n = 2;(function()&#123;         console.log(n);  //此时这里输出2。         n = 10;         console.log(n);  //这里输出10&#125;)()
+
+为什么会出现这种情况呢？实际上上面第一段代码相当于下面的代码（等价的）。  
+var n = 2;(function()&#123;         var n; // 变量的声明不管写在哪里，都会被提升到该作用域的最前面，注意赋值没有被提升。         console
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/20/前端开发/1-JavaScript基础/变量和类型/变量提升/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/7-前端工程/版本控制/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/20/前端开发/7-前端工程/版本控制/git/" class="post-title-link" itemprop="url">git常用命令</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 16:46:19" itemprop="dateCreated datePublished" datetime="2019-08-20T16:46:19+08:00">2019-08-20</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              常用命令廖雪峰Git
+配置 ssh//配置全局账户邮箱，用于公司密钥$ git config --global user.name "name"  $ git config --global user.email "email" $ ssh-keygen -t rsa -C "1email@company.com" -f ~/.ssh/id_rsa //将生成的 id_rsa.pub 内容赋值粘贴到gitLab上个人中心settings的ssh key//配置个人账户邮箱，用于私有密钥，在hexo-blog项目下配置$ git config user.name "name"  $ git config user.email "email" $ ssh-keygen -t rsa -C "2email@github.com" -f ~/.ssh/github_rsa//将生成的 id_rsa.pub 内容赋值粘贴到gitLab上个人中心settings的ssh key
+
+用记事本打开 XXX_rsa.pub 将内容复制添加项目 git 地址下的 ssh 设置
+在 dev 分支开发本地自己
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/20/前端开发/7-前端工程/版本控制/git/" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/" class="post-title-link" itemprop="url">webpack配置插件</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-08-20 16:46:19" itemprop="dateCreated datePublished" datetime="2019-08-20T16:46:19+08:00">2019-08-20</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>
+              extract-text-webpack-plugin作用：抽离css样式, 防止将样式打包在js中引起页面样式加载错乱的现象
+适用：抽取 Less 或者 Sass
+用法：
+const ExtractTextPlugin = require('extract-text-webpack-plugin');module.exports = &#123;  module: &#123;    rules: [      &#123;        test: /\.scss$/,        use: ExtractTextPlugin.extract(&#123;          fallback: 'style-loader',          use: ['css-loader', 'sass-loader']        &#125;)      &#125;    ]  &#125;,  plugins: [    new ExtractTextPlugin('style.css')    //if you want to pass in options, you can 
+              ...
+            </p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2019/08/20/前端开发/7-前端工程/项目构建/webpack/配置插件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>

@@ -90,18 +90,18 @@
 
 
 
-  <meta name="description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+  <meta name="description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？它又是如何解决移动端 300ms 的延迟问题的？因此，在这里记录一下 ~ ~ ~">
 <meta name="keywords" content="运行环境,移动端适配">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fastClick原理解析">
 <meta property="og:url" content="https://957739315.github.io/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/index.html">
 <meta property="og:site_name" content="CMR学习日志">
-<meta property="og:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+<meta property="og:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？它又是如何解决移动端 300ms 的延迟问题的？因此，在这里记录一下 ~ ~ ~">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-08T08:26:16.468Z">
+<meta property="og:updated_time" content="2019-11-08T08:31:48.633Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fastClick原理解析">
-<meta name="twitter:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？因此，在这里记录一下 ~ ~ ~ 使用1. 安装 1npm i vue-faskclick  2. 使用 123// 在main.jsimport fastclick from &apos;fastclick&apos;;fastclick.attach(document.body);  3. 说明  fast">
+<meta name="twitter:description" content="在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？它又是如何解决移动端 300ms 的延迟问题的？因此，在这里记录一下 ~ ~ ~">
 
 
 
@@ -493,7 +493,9 @@
       
 
       
-        <p>在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？<br>因此，在这里记录一下 ~ ~ ~</p>
+        <p>在公司项目开发工程中，看到在 main.js 文件中出现 fastClick，就不知道这个是什么？有啥作用？它又是如何解决移动端 300ms 的延迟问题的？<br>因此，在这里记录一下 ~ ~ ~</p>
+<a id="more"></a>
+
 <h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p><strong>1. 安装</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-faskclick</span><br></pre></td></tr></table></figure>
 
@@ -503,7 +505,7 @@
 <p><strong>3. 说明</strong></p>
 <blockquote>
 <p>fastclick 已经好近年没更新了,貌似遗留了许多问题</p>
-<p>ios11 据说是修复300ms 的延迟, 但是经过测试,貌似问题还是存在的.至于说 元素加入</p>
+<p>ios11 据说是修复 300ms 的延迟, 但是经过测试,貌似问题还是存在的.至于说 元素加入</p>
 </blockquote>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">html</span> &#123; <span class="attribute">touch-action</span>: manipulation; &#125;</span><br></pre></td></tr></table></figure>
 
