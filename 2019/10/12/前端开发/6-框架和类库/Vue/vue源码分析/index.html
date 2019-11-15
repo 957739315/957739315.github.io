@@ -90,18 +90,18 @@
 
 
 
-  <meta name="description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范  使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建  主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和">
+  <meta name="description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范 使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建 主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和配合">
 <meta name="keywords" content="Hide,框架和类库,Vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue源码分析">
 <meta property="og:url" content="https://957739315.github.io/2019/10/12/前端开发/6-框架和类库/Vue/vue源码分析/index.html">
 <meta property="og:site_name" content="CMR学习日志">
-<meta property="og:description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范  使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建  主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和">
+<meta property="og:description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范 使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建 主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和配合">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-11-08T07:46:10.392Z">
+<meta property="og:updated_time" content="2019-11-15T16:32:30.463Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue源码分析">
-<meta name="twitter:description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范  使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建  主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和">
+<meta name="twitter:description" content="电子书： Vue.js源码解析 学习视频：Vue.js源码全方位深入解析 笔记总结准备工作代码规范 使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中 vuejs 是一个跨平台的 MVVM 框架  源码构建 主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和配合">
 
 
 
@@ -292,7 +292,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">31</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">32</span></a>
 
   </li>
         
@@ -496,61 +496,53 @@
         <p><strong>电子书：</strong></p>
 <p><a href="https://ustbhuangyi.github.io/vue-analysis/" target="_blank" rel="noopener">Vue.js源码解析</a></p>
 <p><strong>学习视频：</strong><br><a href="https://coding.imooc.com/class/228.html" target="_blank" rel="noopener">Vue.js源码全方位深入解析</a></p>
-<h1 id="笔记总结"><a href="#笔记总结" class="headerlink" title="笔记总结"></a>笔记总结</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><p><strong>代码规范</strong></p>
-<ul>
+<h1 id="笔记总结"><a href="#笔记总结" class="headerlink" title="笔记总结"></a>笔记总结</h1><h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="代码规范"><a href="#代码规范" class="headerlink" title="代码规范"></a><strong>代码规范</strong></h3><ul>
 <li>使用 Flow(类似 TypeScript ) 做静态类型检查，具体相关配置在 .flowconfig 文件中</li>
 <li>vuejs 是一个跨平台的 MVVM 框架</li>
 </ul>
-<p><strong>源码构建</strong></p>
-<ul>
+<h3 id="源码构建"><a href="#源码构建" class="headerlink" title="源码构建"></a><strong>源码构建</strong></h3><ul>
 <li>主要源码目录结构 src：compiler(编译相关)、core(核心代码)、platforms(不同平台的支持，web 平台和配合 weex 跑在 natvie 客户端)、server(服务端渲染)、sfc(.vue文件解析)、shared(共享代码)</li>
 <li>使用 Rollup(类似 webpack) 来进行源码构建，保存到 dist 目录下</li>
 <li>支持不同格式的构建，比如 CommonJS 规范、UMD 规范、ES Module 规范，默认使用 UMD</li>
 <li>源码构建的入口文件是 <code>scripts/build.js</code></li>
 <li>使用 vue-cli 初始化 vue 项目，提供 Runtime Only(运行时不编译) 和 Runtime+Compiler(运行时编译) 两个版本，此处的编译指将 template 编译成 render 函数</li>
 </ul>
-<p><strong>如何完成 vue 的初始化过程？？</strong></p>
-<ul>
+<h3 id="如何完成-vue-的初始化过程？？"><a href="#如何完成-vue-的初始化过程？？" class="headerlink" title="如何完成 vue 的初始化过程？？"></a><strong>如何完成 vue 的初始化过程？？</strong></h3><ul>
 <li>入口文件 <code>src/platforms/web/entry-runtime-with-compiler.js</code>，通过 <code>import Vue from ...</code>找到 vue的构造函数（实例化方法），找到最终 vue 构造函数的路径为 <code>src/core/instance/index.js</code>;</li>
 <li>通过 xxxMixin 的调用往 Vue 的 prototype 上挂载一些方法</li>
 <li>通过 initGobalAPI 挂载了很多全局的静态方法</li>
 </ul>
 <h2 id="数据驱动"><a href="#数据驱动" class="headerlink" title="数据驱动"></a>数据驱动</h2><p>所谓数据驱动，是指视图是由数据驱动生成的，我们对视图的修改，不会直接操作 DOM，而是通过修改数据。</p>
-<p><strong>new Vue 发生什么？</strong></p>
-<p>Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等。</p>
-<p><strong>vue 挂载 $mount 怎么实现？</strong></p>
-<ul>
+<h3 id="new-Vue-发生什么？"><a href="#new-Vue-发生什么？" class="headerlink" title="new Vue 发生什么？"></a><strong>new Vue 发生什么？</strong></h3><p>Vue 初始化主要就干了几件事情，合并配置，初始化生命周期，初始化事件中心，初始化渲染，初始化 data、props、computed、watcher 等等。</p>
+<h3 id="vue-挂载-mount-怎么实现？"><a href="#vue-挂载-mount-怎么实现？" class="headerlink" title="vue 挂载 $mount 怎么实现？"></a><strong>vue 挂载 $mount 怎么实现？</strong></h3><ul>
 <li>对 el 做了限制，Vue 不能挂载在 body、html 这样的根节点上</li>
 <li>如果没有定义 render 方法，则会把 el 或者 template 字符串转换成 render 方法</li>
 <li>只有调用 compileToFunctions 方法，渲染成 render 函数才会调用 mountComponent 挂载组件</li>
 <li>mountComponent 核心就是先实例化一个渲染 Watcher，在它的回调函数中会调用 updateComponent 方法，在此方法中调用 <code>vm._render</code> 方法先生成虚拟 Node，最终调用 <code>vm._update</code> 更新 DOM。函数最后判断为根节点的时候设置 vm._isMounted 为 true， 表示这个实例已经挂载了，同时执行 mounted 钩子函数。 这里注意 vm.$vnode 表示 Vue 实例的父虚拟 Node，所以它为 Null 则表示当前是根 Vue 的实例。</li>
 </ul>
-<p><strong>render 函数</strong><br>vm._render 是通过执行 createElement 方法并返回虚拟 node（vnode）。<br>执行 initRender 方法之前，做了一个拦截 initProxy，判断是否存在变量未在 data 中定义的，则报错。注意此拦截，只在开发环境做，生产环境下不拦截判断。</p>
-<p><strong>Virtual DOM</strong></p>
-<ul>
+<h3 id="render-函数"><a href="#render-函数" class="headerlink" title="render 函数"></a><strong>render 函数</strong></h3><p>vm._render 是通过执行 createElement 方法并返回虚拟 node（vnode）。<br>执行 initRender 方法之前，做了一个拦截 initProxy，判断是否存在变量未在 data 中定义的，则报错。注意此拦截，只在开发环境做，生产环境下不拦截判断。</p>
+<h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a><strong>Virtual DOM</strong></h3><ul>
 <li>Virtual DOM 除了它的数据结构的定义，映射到真实的 DOM 实际上要经历 VNode 的 create、diff、patch 等过程。</li>
-<li>Virtual DOM 是借鉴了一个开源库 snabbdom</li>
+<li>Virtual DOM 是借鉴了一个开源库 Snabbdom</li>
 </ul>
-<p><strong>createElement 实现原理</strong></p>
-<ol>
-<li>children 的规范化：把 children 变成一个类型为 VNode 的 Array</li>
-</ol>
+<h3 id="createElement-实现原理"><a href="#createElement-实现原理" class="headerlink" title="createElement 实现原理"></a><strong>createElement 实现原理</strong></h3><ol>
+<li><p>children 的规范化：把 children 变成一个类型为 VNode 的 Array</p>
 <ul>
 <li>把 vnode 节点的子节点页都规范成 vnode 类型</li>
 <li>Virtual DOM 实际是一个树状结构，每个 VNode 可能会有若干个子节点，每个子节点页应该是 VNode 类型。</li>
 <li>normalizeChildren(children) 和 simpleNormalizeChildren(children) 方法都是为了将子节点转化为一维的 vnode。</li>
 <li>调用 simpleNormalizeChildren(children) 场景：针对函数式组件（包含有组件的子节点），将嵌套的子节点变为一维数组</li>
-<li>调用 normalizeChildren(children) 场景：针对还有嵌套数组的组件（eg. v-for、<template>、<slot>），把多层嵌套的子节点变成一维数组</slot></template></li>
+<li>调用 normalizeChildren(children) 场景：针对还有嵌套数组的组件（<code>eg. v-for、&lt;template&gt;、&lt;slot&gt;</code>），把多层嵌套的子节点变成一维数组</li>
 </ul>
-<ol start="2">
-<li>创建一个 VNode 实例</li>
-</ol>
+</li>
+<li><p>创建一个 VNode 实例</p>
 <ul>
 <li>内置节点，则创建普通 VNode</li>
 <li>已注册的组件名，则使用 createComponent 创建一个组件类型的 VNode</li>
 </ul>
-<p><strong>update</strong></p>
-<ul>
+</li>
+</ol>
+<h3 id="update"><a href="#update" class="headerlink" title="update"></a><strong>update</strong></h3><ul>
 <li>调用时机：首次渲染、数据更新时</li>
 <li>vm._update 核心调用 <code>vm.__patch__</code></li>
 <li>在真实浏览器下，会通过 patch 方法转换成 DOM；在服务端渲染下，不会把 VNode 转换成 DOM，只是返回一个空函数</li>
@@ -558,8 +550,30 @@
 <li>不断插入到父节点，直到插入到 body 节点，然后渲染新的 DOM 节点，删除旧的 DOM 节点。</li>
 <li>创建一个新节点，然后把旧的节点替换了。</li>
 </ul>
-<p>看截图</p>
-<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><h2 id="深入响应式原理"><a href="#深入响应式原理" class="headerlink" title="深入响应式原理"></a>深入响应式原理</h2><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h2 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue Router"></a>Vue Router</h2><h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><h1 id="引发相关需要了解的知识点"><a href="#引发相关需要了解的知识点" class="headerlink" title="引发相关需要了解的知识点"></a>引发相关需要了解的知识点</h1><h2 id="了解-flow"><a href="#了解-flow" class="headerlink" title="了解 flow"></a>了解 flow</h2><p>flow官网：<a href="https://flow.org/en/docs/getting-started/" target="_blank" rel="noopener">https://flow.org/en/docs/getting-started/</a></p>
+<h2 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h2><h3 id="组件创建生成"><a href="#组件创建生成" class="headerlink" title="组件创建生成"></a><strong>组件创建生成</strong></h3><ol>
+<li><strong>构造子类构造函数</strong>：组件构造器的生成，是继承了 Vue</li>
+<li><strong>安装组件钩子函数</strong>：在初始化一个 Component 类型的 VNode 过程中，合并了 componentVNodeHooks 钩子函数到 VNode.data 中，便于在最终执行时依次执行这两个钩子函数。其中，componentVNodeHooks  实现了 init、prepatch、insert、destroy 函数。</li>
+<li><strong>实例化 VNode</strong>：不同于普通元素节点的 vnode（在 createElement 中有对参数 tag 的判断是否为字符串，若是则实例化一个普通 VNode 节点，否则通过 createComponent 创建一个组件 VNode)，组件 vnode 没有 children</li>
+</ol>
+<blockquote>
+<p>接着，通过 vm._update -&gt; patch 方法将 VNode 转化为真正 DOM 节点，如何做的呢？？</p>
+</blockquote>
+<h3 id="patch"><a href="#patch" class="headerlink" title="patch"></a><strong>patch</strong></h3><ol>
+<li><strong>组件 patch 整体流程</strong></li>
+</ol>
+<p>patch 调用 createElem 创建节点，再调用 createComponent 方法</p>
+<p>遇到子组件就先 patch，直到不再遇到子组件，就开始 inset，先 inset 子组件，再 inset 父组件。</p>
+<p>1）根组件 APP，转化为 VNode，其 parentEle 是一个 body</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">var app = new Vue(&#123;</span><br><span class="line">	el: &apos;#app&apos;,</span><br><span class="line">	render(h) &#123;</span><br><span class="line">		return h(APP)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>2）进入 createEle 方法进行初始化组件实例，再进入 createComponent 方法，再进入 createComponentInstanceForVnode 方法，创建组件实例 new Vue，挂载一些 option 和建立组件的父子关系 initLifecycle<br>3）进入子组件实例挂载 $mount</p>
+<ol start="2">
+<li><p><strong>组件 patch 流程中 activeInstance、vm.$vnode、vm._vnode 等</strong></p>
+</li>
+<li><p><strong>嵌套组件插入顺序</strong></p>
+</li>
+</ol>
+<h2 id="深入响应式原理"><a href="#深入响应式原理" class="headerlink" title="深入响应式原理"></a>深入响应式原理</h2><h2 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h2><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2><h2 id="Vue-Router"><a href="#Vue-Router" class="headerlink" title="Vue Router"></a>Vue Router</h2><h2 id="Vuex"><a href="#Vuex" class="headerlink" title="Vuex"></a>Vuex</h2><h1 id="引发相关需要了解的知识点"><a href="#引发相关需要了解的知识点" class="headerlink" title="引发相关需要了解的知识点"></a>引发相关需要了解的知识点</h1><h2 id="了解-flow"><a href="#了解-flow" class="headerlink" title="了解 flow"></a>了解 flow</h2><p>flow官网：<a href="https://flow.org/en/docs/getting-started/" target="_blank" rel="noopener">https://flow.org/en/docs/getting-started/</a></p>
 <p>flow 主要用于对各种函数和变量的类型检查。</p>
 <h2 id="weex-框架"><a href="#weex-框架" class="headerlink" title="weex 框架"></a>weex 框架</h2><p><a href="https://weex.apache.org/zh/guide/introduction.html" target="_blank" rel="noopener">wexx 官方文档</a></p>
 <h2 id="MVVM框架"><a href="#MVVM框架" class="headerlink" title="MVVM框架"></a>MVVM框架</h2><p>MVVM是Model-View-ViewModel的简写。</p>
@@ -567,9 +581,11 @@
 <p>View：应用程序中处理数据显示的部分。在Android开发中，它一般对应着xml布局文件、Activity、Fragment。</p>
 <p>ViewModel ：创建关联，将Model和View绑定起来。这样，一旦Model发生更改，ViewModel就会立即反馈给View从而自动刷新界面。</p>
 <p><strong>了解客户端结构设计 MVVM MVC MVP 等框架</strong></p>
+<p><a href="http://www.ruanyifeng.com/blog/2015/02/mvcmvp_mvvm.html?bsh_bid=1620401552" target="_blank" rel="noopener">MVC，MVP 和 MVVM 的图示</a></p>
 <h2 id="模块化思想"><a href="#模块化思想" class="headerlink" title="模块化思想"></a>模块化思想</h2><p>CommonJS - nodejs 规范<br>UMD- 兼容不同的加载规范，兼容 CommonJS、AMD、CMD<br>ES6 Module - import / export</p>
 <p><a href="https://blog.csdn.net/Real_Bird/article/details/54869066" target="_blank" rel="noopener">javascript模块化之CommonJS、AMD、CMD、UMD、ES6</a></p>
-<h2 id="hasProxy-是-es6-语法"><a href="#hasProxy-是-es6-语法" class="headerlink" title="hasProxy 是 es6 语法"></a>hasProxy 是 es6 语法</h2><p>作用是，对对象访问做一个劫持</p>
+<h2 id="hasProxy-是-es6-语法"><a href="#hasProxy-是-es6-语法" class="headerlink" title="hasProxy 是 es6 语法"></a>hasProxy 是 es6 语法</h2><p>作用是，对对象访问做一个劫持。</p>
+<p><a href="https://blog.csdn.net/weixin_43513495/article/details/99444276" target="_blank" rel="noopener">Proxy代理has方法</a></p>
 
       
     </div>
@@ -724,7 +740,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-count">32</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -828,7 +844,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记总结"><span class="nav-number">1.</span> <span class="nav-text">笔记总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据驱动"><span class="nav-number">1.2.</span> <span class="nav-text">数据驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">1.3.</span> <span class="nav-text">组件化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入响应式原理"><span class="nav-number">1.4.</span> <span class="nav-text">深入响应式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">1.5.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">1.6.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router"><span class="nav-number">1.7.</span> <span class="nav-text">Vue Router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vuex"><span class="nav-number">1.8.</span> <span class="nav-text">Vuex</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引发相关需要了解的知识点"><span class="nav-number">2.</span> <span class="nav-text">引发相关需要了解的知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解-flow"><span class="nav-number">2.1.</span> <span class="nav-text">了解 flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weex-框架"><span class="nav-number">2.2.</span> <span class="nav-text">weex 框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM框架"><span class="nav-number">2.3.</span> <span class="nav-text">MVVM框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化思想"><span class="nav-number">2.4.</span> <span class="nav-text">模块化思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hasProxy-是-es6-语法"><span class="nav-number">2.5.</span> <span class="nav-text">hasProxy 是 es6 语法</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#笔记总结"><span class="nav-number">1.</span> <span class="nav-text">笔记总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#准备工作"><span class="nav-number">1.1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#代码规范"><span class="nav-number">1.1.1.</span> <span class="nav-text">代码规范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#源码构建"><span class="nav-number">1.1.2.</span> <span class="nav-text">源码构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何完成-vue-的初始化过程？？"><span class="nav-number">1.1.3.</span> <span class="nav-text">如何完成 vue 的初始化过程？？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据驱动"><span class="nav-number">1.2.</span> <span class="nav-text">数据驱动</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#new-Vue-发生什么？"><span class="nav-number">1.2.1.</span> <span class="nav-text">new Vue 发生什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#vue-挂载-mount-怎么实现？"><span class="nav-number">1.2.2.</span> <span class="nav-text">vue 挂载 $mount 怎么实现？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#render-函数"><span class="nav-number">1.2.3.</span> <span class="nav-text">render 函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Virtual-DOM"><span class="nav-number">1.2.4.</span> <span class="nav-text">Virtual DOM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#createElement-实现原理"><span class="nav-number">1.2.5.</span> <span class="nav-text">createElement 实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#update"><span class="nav-number">1.2.6.</span> <span class="nav-text">update</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化"><span class="nav-number">1.3.</span> <span class="nav-text">组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件创建生成"><span class="nav-number">1.3.1.</span> <span class="nav-text">组件创建生成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#patch"><span class="nav-number">1.3.2.</span> <span class="nav-text">patch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入响应式原理"><span class="nav-number">1.4.</span> <span class="nav-text">深入响应式原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编译"><span class="nav-number">1.5.</span> <span class="nav-text">编译</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展"><span class="nav-number">1.6.</span> <span class="nav-text">扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-Router"><span class="nav-number">1.7.</span> <span class="nav-text">Vue Router</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vuex"><span class="nav-number">1.8.</span> <span class="nav-text">Vuex</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引发相关需要了解的知识点"><span class="nav-number">2.</span> <span class="nav-text">引发相关需要了解的知识点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解-flow"><span class="nav-number">2.1.</span> <span class="nav-text">了解 flow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#weex-框架"><span class="nav-number">2.2.</span> <span class="nav-text">weex 框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MVVM框架"><span class="nav-number">2.3.</span> <span class="nav-text">MVVM框架</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块化思想"><span class="nav-number">2.4.</span> <span class="nav-text">模块化思想</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hasProxy-是-es6-语法"><span class="nav-number">2.5.</span> <span class="nav-text">hasProxy 是 es6 语法</span></a></li></ol></li></ol></div>
             
 
           </div>
