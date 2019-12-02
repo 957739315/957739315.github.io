@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+<link rel="stylesheet" href="/css/main.css?v=7.2.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/CMR-logo-2.png?v=7.2.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/CMR-logo.png?v=7.2.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.2.0" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.2.0',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <meta name="description" content="引言 100% 兼容 Vue 2.0，且暂未打算废弃任何 API Template 机制还是没变，其次模仿了 Hooks 但不是 React 全部 目前 Vue 3 处于 Pre-Alpha 版本，后面应该还会有 Alpha、Beta 等版本 兼容性：目前打包后的代码是 ES2015+，不支持 IE 11  配置方法安装 &amp;amp; 创建项目命令1234567891011121314151617/">
+<meta name="keywords" content="框架和类库,Vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue3.0新特性">
+<meta property="og:url" content="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/index.html">
+<meta property="og:site_name" content="CMR学习日志">
+<meta property="og:description" content="引言 100% 兼容 Vue 2.0，且暂未打算废弃任何 API Template 机制还是没变，其次模仿了 Hooks 但不是 React 全部 目前 Vue 3 处于 Pre-Alpha 版本，后面应该还会有 Alpha、Beta 等版本 兼容性：目前打包后的代码是 ES2015+，不支持 IE 11  配置方法安装 &amp;amp; 创建项目命令1234567891011121314151617/">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/1.png">
+<meta property="og:image" content="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/3.png">
+<meta property="og:image" content="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/4.png">
+<meta property="og:updated_time" content="2019-12-02T00:21:06.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="vue3.0新特性">
+<meta name="twitter:description" content="引言 100% 兼容 Vue 2.0，且暂未打算废弃任何 API Template 机制还是没变，其次模仿了 Hooks 但不是 React 全部 目前 Vue 3 处于 Pre-Alpha 版本，后面应该还会有 Alpha、Beta 等版本 兼容性：目前打包后的代码是 ES2015+，不支持 IE 11  配置方法安装 &amp;amp; 创建项目命令1234567891011121314151617/">
+<meta name="twitter:image" content="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/1.png">
+
+
+
+
+
+  
+  
+  <link rel="canonical" href="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>vue3.0新特性 | CMR学习日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">CMR学习日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">沉淀自己，自律自强</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签<span class="badge">17</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类<span class="badge">1</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档<span class="badge">31</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-commonweal">
+
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/404/" rel="section"><i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br>公益 404</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="陈妙容">
+      <meta itemprop="description" content="努力点总没错，努力使我快乐">
+      <meta itemprop="image" content="/images/my-avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CMR学习日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">vue3.0新特性
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-11-30 09:53:45" itemprop="dateCreated datePublished" datetime="2019-11-30T09:53:45+08:00">2019-11-30</time>
+            </span>
+          
+
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端开发/" itemprop="url" rel="index"><span itemprop="name">前端开发</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+                 阅读次数： 
+                <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+              </span>
+            </span>
+          
+
+          
+
+          <br>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h1><ul>
+<li>100% 兼容 Vue 2.0，且暂未打算废弃任何 API</li>
+<li>Template 机制还是没变，其次模仿了 Hooks 但不是 React 全部</li>
+<li>目前 Vue 3 处于 Pre-Alpha 版本，后面应该还会有 Alpha、Beta 等版本</li>
+<li>兼容性：目前打包后的代码是 ES2015+，不支持 IE 11</li>
+</ul>
+<h1 id="配置方法"><a href="#配置方法" class="headerlink" title="配置方法"></a>配置方法</h1><h2 id="安装-amp-创建项目命令"><a href="#安装-amp-创建项目命令" class="headerlink" title="安装 &amp; 创建项目命令"></a>安装 &amp; 创建项目命令</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 安装</span><br><span class="line">npm install -g @vue/cli</span><br><span class="line"></span><br><span class="line">// 查看版本</span><br><span class="line">vue -V</span><br><span class="line"></span><br><span class="line">// 开启图形化 GUI 界面，在浏览器访问 http://localhost:8000/</span><br><span class="line">vue ui</span><br><span class="line"></span><br><span class="line">// cd到项目路径下，新建项目</span><br><span class="line">vue create hello-vue3.0</span><br><span class="line"></span><br><span class="line">// 项目启动</span><br><span class="line">npm run serve</span><br><span class="line"></span><br><span class="line">// 打包</span><br><span class="line">npm run build</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建项目提示解析"><a href="#创建项目提示解析" class="headerlink" title="创建项目提示解析"></a>创建项目提示解析</h2><p><strong>1. 使用上下箭头选择 默认设置 or 手动选择功能</strong></p>
+<p><img src="//957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/1.png" alt="创建-1"></p>
+<p><strong>2. 按空格键选择你需要的功能，选完后按回车</strong></p>
+<p><img src="//957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/3.png" alt="创建-3"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">babel：javascript 转译器，将最新版的 js 语法（es6、es7）转换为现阶段浏览器可以兼容的 js 代码</span><br><span class="line">typescript：使用 TypeScript 书写源码</span><br><span class="line">PWA：渐进式 WEB 应用</span><br><span class="line">Router：使用 vue-router</span><br><span class="line">Vuex：使用 vuex</span><br><span class="line">CSS Pre-processors：css 预处理器</span><br><span class="line">Linter / Formatter：代码规范标准</span><br><span class="line">Unit Testing：单元测试</span><br><span class="line">E2E Testing：e2e 测试</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 是否使用Class风格装饰器</strong></p>
+<p><code>? Use class-style component syntax? Yes</code></p>
+<p>即原本是：<code>home = new Vue()</code> 创建 <code>vue</code> 实例<br>使用装饰器后：<code>class home extends Vue{}</code></p>
+<p><strong>4. 是否使用Babel与TypeScript一起用于自动检测的填充</strong></p>
+<p><code>? Use Babel alongside TypeScript (required for modern mode, auto-detected polyfills, transpiling JSX)? (Y/n)</code></p>
+<p><strong>5. router 是否使用 history 模式</strong></p>
+<p><code>? Use history mode for router? (Requires proper server setup for index fallback in production)? (Y/n)</code></p>
+<p><a href="https://router.vuejs.org/zh/guide/essentials/history-mode.html" target="_blank" rel="noopener">history 需要服务器支持</a></p>
+<p><strong>6. css预处理器的选择</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">? Pick a CSS pre-processor (PostCSS, Autoprefixer and CSS Modules are supported by default):</span><br><span class="line">&gt; Sass/SCSS (with dart-sass)    // 保存后编译</span><br><span class="line">  Sass/SCSS (with node-sass)    // 实时编译 </span><br><span class="line">  Less</span><br><span class="line">  Stylus</span><br></pre></td></tr></table></figure>
+
+<p><strong>7. 代码格式化检测选择</strong></p>
+<p>如果 IDE 是 vscode，推荐搭配插件，用着很舒服，因此选Prettier</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">? Pick a linter / formatter config: (Use arrow keys)</span><br><span class="line">&gt; TSLint                                // typescript格式验证工具</span><br><span class="line">  ESLint with error prevention only     // 只进行报错提醒</span><br><span class="line">  ESLint + Airbnb config                // 不严谨模式</span><br><span class="line">  ESLint + Standard config              // 正常模式</span><br><span class="line">  ESLint + Prettier                     // 严格模式</span><br></pre></td></tr></table></figure>
+
+<p><strong>8. 是否保存刚才的配置</strong></p>
+<p><code>? Pick additional lint features: Lint on save</code></p>
+<p>下一次就不用重新配置了</p>
+<p><strong>9. 是否选择配置在独立的文件中</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">? Where do you prefer placing config for Babel, PostCSS, ESLint, etc.? (Use arrow keys)</span><br><span class="line">&gt; In dedicated config files</span><br><span class="line">  In package.json</span><br></pre></td></tr></table></figure>
+
+<p><strong>10. 是否保存为未来项目的预配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">? Save this as a preset for future projects? (y/N)</span><br></pre></td></tr></table></figure>
+
+<h2 id="项目目录"><a href="#项目目录" class="headerlink" title="项目目录"></a>项目目录</h2><p><img src="//957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/4.png" alt="项目目录"></p>
+<h1 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h1><h2 id="函数式基本-Demo"><a href="#函数式基本-Demo" class="headerlink" title="函数式基本 Demo"></a>函数式基本 Demo</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>count is &#123;&#123; count &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>plusOne is &#123;&#123; plusOne &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> @<span class="attr">click</span>=<span class="string">"increment"</span>&gt;</span>count++<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">import</span> &#123; value, computed, watch, onMounted &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span></span><br><span class="line"></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span></span><br><span class="line">  setup() &#123;</span><br><span class="line"><span class="javascript">    <span class="comment">// reactive state</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> count = value(<span class="number">0</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// computed state</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> plusOne = computed(<span class="function"><span class="params">()</span> =&gt;</span> count.value + <span class="number">1</span>)</span></span><br><span class="line"><span class="javascript">    <span class="comment">// method</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">const</span> increment = <span class="function"><span class="params">()</span> =&gt;</span> &#123; count.value++ &#125;</span></span><br><span class="line"><span class="javascript">    <span class="comment">// watch</span></span></span><br><span class="line"><span class="javascript">    watch(<span class="function"><span class="params">()</span> =&gt;</span> count.value * <span class="number">2</span>, val =&gt; &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">`count * 2 is <span class="subst">$&#123;val&#125;</span>`</span>)</span></span><br><span class="line">    &#125;)</span><br><span class="line"><span class="javascript">    <span class="comment">// lifecycle</span></span></span><br><span class="line"><span class="javascript">    onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">      <span class="built_in">console</span>.log(<span class="string">`mounted`</span>)</span></span><br><span class="line">    &#125;)</span><br><span class="line"><span class="javascript">    <span class="comment">// expose bindings on render context</span></span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> &#123;</span></span><br><span class="line">      count,</span><br><span class="line">      plusOne,</span><br><span class="line">      increment</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="setup-函数"><a href="#setup-函数" class="headerlink" title="setup 函数"></a>setup 函数</h2><ul>
+<li>函数式风格的入口是 setup 函数，采用函数式风格的优点：类型自动推导、减少打包体积。</li>
+<li>setup 函数返回值就是注入到页面模版的变量，支持返回函数</li>
+</ul>
+<h2 id="value-API"><a href="#value-API" class="headerlink" title="value API"></a>value API</h2><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; value &#125; <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> MyComponent = &#123;</span><br><span class="line">  setup(props) &#123;</span><br><span class="line">    <span class="keyword">const</span> msg = value(<span class="string">'hello'</span>) <span class="comment">// 返回的是一个对象</span></span><br><span class="line">    <span class="keyword">const</span> appendName = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      msg.value = <span class="string">`hello <span class="subst">$&#123;props.name&#125;</span>`</span> <span class="comment">// 通过 .value 访问到其真实值</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      msg,</span><br><span class="line">      appendName</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;div @click="appendName"&gt;&#123;&#123; msg &#125;&#125;-&#123;&#123; appendName &#125;&#125;&lt;/div&gt;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>为何 value() 返回的是 Wrappers 而非具体值呢？</li>
+</ul>
+<p>原因是 Vue 采用双向绑定，只有对象形式访问值才能保证访问到的是最终值，这一点类似 React 的 useRef() API 的 .current 规则。</p>
+<ul>
+<li>既然所有 value() 返回的值都是 Wrapper，那直接给模版使用时要不要调用 .value 呢？</li>
+</ul>
+<p>不需要，直接使用即可，模版会自动 Unwrapping。</p>
+<h2 id="Hooks"><a href="#Hooks" class="headerlink" title="Hooks"></a>Hooks</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useMouse</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> x = value(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> y = value(<span class="number">0</span>)</span><br><span class="line">  <span class="keyword">const</span> update = <span class="function"><span class="params">e</span> =&gt;</span> &#123;</span><br><span class="line">    x.value = e.pageX</span><br><span class="line">    y.value = e.pageY</span><br><span class="line">  &#125;</span><br><span class="line">  onMounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'mousemove'</span>, update)</span><br><span class="line">  &#125;)</span><br><span class="line">  onUnmounted(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.removeEventListener(<span class="string">'mousemove'</span>, update)</span><br><span class="line">  &#125;)</span><br><span class="line">  <span class="keyword">return</span> &#123; x, y &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in consuming component</span></span><br><span class="line"><span class="keyword">const</span> Component = &#123;</span><br><span class="line">  setup() &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; x, y &#125; = useMouse()</span><br><span class="line">    <span class="keyword">const</span> &#123; z &#125; = useOtherLogic()</span><br><span class="line">    <span class="keyword">return</span> &#123; x, y, z &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  template: <span class="string">`&lt;div&gt;&#123;&#123; x &#125;&#125; &#123;&#123; y &#125;&#125; &#123;&#123; z &#125;&#125;&lt;/div&gt;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>区别于 React Hooks，Vue Hooks 特点：</strong></p>
+<ul>
+<li>useMouse 函数内改变 x、y 后，不会重新触发 setup 执行。</li>
+<li>x y 拿到的都是 Wrapper 而不是原始值，且这个值会动态变化。</li>
+</ul>
+<h2 id="watch-API"><a href="#watch-API" class="headerlink" title="watch API"></a>watch API</h2><p>其作用类似 React Hooks 的 useEffect，但实现原理和调用时机其实完全不一样。</p>
+<p>在 Vue 中，setup 函数仅执行一次，而在 React Function Component，每次组件 props 变化都会重新执行。</p>
+<p>因此，无论是在变量、props 变化时，如果想做一些事情，都需要包裹在 watch 中。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> MyComponent = &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    id: <span class="built_in">Number</span></span><br><span class="line">  &#125;,</span><br><span class="line">  setup(props) &#123;</span><br><span class="line">    <span class="keyword">const</span> data = value(<span class="literal">null</span>)</span><br><span class="line">    watch(<span class="function"><span class="params">()</span> =&gt;</span> props.id, <span class="keyword">async</span> (id) =&gt; &#123;</span><br><span class="line">      data.value = <span class="keyword">await</span> fetchData(id)</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="源码学习"><a href="#源码学习" class="headerlink" title="源码学习"></a>源码学习</h1><ul>
+<li>源码 98% 以上使用 TypeScript 编写</li>
+<li>目前 Vue 3 处于 Pre-Alpha 版本，后面应该还会有 Alpha、Beta 等版本</li>
+</ul>
+<h2 id="代码结构"><a href="#代码结构" class="headerlink" title="代码结构"></a>代码结构</h2><p>实现 vue3.0 主要功能源码结构：</p>
+<ul>
+<li>reactivity 目录：数据响应式系统，这是一个单独的系统，可以与任何框架配合使用。</li>
+<li>runtime-core 目录：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种 API，我们可以利用这个 runtime 实现针对某个具体平台的高阶 runtime，比如自定义渲染器。</li>
+<li>runtime-dom 目录: 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等。</li>
+<li>runtime-test 目录: 一个专门为了测试而写的轻量级 runtime。由于这个 rumtime 「渲染」出的 DOM 树其实是一个 JS 对象，所以这个 runtime 可以用在所有 JS 环境里。你可以用它来测试渲染是否正确。它还可以用于序列化 DOM、触发 DOM 事件，以及记录某次更新中的 DOM 操作。</li>
+<li>server-renderer 目录: 用于 SSR。尚未实现。</li>
+<li>compiler-core 目录: 平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件。</li>
+<li>compiler-dom 目录: 针对浏览器而写的编译器。</li>
+<li>shared 目录: 没有暴露任何 API，主要包含了一些平台无关的内部帮助方法。</li>
+<li>vue 目录: 用于构建「完整构建」版本，引用了上面提到的 runtime 和 compiler。</li>
+</ul>
+<h2 id="vue-runtime-core-模块"><a href="#vue-runtime-core-模块" class="headerlink" title="@vue/runtime-core 模块"></a>@vue/runtime-core 模块</h2><p>作用：专门用于自定义 renderer 的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用方法</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; createRenderer, createAppAPI &#125; <span class="keyword">from</span> <span class="string">'@vue/runtime-core'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> &#123; render, createApp &#125; = createRenderer(&#123;</span><br><span class="line">  pathcProp,</span><br><span class="line">  insert,</span><br><span class="line">  remove,</span><br><span class="line">  createElement,</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// `render` 是底层 API</span></span><br><span class="line"><span class="comment">// `createApp` 会产生一个 app 实例，该实例拥有全局的可配置上下文</span></span><br><span class="line"><span class="keyword">export</span> &#123; render, createApp &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> * <span class="keyword">from</span> <span class="string">'@vue/runtime-core'</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="vue-runtime-dom-模块"><a href="#vue-runtime-dom-模块" class="headerlink" title="@vue/runtime-dom 模块"></a>@vue/runtime-dom 模块</h2><p>基于 @vue/runtime-core 模块而写的浏览器上的 runtime，主要功能是适配了浏览器环境下节点和节点属性的增删改查。它暴露了两个重要 API：render 和 createApp，并声明了一个 ComponentPublicInstance 组件公共实例接口。</p>
+<h2 id="vue-runtime-test-模块"><a href="#vue-runtime-test-模块" class="headerlink" title="@vue/runtime-test 模块"></a>@vue/runtime-test 模块</h2><p>作用：用对象来表示 DOM 树，方便测试，提供了很多有用的 API</p>
+<h2 id="vue-reactivity-模块（关键）"><a href="#vue-reactivity-模块（关键）" class="headerlink" title="@vue/reactivity 模块（关键）"></a>@vue/reactivity 模块（关键）</h2><p>作用：它是一个数据响应式系统。其暴露的主要 API 有 ref（数据容器）、reactive（基于 Proxy 实现的响应式数据）、computed（计算数据）、effect（副作用） 等几部分：</p>
+<h2 id="vue-compiler-core-模块"><a href="#vue-compiler-core-模块" class="headerlink" title="@vue/compiler-core 模块"></a>@vue/compiler-core 模块</h2><p>作用：暴露了 AST（抽象语法树） 和 baseCompile 相关的 API，它能把一个字符串变成一棵 AST。</p>
+<p><a href="https://segmentfault.com/a/1190000016231512?utm_source=tag-newest" target="_blank" rel="noopener">什么是AST</a></p>
+<h2 id="vue-compiler-dom-模块"><a href="#vue-compiler-dom-模块" class="headerlink" title="@vue/compiler-dom 模块"></a>@vue/compiler-dom 模块</h2><p>作用：基于 @vue/compiler-core 模块，针对浏览器做了适配，如对 textarea 和 style 标签做了特殊处理。</p>
+<h2 id="vue-server-renderer-模块"><a href="#vue-server-renderer-模块" class="headerlink" title="@vue/server-renderer 模块"></a>@vue/server-renderer 模块</h2><p>暂时没有实现任何功能</p>
+<h2 id="vue-模块"><a href="#vue-模块" class="headerlink" title="vue 模块"></a>vue 模块</h2><p>作用：简单的引入了 runtime 和 compiler</p>
+<h1 id="相关参考链接"><a href="#相关参考链接" class="headerlink" title="相关参考链接"></a>相关参考链接</h1><p><a href="https://www.jianshu.com/p/0d78ff9fe6ed" target="_blank" rel="noopener">vue3.0初体验有哪些实用新功能</a><br><a href="https://segmentfault.com/a/1190000020205747?utm_source=tag-newest" target="_blank" rel="noopener">来自 Vue 3.0 的 Composition API 尝鲜</a><br><a href="https://juejin.im/post/5d1955e3e51d4556d86c7b09" target="_blank" rel="noopener">精读《Vue3.0 Function API》</a><br><a href="https://github.com/vuejs/rfcs/blob/function-apis/active-rfcs/0000-function-api.md#comparison-with-react-hooks" target="_blank" rel="noopener">Vue3.0 Function API 导读 github 地址</a><br><a href="https://juejin.im/post/5d977f47e51d4578453274b3?from=groupmessage" target="_blank" rel="noopener">Vue 3 源码导读</a><br><a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码 github 地址</a></p>
+
+      
+    </div>
+
+    
+
+    
+      
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+      <div>
+        
+
+
+
+
+  
+
+
+
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>陈妙容</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    
+    <a href="https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/" title="vue3.0新特性">https://957739315.github.io/2019/11/30/前端开发/6-框架和类库/Vue/vue3.0新特性/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        
+          
+        
+        <div class="post-tags">
+          
+            <a href="/tags/框架和类库/" rel="tag"># 框架和类库</a>
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/08/前端开发/6-框架和类库/Hexo/Hexo隐藏部分文章/" rel="next" title="Hexo隐藏部分文章">
+                <i class="fa fa-chevron-left"></i> Hexo隐藏部分文章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/my-avatar.jpg" alt="陈妙容">
+            
+              <p class="site-author-name" itemprop="name">陈妙容</p>
+              <div class="site-description motion-element" itemprop="description">努力点总没错，努力使我快乐</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">31</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">17</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#引言"><span class="nav-number">1.</span> <span class="nav-text">引言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置方法"><span class="nav-number">2.</span> <span class="nav-text">配置方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装-amp-创建项目命令"><span class="nav-number">2.1.</span> <span class="nav-text">安装 &amp; 创建项目命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建项目提示解析"><span class="nav-number">2.2.</span> <span class="nav-text">创建项目提示解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#项目目录"><span class="nav-number">2.3.</span> <span class="nav-text">项目目录</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">3.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数式基本-Demo"><span class="nav-number">3.1.</span> <span class="nav-text">函数式基本 Demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setup-函数"><span class="nav-number">3.2.</span> <span class="nav-text">setup 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#value-API"><span class="nav-number">3.3.</span> <span class="nav-text">value API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hooks"><span class="nav-number">3.4.</span> <span class="nav-text">Hooks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#watch-API"><span class="nav-number">3.5.</span> <span class="nav-text">watch API</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码学习"><span class="nav-number">4.</span> <span class="nav-text">源码学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码结构"><span class="nav-number">4.1.</span> <span class="nav-text">代码结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-runtime-core-模块"><span class="nav-number">4.2.</span> <span class="nav-text">@vue/runtime-core 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-runtime-dom-模块"><span class="nav-number">4.3.</span> <span class="nav-text">@vue/runtime-dom 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-runtime-test-模块"><span class="nav-number">4.4.</span> <span class="nav-text">@vue/runtime-test 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-reactivity-模块（关键）"><span class="nav-number">4.5.</span> <span class="nav-text">@vue/reactivity 模块（关键）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-compiler-core-模块"><span class="nav-number">4.6.</span> <span class="nav-text">@vue/compiler-core 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-compiler-dom-模块"><span class="nav-number">4.7.</span> <span class="nav-text">@vue/compiler-dom 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-server-renderer-模块"><span class="nav-number">4.8.</span> <span class="nav-text">@vue/server-renderer 模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vue-模块"><span class="nav-number">4.9.</span> <span class="nav-text">vue 模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相关参考链接"><span class="nav-number">5.</span> <span class="nav-text">相关参考链接</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">陈妙容</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.9.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.2.0</div>
+
+
+
+<span id="busuanzi_container_site_uv">
+  本站访问次数：<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+</span>
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="总访客量">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="总访问量">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=3.4.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+
+
+  <script src="/js/utils.js?v=7.2.0"></script>
+
+  <script src="/js/motion.js?v=7.2.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/affix.js?v=7.2.0"></script>
+
+  <script src="/js/schemes/pisces.js?v=7.2.0"></script>
+
+
+
+
+  
+  <script src="/js/scrollspy.js?v=7.2.0"></script>
+<script src="/js/post-details.js?v=7.2.0"></script>
+
+
+
+  <script src="/js/next-boot.js?v=7.2.0"></script>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
