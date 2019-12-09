@@ -1966,7 +1966,7 @@ babel：javascript 转译器，将最新版的 js 语法（es6、es7）转换为
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -1986,7 +1986,7 @@ babel：javascript 转译器，将最新版的 js 语法（es6、es7）转换为
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/" class="post-title-link" itemprop="url">vue3.0踩坑</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
               
             
           </h1>
@@ -2069,20 +2069,23 @@ babel：javascript 转译器，将最新版的 js 语法（es6、es7）转换为
         
           
             <p>
-              引入 normalize.css
-安装包
-yarn add normalize.cssyarn add css-loader style-loader
+              学习svg渐变环形进度条组件实现原理：
 
-在 main.js 中引入
-import 'normalize.css'
+画一个底圆，设置为灰色
+画一段弧，因为弧
+弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
+添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
+添加动画
 
-
-              
+代码链接：作者github
+代码如下：
+&lt;template&gt;  &lt;svg :height="option.size" :width="option.size" x-mlns="http://www.w3.org/200/svg"&gt;    &lt;defs&gt;      &lt;linearGradient x1="1" y1="0" x2="0" y2="0" id="outGradient"&gt;        &lt;stop offset="0%" :stop-color="arcOption.outArcStartColor" /&gt;        &lt;stop offset="100%" :stop-color="arcOption.ou
+              ...
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2322,7 +2325,7 @@ vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -2342,7 +2345,7 @@ vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" class="post-title-link" itemprop="url">svg环形进度条组件</a>
+                <a href="/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/" class="post-title-link" itemprop="url">vue3.0踩坑</a>
               
             
           </h1>
@@ -2425,23 +2428,20 @@ vue2配置// build/webpack.base.conf.js     &#123;        test: /\.js$/,        
         
           
             <p>
-              学习svg渐变环形进度条组件实现原理：
+              引入 normalize.css
+安装包
+yarn add normalize.cssyarn add css-loader style-loader
 
-画一个底圆，设置为灰色
-画一段弧，因为弧
-弧位置不正确，逆时针旋转90度（因为默认 stroke-dasharray 的起始位置在右侧），值array需要倒序
-添加渐变颜色，使用算法生成渐变颜色值，参考js实现颜色阶梯渐变效果（Gradient算法）
-添加动画
+在 main.js 中引入
+import 'normalize.css'
 
-代码链接：作者github
-代码如下：
-&lt;template&gt;  &lt;svg :height="option.size" :width="option.size" x-mlns="http://www.w3.org/200/svg"&gt;    &lt;defs&gt;      &lt;linearGradient x1="1" y1="0" x2="0" y2="0" id="outGradient"&gt;        &lt;stop offset="0%" :stop-color="arcOption.outArcStartColor" /&gt;        &lt;stop offset="100%" :stop-color="arcOption.ou
-              ...
+
+              
             </p>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/svg环形进度条组件/" rel="contents">
+              <a class="btn" href="/2019/09/24/前端开发/6-框架和类库/Vue/vue3.0踩坑/" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
