@@ -90,18 +90,20 @@
 
 
 
-  <meta name="description" content="用途能够记录coding时间，并可视化分析，会发送报告邮件到你邮箱 安装 采用 IDE 一般安装插件的方式 需要到 wakaTime官网 上注册账号，可以绑定私人 github 账号 注册完账号后，在个人中心 account 栏目下的 API key 点击生成 key，复制粘贴到 IDE 一直弹出要你输入 key 的框  参考：[Sublime插件]WakaTime – 记录你的Code时间">
-<meta name="keywords" content="项目和业务,实用工具">
+  <meta name="description" content="什么是广度优先搜索广度优先搜索算法(Breadth First Search，BFS)，又称为”宽度优先搜索”或”横向优先搜索”，属于一种盲目搜寻法。 BFS可用于解决 2 类问题：  从A出发是否存在到达B的路径； 从A出发到达B的最短路径(即最少步骤合理)；  基本过程 BFS 是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。一般用队列数据结构来辅助实现">
+<meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="wakaTime插件">
-<meta property="og:url" content="https://957739315.github.io/2019/09/26/前端开发/8-项目和业务/实用工具/wakaTime插件/index.html">
+<meta property="og:title" content="js实现队列-广度优先搜索">
+<meta property="og:url" content="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/index.html">
 <meta property="og:site_name" content="CMR学习日志">
-<meta property="og:description" content="用途能够记录coding时间，并可视化分析，会发送报告邮件到你邮箱 安装 采用 IDE 一般安装插件的方式 需要到 wakaTime官网 上注册账号，可以绑定私人 github 账号 注册完账号后，在个人中心 account 栏目下的 API key 点击生成 key，复制粘贴到 IDE 一直弹出要你输入 key 的框  参考：[Sublime插件]WakaTime – 记录你的Code时间">
+<meta property="og:description" content="什么是广度优先搜索广度优先搜索算法(Breadth First Search，BFS)，又称为”宽度优先搜索”或”横向优先搜索”，属于一种盲目搜寻法。 BFS可用于解决 2 类问题：  从A出发是否存在到达B的路径； 从A出发到达B的最短路径(即最少步骤合理)；  基本过程 BFS 是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。一般用队列数据结构来辅助实现">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-26T15:23:17.179Z">
+<meta property="og:image" content="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2.gif">
+<meta property="og:updated_time" content="2019-12-15T13:50:31.022Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="wakaTime插件">
-<meta name="twitter:description" content="用途能够记录coding时间，并可视化分析，会发送报告邮件到你邮箱 安装 采用 IDE 一般安装插件的方式 需要到 wakaTime官网 上注册账号，可以绑定私人 github 账号 注册完账号后，在个人中心 account 栏目下的 API key 点击生成 key，复制粘贴到 IDE 一直弹出要你输入 key 的框  参考：[Sublime插件]WakaTime – 记录你的Code时间">
+<meta name="twitter:title" content="js实现队列-广度优先搜索">
+<meta name="twitter:description" content="什么是广度优先搜索广度优先搜索算法(Breadth First Search，BFS)，又称为”宽度优先搜索”或”横向优先搜索”，属于一种盲目搜寻法。 BFS可用于解决 2 类问题：  从A出发是否存在到达B的路径； 从A出发到达B的最短路径(即最少步骤合理)；  基本过程 BFS 是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。一般用队列数据结构来辅助实现">
+<meta name="twitter:image" content="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2.gif">
 
 
 
@@ -109,7 +111,7 @@
 
   
   
-  <link rel="canonical" href="https://957739315.github.io/2019/09/26/前端开发/8-项目和业务/实用工具/wakaTime插件/">
+  <link rel="canonical" href="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/">
 
 
 
@@ -119,7 +121,7 @@
   };
 </script>
 
-  <title>wakaTime插件 | CMR学习日志</title>
+  <title>js实现队列-广度优先搜索 | CMR学习日志</title>
   
 
 
@@ -387,7 +389,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/09/26/前端开发/8-项目和业务/实用工具/wakaTime插件/">
+    <link itemprop="mainEntityOfPage" href="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="陈妙容">
@@ -404,7 +406,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">wakaTime插件
+          <h1 class="post-title" itemprop="name headline">js实现队列-广度优先搜索
 
               
             
@@ -430,7 +432,7 @@
                 
               
 
-              <time title="创建时间：2019-09-26 22:28:23" itemprop="dateCreated datePublished" datetime="2019-09-26T22:28:23+08:00">2019-09-26</time>
+              <time title="创建时间：2019-12-14 21:48:31" itemprop="dateCreated datePublished" datetime="2019-12-14T21:48:31+08:00">2019-12-14</time>
             </span>
           
 
@@ -493,13 +495,25 @@
       
 
       
-        <h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p>能够记录coding时间，并可视化分析，会发送报告邮件到你邮箱</p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><ol>
-<li>采用 IDE 一般安装插件的方式</li>
-<li>需要到 <a href>wakaTime官网</a> 上注册账号，可以绑定私人 github 账号</li>
-<li>注册完账号后，在个人中心 account 栏目下的 API key 点击生成 key，复制粘贴到 IDE 一直弹出要你输入 key 的框</li>
-</ol>
-<p>参考：<a href="https://www.jianshu.com/p/28d628239630" target="_blank" rel="noopener">[Sublime插件]WakaTime – 记录你的Code时间</a></p>
+        <h2 id="什么是广度优先搜索"><a href="#什么是广度优先搜索" class="headerlink" title="什么是广度优先搜索"></a>什么是广度优先搜索</h2><p>广度优先搜索算法(Breadth First Search，BFS)，又称为”宽度优先搜索”或”横向优先搜索”，属于一种盲目搜寻法。</p>
+<p><strong>BFS可用于解决 2 类问题：</strong></p>
+<ul>
+<li>从A出发是否存在到达B的路径；</li>
+<li>从A出发到达B的最短路径(即最少步骤合理)；</li>
+</ul>
+<p><strong>基本过程</strong></p>
+<p>BFS 是从根节点开始，沿着树(图)的宽度遍历树(图)的节点。如果所有节点均被访问，则算法中止。一般用队列数据结构来辅助实现BFS算法。</p>
+<p>其运行过程如下：<br><img src="//957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2.gif" alt="广度优先搜索方法展示"></p>
+<p><strong>结点的处理顺序是什么？</strong></p>
+<p>越是接近根结点的结点将越早地遍历。<br>如果在第 k 轮中将结点 X 添加到队列中，则根结点与 X 之间的最短路径的长度恰好是 k。也就是说，第一次找到目标结点时，你已经处于最短路径中。</p>
+<p><strong>队列的入队和出队顺序是什么？</strong></p>
+<p>先将根节点入队，然后将其邻居节点分别入队，可以发现，新添加的节点不会立即处理，而是到下一轮才会处理。处理节点的顺序是跟入队顺序一样，采用先入先出的方式。</p>
+<h2 id="js-实现广度优先搜索算法"><a href="#js-实现广度优先搜索算法" class="headerlink" title="js 实现广度优先搜索算法"></a>js 实现广度优先搜索算法</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 广度优先搜索算法 - 使用队列实现</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BFSrecursion</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(root, target) &#123;</span><br><span class="line">    <span class="keyword">this</span>.root = root <span class="comment">// 根结点</span></span><br><span class="line">    <span class="keyword">this</span>.target = target <span class="comment">// 目标结点</span></span><br><span class="line">    <span class="keyword">this</span>.queue = [] <span class="comment">// 遍历队列</span></span><br><span class="line">    <span class="keyword">this</span>.used = <span class="keyword">new</span> <span class="built_in">Set</span>() <span class="comment">// 确保永远不会访问一个结点两次，否则可能陷入无限循环，所以添加一个哈希集来解决这个问题</span></span><br><span class="line">    <span class="keyword">this</span>.step = <span class="number">0</span> <span class="comment">// 记录从根结点到正在访问的当前结点的距离</span></span><br><span class="line">  &#125;</span><br><span class="line">  search() &#123;</span><br><span class="line">    <span class="comment">// 添加根结点</span></span><br><span class="line">    <span class="keyword">this</span>.queue.push(<span class="keyword">this</span>.root)</span><br><span class="line">    <span class="keyword">this</span>.used.add(<span class="keyword">this</span>.root)</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">this</span>.queue.length !== <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="comment">// 结点路径增加</span></span><br><span class="line">      <span class="keyword">this</span>.step++</span><br><span class="line">      <span class="keyword">let</span> len = <span class="keyword">this</span>.queue.length</span><br><span class="line">      <span class="comment">// 遍历当前队列的全部结点</span></span><br><span class="line">      <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="keyword">let</span> curNode = <span class="keyword">this</span>.queue[<span class="number">0</span>]</span><br><span class="line">        <span class="comment">// 当前结点是目标结点，则返回</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">JSON</span>.stringify(curNode) === <span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.target)) &#123;</span><br><span class="line">          <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前结点不是目标结点，添加当前结点的子节点</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; curNode.childrens.length; j++) &#123;</span><br><span class="line">          <span class="keyword">let</span> child = curNode.childrens[j]</span><br><span class="line">          <span class="comment">// 若此节点没有被循环过，则添加</span></span><br><span class="line">          <span class="keyword">if</span> (!<span class="keyword">this</span>.used.has(child)) &#123;</span><br><span class="line">            <span class="keyword">this</span>.queue.push(child)</span><br><span class="line">            <span class="keyword">this</span>.used.add(child)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 出队当前结点</span></span><br><span class="line">        <span class="keyword">this</span>.queue.shift()</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取最短路径</span></span><br><span class="line">  getStep() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.step</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 获取被遍历过的节点</span></span><br><span class="line">  getUsedNode() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.used</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> root = &#123;</span><br><span class="line">  value: <span class="number">2</span>,</span><br><span class="line">  childrens: [</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="number">3</span>,</span><br><span class="line">      childrens: [</span><br><span class="line">        &#123;</span><br><span class="line">          value: <span class="number">5</span>,</span><br><span class="line">          childrens: [</span><br><span class="line">            &#123;</span><br><span class="line">              value: <span class="number">91</span>,</span><br><span class="line">              childrens: []</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="number">6</span>,</span><br><span class="line">      childrens: [</span><br><span class="line">        &#123;</span><br><span class="line">          value: <span class="number">32</span>,</span><br><span class="line">          childrens: [</span><br><span class="line">            &#123;</span><br><span class="line">              value: <span class="number">86</span>,</span><br><span class="line">              childrens: []</span><br><span class="line">            &#125;,</span><br><span class="line">            &#123;</span><br><span class="line">              value: <span class="number">74</span>,</span><br><span class="line">              childrens: []</span><br><span class="line">            &#125;</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> target = &#123;</span><br><span class="line">  value: <span class="number">74</span>,</span><br><span class="line">  childrens: []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> bfs = <span class="keyword">new</span> BFSrecursion(root, target)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'是否找到：'</span> + bfs.search())</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'距离：'</span> + bfs.getStep())</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'getUsedNode：'</span> + <span class="built_in">JSON</span>.stringify(<span class="built_in">Array</span>.from(bfs.getUsedNode())))</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">是否找到：true</span></span><br><span class="line"><span class="comment">距离：4</span></span><br><span class="line"><span class="comment">getUsedNode：[&#123;"value":2,"childrens":[&#123;"value":3,"childrens":[&#123;"value":5,"childrens":[&#123;"value":91,"childrens":[]&#125;]&#125;]&#125;,&#123;"value":6,"childrens":[&#123;"value":32,"childrens":[&#123;"value":86,"childrens":[]&#125;,&#123;"value":74,"childrens":[]&#125;]&#125;]&#125;]&#125;,&#123;"value":3,"childrens":[&#123;"value":5,"childrens":[&#123;"value":91,"childrens":[]&#125;]&#125;]&#125;,&#123;"value":6,"childrens":[&#123;"value":32,"childrens":[&#123;"value":86,"childrens":[]&#125;,&#123;"value":74,"childrens":[]&#125;]&#125;]&#125;,&#123;"value":5,"childrens":[&#123;"value":91,"childrens":[]&#125;]&#125;,&#123;"value":32,"childrens":[&#123;"value":86,"childrens":[]&#125;,&#123;"value":74,"childrens":[]&#125;]&#125;,&#123;"value":91,"childrens":[]&#125;,&#123;"value":86,"childrens":[]&#125;,&#123;"value":74,"childrens":[]&#125;]</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="相关链接"><a href="#相关链接" class="headerlink" title="相关链接"></a>相关链接</h2><p><a href="https://leetcode-cn.com/explore/learn/card/queue-stack/217/queue-and-bfs/869/" target="_blank" rel="noopener">力扣-队列和 BFS</a></p>
+<p><a href="https://blog.csdn.net/a8082649/article/details/81395359" target="_blank" rel="noopener">算法(三)：图解广度优先搜索算法</a></p>
+<p><a href="https://www.jianshu.com/p/bff70b786bb6" target="_blank" rel="noopener">基本算法——深度优先搜索（DFS）和广度优先搜索（BFS）</a></p>
+<p><a href="https://blog.csdn.net/GreyBearChao/article/details/82872441" target="_blank" rel="noopener">JavaScript实现DOM树的深度优先遍历和广度优先遍历</a></p>
 
       
     </div>
@@ -538,7 +552,7 @@
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
     
-    <a href="https://957739315.github.io/2019/09/26/前端开发/8-项目和业务/实用工具/wakaTime插件/" title="wakaTime插件">https://957739315.github.io/2019/09/26/前端开发/8-项目和业务/实用工具/wakaTime插件/</a>
+    <a href="https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/" title="js实现队列-广度优先搜索">https://957739315.github.io/2019/12/14/前端开发/4-数据结构和算法/数据结构/队列-广度优先搜索/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li>
@@ -554,9 +568,7 @@
         
         <div class="post-tags">
           
-            <a href="/tags/项目和业务/" rel="tag"># 项目和业务</a>
-          
-            <a href="/tags/实用工具/" rel="tag"># 实用工具</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
         </div>
       
@@ -569,8 +581,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/26/前端开发/6-框架和类库/Vue/vue-fastClick原理解析/" rel="next" title="fastClick原理解析">
-                <i class="fa fa-chevron-left"></i> fastClick原理解析
+              <a href="/2019/12/02/前端开发/4-数据结构和算法/数据结构/队列-先入先出/" rel="next" title="js实现队列-先入先出">
+                <i class="fa fa-chevron-left"></i> js实现队列-先入先出
               </a>
             
           </div>
@@ -578,10 +590,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/09/26/前端开发/8-项目和业务/实用工具/Typora软件/" rel="prev" title="Typora软件">
-                Typora软件 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -758,7 +766,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#用途"><span class="nav-number">1.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">2.</span> <span class="nav-text">安装</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是广度优先搜索"><span class="nav-number">1.</span> <span class="nav-text">什么是广度优先搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#js-实现广度优先搜索算法"><span class="nav-number">2.</span> <span class="nav-text">js 实现广度优先搜索算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相关链接"><span class="nav-number">3.</span> <span class="nav-text">相关链接</span></a></li></ol></div>
             
 
           </div>
